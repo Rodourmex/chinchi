@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulario de Evaluacion Corporal</title>
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --card: #fffdf9;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #0f766e;
+      --border: #d6d3d1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #e7f7f3 0%, transparent 45%),
+        radial-gradient(circle at bottom right, #fbe7d3 0%, transparent 45%),
+        var(--bg);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      color: #0b4f4a;
+    }
+
+    h2 {
+      margin: 24px 0 10px;
+      font-size: 1.2rem;
+      color: #0b4f4a;
+      border-bottom: 2px solid #d1fae5;
+      padding-bottom: 6px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: #fff;
+    }
+
+    input:focus {
+      outline: 2px solid #5eead4;
+      border-color: var(--accent);
+    }
+
+    .hint {
+      margin-top: 4px;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .evaluation {
+      margin-top: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #0b4f4a;
+      min-height: 1.2em;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: #fff;
+      resize: vertical;
+    }
+
+    textarea:focus {
+      outline: 2px solid #5eead4;
+      border-color: var(--accent);
+    }
+
+    .actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 10px;
+      background: #0f766e;
+      color: #fff;
+      font-weight: 700;
+      padding: 10px 14px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #0b5f59;
+    }
+
+    .btn.secondary {
+      background: #0b5a9c;
+    }
+
+    .btn.secondary:hover {
+      background: #084a80;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+      background: #fff;
+    }
+
+    select:focus {
+      outline: 2px solid #5eead4;
+      border-color: var(--accent);
+    }
+
+    .patient-report {
+      margin-top: 8px;
+      border: 1px solid #d8e3f0;
+      border-radius: 14px;
+      padding: 18px;
+      background: linear-gradient(160deg, #f7fbff 0%, #fefefe 65%);
+    }
+
+    .patient-title {
+      margin: 0 0 14px;
+      color: #0b5a9c;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .patient-title-inbody {
+      margin: 0 0 14px;
+      color: #0b5a9c;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .patient-block {
+      margin-bottom: 12px;
+    }
+
+    .patient-label {
+      margin: 0 0 5px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .patient-line {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.45;
+      color: #0f172a;
+    }
+
+    .patient-interpretation {
+      margin: 6px 0 0;
+      font-size: 1rem;
+      color: #9f1239;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .patient-sublist {
+      margin: 6px 0 0;
+      padding-left: 20px;
+      color: #0f172a;
+    }
+
+    .patient-sublist li {
+      margin-bottom: 4px;
+    }
+
+    .patient-rec-title {
+      margin: 14px 0 6px;
+      color: #4d5f2d;
+      font-size: 1.2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .patient-rec-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #111827;
+      line-height: 1.45;
+      font-weight: 600;
+    }
+
+    .patient-rec-editor {
+      width: 100%;
+      min-height: 120px;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      background: #ffffff;
+      color: #111827;
+      resize: vertical;
+    }
+
+    .patient-rec-actions {
+      margin-top: 8px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn.ghost {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn.ghost:hover {
+      background: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>An&aacute;lisis de composici&oacute;n corporal</h1>
+
+    <section>
+      <h2>An&aacute;lisis de grasa corporal</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="sexo">Sexo</label>
+          <select id="sexo" name="sexo">
+            <option value="">Selecciona una opcion</option>
+            <option value="hombre">Hombre</option>
+            <option value="mujer">Mujer</option>
+          </select>
+          <span class="hint">Necesario para evaluar el porcentaje de grasa corporal</span>
+        </div>
+
+        <div class="field">
+          <label for="porcentaje-grasa">Porcentaje de grasa corporal (%)</label>
+          <input id="porcentaje-grasa" name="porcentaje_grasa_corporal" type="number" step="0.1" placeholder="Ej. 18.5" />
+          <div id="eval-porcentaje-grasa" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="grasa-visceral">Grasa visceral (nivel)</label>
+          <input id="grasa-visceral" name="grasa_visceral" type="number" step="0.1" placeholder="Ej. 8" />
+          <span class="hint">Campo de evaluacion visceral</span>
+          <div id="eval-grasa-visceral" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="imc">IMC (kg/m2)</label>
+          <input id="imc" name="imc" type="number" step="0.1" placeholder="Ej. 21.7" />
+        </div>
+
+        <div class="field">
+          <label for="estatura">Estatura (cm)</label>
+          <input id="estatura" name="estatura" type="number" step="0.1" placeholder="Ej. 170.5" />
+        </div>
+
+        <div class="field">
+          <label for="peso-actual">Peso actual (kg)</label>
+          <input id="peso-actual" name="peso_actual" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+        </div>
+
+        <div class="field">
+          <label for="grasa-corporal-kg">Grasa corporal (kg)</label>
+          <input id="grasa-corporal-kg" name="grasa_corporal_kg" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+        </div>
+
+        <div class="field">
+          <label for="mlg">MLG (kg)</label>
+          <input id="mlg" name="mlg" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>An&aacute;lisis de m&uacute;sculo</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="musculo-total">Total (%)</label>
+          <input id="musculo-total" name="musculo_total" type="number" step="0.1" placeholder="Ej. 102" />
+          <div id="eval-musculo-total" class="evaluation"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Segmental - Brazos, piernas y abdomen</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="brazo-derecho">Brazo derecho (%)</label>
+          <input id="brazo-derecho" name="brazo_derecho" type="number" step="0.1" placeholder="Ej. 98" />
+          <div id="eval-brazo-derecho" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="brazo-izquierdo">Brazo izquierdo (%)</label>
+          <input id="brazo-izquierdo" name="brazo_izquierdo" type="number" step="0.1" placeholder="Ej. 99" />
+          <div id="eval-brazo-izquierdo" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="promedio-brazos">Promedio de izquierdo y derecho (%)</label>
+          <input id="promedio-brazos" name="promedio_brazos" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <div id="eval-promedio-brazos" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="pierna-izquierda">Pierna izquierda (%)</label>
+          <input id="pierna-izquierda" name="pierna_izquierda" type="number" step="0.1" placeholder="Ej. 100" />
+          <span class="hint">Valor para calcular el promedio de piernas</span>
+          <div id="eval-pierna-izquierda" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="pierna-derecha">Pierna derecha (%)</label>
+          <input id="pierna-derecha" name="pierna_derecha" type="number" step="0.1" placeholder="Ej. 102" />
+          <span class="hint">Valor para calcular el promedio de piernas</span>
+          <div id="eval-pierna-derecha" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="promedio-piernas">Piernas (promedio de izquierda y derecha) (%)</label>
+          <input id="promedio-piernas" name="promedio_piernas" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <div id="eval-promedio-piernas" class="evaluation"></div>
+        </div>
+
+        <div class="field">
+          <label for="abdomen">Abdomen (%)</label>
+          <input id="abdomen" name="abdomen" type="number" step="0.1" placeholder="Ej. 97" />
+          <div id="eval-abdomen" class="evaluation"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnostico-section">
+      <h2>Diagnóstico antropométrico</h2>
+      <div class="field">
+        <label for="diagnostico-antropometrico">Texto sugerido editable</label>
+        <textarea id="diagnostico-antropometrico" name="diagnostico-antropometrico" rows="7"></textarea>
+        <span class="hint">Puedes editar este texto manualmente.</span>
+        <div class="actions">
+          <button id="exportar-diagnostico-pdf" class="btn" type="button">Exportar diagnóstico a PDF</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="reporte-paciente-section">
+      <h2>Resumen para paciente</h2>
+      <div id="reporte-paciente" class="patient-report">
+        <h3 class="patient-title-inbody">Análisis de composición corporal con InBody</h3>
+
+        <div class="patient-block">
+          <p class="patient-label">• Porcentaje de grasa corporal</p>
+          <p id="rep-grasa-linea" class="patient-line">Valor: Sin dato</p>
+          <p id="rep-grasa-interpretacion" class="patient-interpretation"></p>
+        </div>
+
+        <div class="patient-block">
+          <p class="patient-label">• Grasa visceral (interna)</p>
+          <p id="rep-visceral-linea" class="patient-line">Valor: Sin dato</p>
+          <p id="rep-visceral-interpretacion" class="patient-interpretation"></p>
+        </div>
+
+        <div class="patient-block">
+          <p class="patient-label">• M&uacute;sculo total</p>
+          <p id="rep-musculo-total-linea" class="patient-line">Valor: Sin dato</p>
+          <p id="rep-musculo-total-interpretacion" class="patient-interpretation"></p>
+        </div>
+
+        <div class="patient-block">
+          <p class="patient-label">• M&uacute;sculo segmental</p>
+          <ul class="patient-sublist">
+            <li id="rep-promedio-brazos">Promedio brazos: Sin dato</li>
+            <li id="rep-promedio-piernas">Promedio piernas: Sin dato</li>
+            <li id="rep-abdomen">Abdomen: Sin dato</li>
+          </ul>
+          <p id="rep-segmental-interpretacion" class="patient-interpretation"></p>
+        </div>
+
+        <div class="patient-block">
+          <p class="patient-label">• Datos adicionales</p>
+          <ul class="patient-sublist">
+            <li id="rep-imc">IMC: Sin dato</li>
+            <li id="rep-sexo">Sexo: Sin dato</li>
+          </ul>
+        </div>
+
+        <p class="patient-rec-title">• Recomendaciones</p>
+        <textarea id="rep-recomendaciones" class="patient-rec-editor" aria-label="Recomendaciones para paciente" placeholder="Escribe recomendaciones..."></textarea>
+        <div class="patient-rec-actions">
+          <button id="restaurar-recomendaciones" class="btn ghost" type="button">Restaurar recomendaciones automáticas</button>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="exportar-reporte-paciente-pdf" class="btn secondary" type="button">Exportar reporte para paciente a PDF</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script>
+    const sexoInput = document.getElementById("sexo");
+    const brazoDerechoInput = document.getElementById("brazo-derecho");
+    const brazoIzquierdoInput = document.getElementById("brazo-izquierdo");
+    const promedioBrazosInput = document.getElementById("promedio-brazos");
+
+    const porcentajeGrasaInput = document.getElementById("porcentaje-grasa");
+    const grasaVisceralInput = document.getElementById("grasa-visceral");
+    const imcInput = document.getElementById("imc");
+    const estaturaInput = document.getElementById("estatura");
+    const pesoActualInput = document.getElementById("peso-actual");
+    const grasaCorporalKgInput = document.getElementById("grasa-corporal-kg");
+    const mlgInput = document.getElementById("mlg");
+    const musculoTotalInput = document.getElementById("musculo-total");
+
+    const piernaIzquierdaInput = document.getElementById("pierna-izquierda");
+    const piernaDerechaInput = document.getElementById("pierna-derecha");
+    const promedioPiernasInput = document.getElementById("promedio-piernas");
+    const abdomenInput = document.getElementById("abdomen");
+
+    const evalPorcentajeGrasa = document.getElementById("eval-porcentaje-grasa");
+    const evalGrasaVisceral = document.getElementById("eval-grasa-visceral");
+    const evalMusculoTotal = document.getElementById("eval-musculo-total");
+    const evalBrazoDerecho = document.getElementById("eval-brazo-derecho");
+    const evalBrazoIzquierdo = document.getElementById("eval-brazo-izquierdo");
+    const evalPiernaIzquierda = document.getElementById("eval-pierna-izquierda");
+    const evalPiernaDerecha = document.getElementById("eval-pierna-derecha");
+    const evalPromedioBrazos = document.getElementById("eval-promedio-brazos");
+    const evalPromedioPiernas = document.getElementById("eval-promedio-piernas");
+    const evalAbdomen = document.getElementById("eval-abdomen");
+    const diagnosticoSection = document.getElementById("diagnostico-section");
+    const reportePacienteSection = document.getElementById("reporte-paciente-section");
+    const diagnosticoAntropometricoInput = document.getElementById("diagnostico-antropometrico");
+    const exportarDiagnosticoPdfBtn = document.getElementById("exportar-diagnostico-pdf");
+    const exportarReportePacientePdfBtn = document.getElementById("exportar-reporte-paciente-pdf");
+
+    const repGrasaLinea = document.getElementById("rep-grasa-linea");
+    const repGrasaInterpretacion = document.getElementById("rep-grasa-interpretacion");
+    const repVisceralLinea = document.getElementById("rep-visceral-linea");
+    const repVisceralInterpretacion = document.getElementById("rep-visceral-interpretacion");
+    const repMusculoTotalLinea = document.getElementById("rep-musculo-total-linea");
+    const repMusculoTotalInterpretacion = document.getElementById("rep-musculo-total-interpretacion");
+    const repPromedioBrazos = document.getElementById("rep-promedio-brazos");
+    const repPromedioPiernas = document.getElementById("rep-promedio-piernas");
+    const repSegmentalInterpretacion = document.getElementById("rep-segmental-interpretacion");
+    const repAbdomen = document.getElementById("rep-abdomen");
+    const repImc = document.getElementById("rep-imc");
+    const repSexo = document.getElementById("rep-sexo");
+    const repRecomendaciones = document.getElementById("rep-recomendaciones");
+    const restaurarRecomendacionesBtn = document.getElementById("restaurar-recomendaciones");
+
+    let recomendacionesEditadasManualmente = false;
+
+    function parseNumber(value) {
+      const normalized = value.replace(",", ".").trim();
+      if (normalized === "") {
+        return null;
+      }
+
+      const parsed = Number(normalized);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    function formatAverage(value) {
+      return value.toFixed(1);
+    }
+
+    function formatMetric(value) {
+      return value.toFixed(1);
+    }
+
+    function setEvaluation(target, text) {
+      target.textContent = text || "";
+    }
+
+    function evalMusculo(value) {
+      if (value === null) {
+        return "";
+      }
+      if (value < 90) {
+        return "BAJO";
+      }
+      if (value >= 90 && value < 100) {
+        return "NORMAL-BAJO";
+      }
+      if (value === 100) {
+        return "NORMAL";
+      }
+      if (value > 100 && value < 110) {
+        return "NORMAL-ALTO";
+      }
+      return "OPTIMO";
+    }
+
+    function evalVisceral(value) {
+      if (value === null) {
+        return "";
+      }
+      if (value < 6) {
+        return "OPTIMO";
+      }
+      if (value >= 6 && value <= 9) {
+        return "NORMAL";
+      }
+      if (value > 9 && value < 16) {
+        return "ELEVADA";
+      }
+      if (value >= 16) {
+        return "MUY ELEVADA";
+      }
+      return "FUERA DE RANGO DEFINIDO";
+    }
+
+    function evalGrasaPorSexo(value, sexo) {
+      if (value === null) {
+        return "";
+      }
+      if (!sexo) {
+        return "Selecciona sexo para evaluar";
+      }
+
+      if (sexo === "hombre") {
+        if (value < 5) {
+          return "BAJA";
+        }
+        if (value >= 5 && value <= 9) {
+          return "NORMAL-BAJA";
+        }
+        if (value > 9 && value <= 20) {
+          return "NORMAL";
+        }
+        if (value > 20 && value < 25) {
+          return "PRE OBESIDAD";
+        }
+        if (value >= 25 && value <= 30) {
+          return "OBESIDAD GRADO 1";
+        }
+        if (value > 30 && value < 35) {
+          return "OBESIDAD GRADO 2";
+        }
+        if (value >= 35) {
+          return "OBESIDAD GRADO 3";
+        }
+        return "FUERA DE RANGO DEFINIDO";
+      }
+
+      if (value < 13) {
+        return "BAJA";
+      }
+      if (value >= 13 && value < 20) {
+        return "NORMAL-BAJA";
+      }
+      if (value >= 20 && value <= 30) {
+        return "NORMAL";
+      }
+      if (value > 30 && value < 33) {
+        return "PRE OBESIDAD";
+      }
+      if (value >= 33 && value < 38) {
+        return "OBESIDAD GRADO 1";
+      }
+      if (value >= 38 && value < 43) {
+        return "OBESIDAD GRADO 2";
+      }
+      if (value >= 43) {
+        return "OBESIDAD GRADO 3";
+      }
+      return "FUERA DE RANGO DEFINIDO";
+    }
+
+    function setAverage(leftInput, rightInput, targetInput) {
+      const left = parseNumber(leftInput.value);
+      const right = parseNumber(rightInput.value);
+
+      if (left === null || right === null) {
+        targetInput.value = "";
+        return;
+      }
+
+      targetInput.value = formatAverage((left + right) / 2);
+    }
+
+    function updatePromedios() {
+      setAverage(brazoIzquierdoInput, brazoDerechoInput, promedioBrazosInput);
+      setAverage(piernaIzquierdaInput, piernaDerechaInput, promedioPiernasInput);
+    }
+
+    function updateImcFields() {
+      const imc = parseNumber(imcInput.value);
+      const estaturaCm = parseNumber(estaturaInput.value);
+      const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
+
+      if (imc !== null && estaturaCm !== null && imc > 0 && estaturaCm > 0) {
+        const estaturaM = estaturaCm / 100;
+        const pesoCalculado = imc * estaturaM * estaturaM;
+        pesoActualInput.value = formatMetric(pesoCalculado);
+
+        if (porcentajeGrasa !== null) {
+          const grasaCalculada = pesoCalculado * (porcentajeGrasa / 100);
+          grasaCorporalKgInput.value = formatMetric(grasaCalculada);
+          mlgInput.value = formatMetric(pesoCalculado - grasaCalculada);
+        } else {
+          grasaCorporalKgInput.value = "";
+          mlgInput.value = "";
+        }
+        return;
+      }
+
+      pesoActualInput.value = "";
+      grasaCorporalKgInput.value = "";
+      mlgInput.value = "";
+    }
+
+    function updateEvaluaciones() {
+      const sexo = sexoInput.value;
+
+      const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
+      const grasaVisceral = parseNumber(grasaVisceralInput.value);
+      const musculoTotal = parseNumber(musculoTotalInput.value);
+      const brazoDerecho = parseNumber(brazoDerechoInput.value);
+      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
+      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
+      const piernaDerecha = parseNumber(piernaDerechaInput.value);
+      const promedioBrazos = parseNumber(promedioBrazosInput.value);
+      const promedioPiernas = parseNumber(promedioPiernasInput.value);
+      const abdomen = parseNumber(abdomenInput.value);
+
+      setEvaluation(evalPorcentajeGrasa, evalGrasaPorSexo(porcentajeGrasa, sexo));
+      setEvaluation(evalGrasaVisceral, evalVisceral(grasaVisceral));
+      setEvaluation(evalMusculoTotal, evalMusculo(musculoTotal));
+      setEvaluation(evalBrazoDerecho, evalMusculo(brazoDerecho));
+      setEvaluation(evalBrazoIzquierdo, evalMusculo(brazoIzquierdo));
+      setEvaluation(evalPiernaIzquierda, evalMusculo(piernaIzquierda));
+      setEvaluation(evalPiernaDerecha, evalMusculo(piernaDerecha));
+      setEvaluation(evalPromedioBrazos, evalMusculo(promedioBrazos));
+      setEvaluation(evalPromedioPiernas, evalMusculo(promedioPiernas));
+      setEvaluation(evalAbdomen, evalMusculo(abdomen));
+    }
+
+    function onInputChange() {
+      updateImcFields();
+      updatePromedios();
+      updateEvaluaciones();
+      updateDiagnosticoAntropometrico();
+      updateReportePaciente();
+    }
+
+    function buildDesequilibriosTexto(brazoIzquierdo, brazoDerecho, piernaIzquierda, piernaDerecha, promedioBrazos, promedioPiernas) {
+      const hallazgos = [];
+
+      if (brazoIzquierdo !== null && brazoDerecho !== null && Math.abs(brazoIzquierdo - brazoDerecho) >= 6) {
+        hallazgos.push("se observa desequilibrio hemisferico en brazos");
+      }
+
+      if (piernaIzquierda !== null && piernaDerecha !== null && Math.abs(piernaIzquierda - piernaDerecha) >= 3) {
+        hallazgos.push("se observa desequilibrio hemisferico en el tren inferior");
+      }
+
+      if (promedioBrazos !== null && promedioPiernas !== null && Math.abs(promedioBrazos - promedioPiernas) >= 3) {
+        hallazgos.push("se observa desequilibrio entre tren superior e inferior");
+      }
+
+      if (hallazgos.length === 0) {
+        return "sin hallazgos relevantes de desequilibrio muscular";
+      }
+
+      return hallazgos.join(", ");
+    }
+
+    function buildImcObservacionTexto(imc, sexo) {
+      if (imc === null || !sexo) {
+        return "";
+      }
+
+      if (sexo === "mujer" && imc < 21) {
+        return " Puede deberse a falta de masa muscular.";
+      }
+
+      if (sexo === "hombre" && imc < 22) {
+        return " Puede deberse a falta de masa muscular.";
+      }
+
+      return "";
+    }
+
+    function formatValueOrNd(value, suffix) {
+      if (value === null) {
+        return "N/D";
+      }
+      return `${value.toFixed(1)}${suffix}`;
+    }
+
+    function formatValuePaciente(value, suffix) {
+      if (value === null) {
+        return "Sin dato";
+      }
+      return `${value.toFixed(1)}${suffix}`;
+    }
+
+    function setInterpretacionLinea(element, value) {
+      element.textContent = value ? `Interpretacion: ${value}` : "";
+    }
+
+    function roundToOneDecimal(value) {
+      return Math.round(value * 10) / 10;
+    }
+
+    function calcularObjetivosComposicion(sexo, estaturaCm, pesoActual, grasaCorporalKg, mlgKg) {
+      if (!sexo || estaturaCm === null || pesoActual === null || grasaCorporalKg === null || mlgKg === null) {
+        return null;
+      }
+
+      const estaturaM = estaturaCm / 100;
+      const imcObjetivo = sexo === "mujer" ? 21 : 22;
+      const grasaObjetivoRatio = sexo === "mujer" ? 0.23 : 0.15;
+      const mlgObjetivoRatio = sexo === "mujer" ? 0.77 : 0.85;
+
+      const pesoEstandar = roundToOneDecimal(estaturaM * estaturaM * imcObjetivo);
+      const grasaEstandarKg = roundToOneDecimal(pesoEstandar * grasaObjetivoRatio);
+      const mlgEstandarKg = roundToOneDecimal(pesoEstandar * mlgObjetivoRatio);
+
+      return {
+        pesoEstandar,
+        grasaEstandarKg,
+        mlgEstandarKg,
+        controlPesoKg: roundToOneDecimal(pesoEstandar - pesoActual),
+        controlGrasaKg: roundToOneDecimal(grasaEstandarKg - grasaCorporalKg),
+        controlMusculoKg: roundToOneDecimal(mlgEstandarKg - mlgKg),
+      };
+    }
+
+    function generarRecomendaciones(data) {
+      const recomendaciones = [];
+
+      if (["PRE OBESIDAD", "OBESIDAD GRADO 1", "OBESIDAD GRADO 2", "OBESIDAD GRADO 3"].includes(data.clasificacionGrasa)) {
+        recomendaciones.push("Priorizar reducción de grasa corporal con déficit calórico controlado y actividad física regular.");
+      }
+
+      if (["ELEVADA", "MUY ELEVADA"].includes(data.clasificacionVisceral)) {
+        recomendaciones.push("Disminuir grasa visceral por debajo de 9 con seguimiento nutricional y ejercicio de fuerza + cardio.");
+      }
+
+      if (["BAJO", "NORMAL-BAJO"].includes(data.clasificacionMusculoTotal)) {
+        recomendaciones.push("Aumentar masa muscular con entrenamiento de fuerza progresivo y plan proteico adecuado.");
+      }
+
+      if (data.objetivosComposicion && data.objetivosComposicion.controlGrasaKg < 0) {
+        recomendaciones.push(`Reducir aproximadamente ${Math.abs(data.objetivosComposicion.controlGrasaKg).toFixed(1)} kg de grasa corporal para acercarse al objetivo estimado.`);
+      }
+
+      if (data.objetivosComposicion && data.objetivosComposicion.controlMusculoKg > 0) {
+        recomendaciones.push(`Incrementar aproximadamente ${data.objetivosComposicion.controlMusculoKg.toFixed(1)} kg de músculo.`);
+      }
+
+      if (data.diferenciaBrazos >= 6) {
+        recomendaciones.push(`Se detecta desequilibrio entre brazos (diferencia ${data.diferenciaBrazos.toFixed(1)}%). Enfocar trabajo unilateral de tren superior para equilibrar fuerza y volumen entre ambos brazos.`);
+      }
+
+      if (data.diferenciaPiernas > 3) {
+        recomendaciones.push(`Se detecta desequilibrio entre piernas (diferencia ${data.diferenciaPiernas.toFixed(1)}%). Priorizar ejercicios unilaterales de tren inferior para reducir la asimetría entre pierna derecha e izquierda.`);
+      }
+
+      if (data.diferenciaPromedios > 3) {
+        recomendaciones.push(`Se detecta desequilibrio entre tren superior e inferior (diferencia ${data.diferenciaPromedios.toFixed(1)}%). Ajustar la planificación para mejorar la proporción muscular global por tren corporal.`);
+      }
+
+      if (data.imcBajo) {
+        recomendaciones.push("El IMC sugiere posible baja masa muscular; reforzar estrategia de ganancia muscular supervisada.");
+      }
+
+      if (recomendaciones.length === 0) {
+        recomendaciones.push("Mantener hábitos actuales y realizar seguimiento periódico para conservar los rangos obtenidos.");
+      }
+
+      return recomendaciones;
+    }
+
+    function updateReportePaciente() {
+      const sexo = sexoInput.value;
+      const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
+      const grasaVisceral = parseNumber(grasaVisceralInput.value);
+      const musculoTotal = parseNumber(musculoTotalInput.value);
+      const promedioBrazos = parseNumber(promedioBrazosInput.value);
+      const promedioPiernas = parseNumber(promedioPiernasInput.value);
+      const abdomen = parseNumber(abdomenInput.value);
+      const imc = parseNumber(imcInput.value);
+      const estatura = parseNumber(estaturaInput.value);
+      const pesoActual = parseNumber(pesoActualInput.value);
+      const grasaCorporalKg = parseNumber(grasaCorporalKgInput.value);
+      const mlg = parseNumber(mlgInput.value);
+
+      const brazoDerecho = parseNumber(brazoDerechoInput.value);
+      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
+      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
+      const piernaDerecha = parseNumber(piernaDerechaInput.value);
+
+      const clasificacionGrasa = evalGrasaPorSexo(porcentajeGrasa, sexo);
+      const clasificacionVisceral = evalVisceral(grasaVisceral);
+      const clasificacionMusculoTotal = evalMusculo(musculoTotal);
+      const clasificacionPromedioBrazos = evalMusculo(promedioBrazos);
+      const clasificacionPromedioPiernas = evalMusculo(promedioPiernas);
+      const clasificacionAbdomen = evalMusculo(abdomen);
+
+      const diferenciaBrazos = brazoDerecho !== null && brazoIzquierdo !== null ? Math.abs(brazoDerecho - brazoIzquierdo) : 0;
+      const diferenciaPiernas = piernaDerecha !== null && piernaIzquierda !== null ? Math.abs(piernaDerecha - piernaIzquierda) : 0;
+      const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
+
+      const imcBajo = (sexo === "mujer" && imc !== null && imc < 21) || (sexo === "hombre" && imc !== null && imc < 22);
+      const objetivosComposicion = calcularObjetivosComposicion(sexo, estatura, pesoActual, grasaCorporalKg, mlg);
+
+      repGrasaLinea.textContent = `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`;
+      setInterpretacionLinea(repGrasaInterpretacion, clasificacionGrasa);
+
+      repVisceralLinea.textContent = `Valor: ${formatValuePaciente(grasaVisceral, "")}`;
+      setInterpretacionLinea(repVisceralInterpretacion, clasificacionVisceral);
+
+      repMusculoTotalLinea.textContent = `Valor: ${formatValuePaciente(musculoTotal, "%")}`;
+      setInterpretacionLinea(repMusculoTotalInterpretacion, clasificacionMusculoTotal);
+
+      repPromedioBrazos.textContent = `Promedio brazos: ${formatValuePaciente(promedioBrazos, "%")} (${clasificacionPromedioBrazos || "Sin interpretacion"})`;
+      repPromedioPiernas.textContent = `Promedio piernas: ${formatValuePaciente(promedioPiernas, "%")} (${clasificacionPromedioPiernas || "Sin interpretacion"})`;
+
+      if (diferenciaBrazos > 6 || diferenciaPiernas > 3 || diferenciaPromedios > 3) {
+        repSegmentalInterpretacion.textContent = "Interpretacion: Hay datos de desequilibrio segmental";
+      } else if (promedioBrazos !== null || promedioPiernas !== null) {
+        repSegmentalInterpretacion.textContent = "Interpretacion: Sin desequilibrios segmentales relevantes";
+      } else {
+        repSegmentalInterpretacion.textContent = "";
+      }
+
+      repAbdomen.textContent = `Abdomen: ${formatValuePaciente(abdomen, "%")} (${clasificacionAbdomen || "Sin interpretacion"})`;
+      repImc.textContent = `IMC: ${formatValuePaciente(imc, " kg/m2")}`;
+      repSexo.textContent = `Sexo: ${sexo ? sexo.charAt(0).toUpperCase() + sexo.slice(1) : "Sin dato"}`;
+
+      const recomendaciones = generarRecomendaciones({
+        clasificacionGrasa,
+        clasificacionVisceral,
+        clasificacionMusculoTotal,
+        diferenciaBrazos,
+        diferenciaPiernas,
+        diferenciaPromedios,
+        imcBajo,
+        objetivosComposicion,
+      });
+
+      if (!recomendacionesEditadasManualmente) {
+        repRecomendaciones.value = recomendaciones
+          .map((item) => `- ${item}`)
+          .join("\n");
+      }
+    }
+
+    function updateDiagnosticoAntropometrico() {
+      const sexo = sexoInput.value;
+
+      const musculoTotal = parseNumber(musculoTotalInput.value);
+      const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
+      const grasaVisceral = parseNumber(grasaVisceralInput.value);
+      const imc = parseNumber(imcInput.value);
+
+      const brazoDerecho = parseNumber(brazoDerechoInput.value);
+      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
+      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
+      const piernaDerecha = parseNumber(piernaDerechaInput.value);
+      const promedioBrazos = parseNumber(promedioBrazosInput.value);
+      const promedioPiernas = parseNumber(promedioPiernasInput.value);
+
+      const hayDatos = [
+        musculoTotal,
+        porcentajeGrasa,
+        grasaVisceral,
+        imc,
+        brazoDerecho,
+        brazoIzquierdo,
+        piernaIzquierda,
+        piernaDerecha,
+        promedioBrazos,
+        promedioPiernas,
+      ].some((value) => value !== null) || Boolean(sexo);
+
+      if (!hayDatos) {
+        diagnosticoAntropometricoInput.value = "";
+        return;
+      }
+
+      const clasificacionMusculo = evalMusculo(musculoTotal) || "N/D";
+      const clasificacionGrasa = evalGrasaPorSexo(porcentajeGrasa, sexo) || "N/D";
+      const clasificacionVisceral = evalVisceral(grasaVisceral) || "N/D";
+
+      const desequilibriosTexto = buildDesequilibriosTexto(
+        brazoIzquierdo,
+        brazoDerecho,
+        piernaIzquierda,
+        piernaDerecha,
+        promedioBrazos,
+        promedioPiernas
+      );
+
+      const imcObservacion = buildImcObservacionTexto(imc, sexo);
+
+      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), ${desequilibriosTexto}, con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${imcObservacion}`;
+    }
+
+    function buildExportClone(element) {
+      const clone = element.cloneNode(true);
+      clone.style.position = "fixed";
+      clone.style.left = "-10000px";
+      clone.style.top = "0";
+      clone.style.width = `${element.getBoundingClientRect().width}px`;
+      clone.style.margin = "0";
+      clone.style.background = "#ffffff";
+      clone.style.zIndex = "-1";
+
+      clone.querySelectorAll("button").forEach((btn) => {
+        btn.remove();
+      });
+
+      clone.querySelectorAll("textarea").forEach((textarea) => {
+        const textBlock = document.createElement("div");
+        textBlock.className = textarea.className;
+        textBlock.textContent = textarea.value || "";
+        textBlock.style.whiteSpace = "pre-wrap";
+        textBlock.style.wordBreak = "break-word";
+        textBlock.style.minHeight = "auto";
+        textBlock.style.height = "auto";
+        textBlock.style.overflow = "visible";
+        textBlock.style.resize = "none";
+        textarea.replaceWith(textBlock);
+      });
+
+      document.body.appendChild(clone);
+      return clone;
+    }
+
+    async function exportElementAsPdf(element, fileName) {
+      if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) {
+        alert("No se pudo cargar el generador de PDF.");
+        return;
+      }
+
+      const exportClone = buildExportClone(element);
+
+      let canvas;
+      try {
+        canvas = await window.html2canvas(exportClone, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+        });
+      } finally {
+        exportClone.remove();
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const margin = 10;
+      const contentWidth = pageWidth - margin * 2;
+      const contentHeight = pageHeight - margin * 2;
+
+      const pxPerMm = canvas.width / contentWidth;
+      const pageSliceHeightPx = Math.max(1, Math.floor(contentHeight * pxPerMm));
+
+      let renderedHeightPx = 0;
+      let pageIndex = 0;
+
+      while (renderedHeightPx < canvas.height) {
+        const sliceHeightPx = Math.min(pageSliceHeightPx, canvas.height - renderedHeightPx);
+        const pageCanvas = document.createElement("canvas");
+        pageCanvas.width = canvas.width;
+        pageCanvas.height = sliceHeightPx;
+
+        const pageContext = pageCanvas.getContext("2d");
+        pageContext.drawImage(
+          canvas,
+          0,
+          renderedHeightPx,
+          canvas.width,
+          sliceHeightPx,
+          0,
+          0,
+          canvas.width,
+          sliceHeightPx
+        );
+
+        const sliceImage = pageCanvas.toDataURL("image/png");
+        const sliceHeightMm = sliceHeightPx / pxPerMm;
+
+        if (pageIndex > 0) {
+          doc.addPage();
+        }
+
+        doc.addImage(sliceImage, "PNG", margin, margin, contentWidth, sliceHeightMm);
+
+        renderedHeightPx += sliceHeightPx;
+        pageIndex += 1;
+      }
+
+      doc.save(fileName);
+    }
+
+    async function exportarDiagnosticoPdf() {
+      await exportElementAsPdf(diagnosticoSection, "diagnostico-antropometrico.pdf");
+    }
+
+    async function exportarReportePacientePdf() {
+      await exportElementAsPdf(reportePacienteSection, "reporte-paciente-inbody.pdf");
+    }
+
+    [
+      sexoInput,
+      porcentajeGrasaInput,
+      grasaVisceralInput,
+      imcInput,
+      estaturaInput,
+      musculoTotalInput,
+      brazoDerechoInput,
+      brazoIzquierdoInput,
+      piernaIzquierdaInput,
+      piernaDerechaInput,
+      abdomenInput,
+    ].forEach((input) => {
+      input.addEventListener("input", onInputChange);
+      input.addEventListener("change", onInputChange);
+    });
+
+    exportarDiagnosticoPdfBtn.addEventListener("click", exportarDiagnosticoPdf);
+    exportarReportePacientePdfBtn.addEventListener("click", exportarReportePacientePdf);
+    restaurarRecomendacionesBtn.addEventListener("click", () => {
+      recomendacionesEditadasManualmente = false;
+      updateReportePaciente();
+    });
+    repRecomendaciones.addEventListener("input", () => {
+      recomendacionesEditadasManualmente = true;
+    });
+
+    onInputChange();
+    updateReportePaciente();
+  </script>
+</body>
+</html>
