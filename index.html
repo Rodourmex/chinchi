@@ -262,23 +262,195 @@
     .btn.ghost:hover {
       background: #cbd5e1;
     }
+
+    .meal-plan {
+      margin-top: 8px;
+      border: 1px solid #d8e3f0;
+      border-radius: 14px;
+      padding: 18px;
+      background: linear-gradient(160deg, #fffef7 0%, #ffffff 65%);
+    }
+
+    .meal-block {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px dashed #d1d5db;
+    }
+
+    .meal-block:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .meal-label {
+      margin: 0 0 6px;
+      font-size: 1.02rem;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .meal-toolbar {
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .meal-editor {
+      min-height: 90px;
+      padding: 10px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #ffffff;
+      color: #111827;
+      font-size: 0.95rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .meal-editor:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: #3b82f6;
+    }
+
+    .analisis-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 560px;
+    }
+
+    .analisis-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 600;
+    }
+
+    .analisis-item input[type="checkbox"] {
+      margin: 0;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .orden-export-box {
+      margin-top: 8px;
+      border: 1px solid #d8e3f0;
+      border-radius: 14px;
+      padding: 18px;
+      background: linear-gradient(160deg, #f8fbff 0%, #ffffff 65%);
+    }
+
+    .orden-export-list {
+      margin: 8px 0 0;
+      padding-left: 20px;
+      line-height: 1.5;
+    }
+
+    .orden-export-nota {
+      margin-top: 14px;
+      border-top: 1px dashed #cbd5e1;
+      padding-top: 10px;
+      font-size: 0.93rem;
+      color: #334155;
+    }
+
+    .orden-export-nota p {
+      margin: 0 0 6px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .orden-export-nota-editor {
+      min-height: 180px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      background: #ffffff;
+      padding: 10px 12px;
+      line-height: 1.5;
+      color: #1e293b;
+      white-space: normal;
+    }
+
+    .orden-export-nota-editor:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: #3b82f6;
+    }
+
+    .orden-export-nota ol,
+    .orden-export-nota ul {
+      margin: 6px 0;
+      padding-left: 20px;
+    }
+
+    .orden-export-empty {
+      margin-top: 8px;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .export-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .export-select {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .export-select input[type="checkbox"] {
+      margin: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .export-all-footer {
+      margin-top: 18px;
+      padding-top: 12px;
+      border-top: 1px solid #e2e8f0;
+    }
   </style>
 </head>
 <body>
   <main class="container">
-    <h1>An&aacute;lisis de composici&oacute;n corporal</h1>
+    <h1>Análisis de composición corporal</h1>
 
     <section>
-      <h2>An&aacute;lisis de grasa corporal</h2>
+      <h2>Análisis de grasa corporal</h2>
       <div class="grid">
         <div class="field">
-          <label for="sexo">Sexo</label>
-          <select id="sexo" name="sexo">
-            <option value="">Selecciona una opcion</option>
-            <option value="hombre">Hombre</option>
-            <option value="mujer">Mujer</option>
-          </select>
-          <span class="hint">Necesario para evaluar el porcentaje de grasa corporal</span>
+          <label for="nombre-paciente">Nombre del paciente</label>
+          <input id="nombre-paciente" name="nombre_paciente" type="text" placeholder="Ej. Juan Perez" />
+        </div>
+
+        <div class="field">
+          <!-- <label for="sexo">Sexo</label> -->
+          <div style="display: flex; gap: 12px; align-items: flex-end;">
+            <div style="flex:1;">
+              <label for="sexo">Sexo</label>
+              <select id="sexo" name="sexo">
+                <option value="">Selecciona una opcion</option>
+                <option value="hombre">Hombre</option>
+                <option value="mujer">Mujer</option>
+              </select>
+            </div>
+            <div style="flex:1;">
+              <label for="edad">Edad</label>
+              <input id="edad" name="edad" type="number" min="0" max="120" placeholder="Ej. 35" />
+            </div>
+          </div>
+          <span class="hint">Necesario para evaluar el porcentaje de grasa corporal y mostrar análisis recomendados</span>
         </div>
 
         <div class="field">
@@ -320,6 +492,9 @@
         </div>
       </div>
     </section>
+
+    <section id="orden-analisis-section">
+    <!-- Sección movida al final -->
 
     <section>
       <h2>An&aacute;lisis de m&uacute;sculo</h2>
@@ -387,14 +562,15 @@
         <label for="diagnostico-antropometrico">Texto sugerido editable</label>
         <textarea id="diagnostico-antropometrico" name="diagnostico-antropometrico" rows="7"></textarea>
         <span class="hint">Puedes editar este texto manualmente.</span>
-        <div class="actions">
+        <div class="actions export-actions">
+          <label class="export-select"><input id="select-export-diagnostico" type="checkbox" /> Incluir en exportación global</label>
           <button id="exportar-diagnostico-pdf" class="btn" type="button">Exportar diagnóstico a PDF</button>
         </div>
       </div>
     </section>
 
     <section id="reporte-paciente-section">
-      <h2>Resumen para paciente</h2>
+      <h2 id="reporte-paciente-heading">Resultado para paciente: Sin nombre | Fecha: --/--/----</h2>
       <div id="reporte-paciente" class="patient-report">
         <h3 class="patient-title-inbody">Análisis de composición corporal con InBody</h3>
 
@@ -440,16 +616,214 @@
           <button id="restaurar-recomendaciones" class="btn ghost" type="button">Restaurar recomendaciones automáticas</button>
         </div>
       </div>
-      <div class="actions">
+      <div class="actions export-actions">
+        <label class="export-select"><input id="select-export-reporte" type="checkbox" checked /> Incluir en exportación global</label>
         <button id="exportar-reporte-paciente-pdf" class="btn secondary" type="button">Exportar reporte para paciente a PDF</button>
       </div>
     </section>
+
+    <section id="plan-alimenticio-section">
+      <h2>Plan de comidas</h2>
+      <div class="meal-plan">
+        <div class="meal-block">
+          <p class="meal-label">Desayuno</p>
+          <div class="meal-toolbar">
+            <button class="btn ghost btn-tachar" type="button" data-target-editor="desayuno-editor">Tachar seleccion</button>
+          </div>
+          <div id="desayuno-editor" class="meal-editor" contenteditable="true" aria-label="Desayuno"></div>
+            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+              <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','bold')" title="Negrita"><b>B</b></button>
+              <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','italic')" title="Cursiva"><i>I</i></button>
+              <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+            </div>
+          <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno">Base: proteina (pechuga de pollo o pavo o atun o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.
+            Opcional (dependiente de cantidad de ejercicio):
+            Tortillas de maiz o salmas o thin cero cero.
+            Tortillas de linaza o tostadas susalias o pan cero cero.
+            Avena o linaza cocidas y remojada previamente o amaranto natural.
+            Postre: 1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas u obleas sin azucar; o 1/3 de barrita proteica.
+          </div>
+        </div>
+
+        <div class="meal-block">
+          <p class="meal-label">Colacion matutina</p>
+          <div class="meal-toolbar">
+            <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-matutina-editor">Tachar seleccion</button>
+          </div>
+          <div id="colacion-matutina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion matutina"></div>
+                      <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','bold')" title="Negrita"><b>B</b></button>
+                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','italic')" title="Cursiva"><i>I</i></button>
+                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+                      </div>
+            <div id="colacion-matutina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación matutina">Base: verduras picadas (jicama, pepino, apio, zanahoria, betabel) + semillas naturales (7 nueces o 10 almendras o 15 cacahuates o pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de cacao obscuro al 80% sin azucar).
+          1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas.</div>
+        </div>
+
+        <div class="meal-block">
+          <p class="meal-label">Comida</p>
+          <div class="meal-toolbar">
+            <button class="btn ghost btn-tachar" type="button" data-target-editor="comida-editor">Tachar seleccion</button>
+          </div>
+          <div id="comida-editor" class="meal-editor" contenteditable="true" aria-label="Comida"></div>
+                            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','bold')" title="Negrita"><b>B</b></button>
+                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','italic')" title="Cursiva"><i>I</i></button>
+                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+                            </div>
+                  <div id="comida-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para comida">Base: pollo sin grasa ni piel o pescado de color o blanco, opcional 1-2/semana carne roja sin grasa (sabana o lomo o bistec) de res o puerco -> asados, al vapor, cocidos, guisados (mientras contenga poca grasa) + verduras cocidas o crudas sin aderezos + agua natural o de sabor sin azucar. Evitar fritos, capeados, empanizados, salsas grasosas y/o dulces como el mole, quesos y embutidos, sopas, consomes, arroz, pastas, pan, postres. Opcional (dependiente de cantidad de ejercicio): Frijoles, lentejas, habas, garbanzos o chicharos remojados y cocidas previamente. Piezas de tortillas de maiz o (x) piezas de tortillas de linaza. Arroz integral al vapor. Postre: 1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas. *Checar recomendaciones diarios de comedor en whatsapp, elegir las opciones marcadas en verde.</div>
+        </div>
+
+        <div class="meal-block">
+          <p class="meal-label">Colacion vespertina</p>
+          <div class="meal-toolbar">
+            <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-vespertina-editor">Tachar seleccion</button>
+          </div>
+          <div id="colacion-vespertina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion vespertina"></div>
+                        <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','bold')" title="Negrita"><b>B</b></button>
+                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','italic')" title="Cursiva"><i>I</i></button>
+                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+                        </div>
+              <div id="colacion-vespertina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación vespertina">Base: verduras picadas (jicama, pepino, apio, zanahoria, betabel) + semillas naturales (7 nueces o 10 almendras o 15 cacahuates o pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de cacao obscuro al 80% sin azucar).
+            1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas.</div>
+        </div>
+
+        <div class="meal-block">
+          <p class="meal-label">Cena</p>
+          <div class="meal-toolbar">
+            <button class="btn ghost btn-tachar" type="button" data-target-editor="cena-editor">Tachar seleccion</button>
+          </div>
+          <div id="cena-editor" class="meal-editor" contenteditable="true" aria-label="Cena"></div>
+            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+              <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','bold')" title="Negrita"><b>B</b></button>
+              <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','italic')" title="Cursiva"><i>I</i></button>
+              <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+            </div>
+            <div id="cena-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para cena">Base: proteina (pechuga de pollo o pavo o atun o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate. Opcional (dependiente de cantidad de ejercicio): Tortillas de maiz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</div>
+        </div>
+
+        <div class="meal-block">
+        </div>
+      </div>
+      <div class="actions export-actions">
+        <label class="export-select"><input id="select-export-plan" type="checkbox" checked /> Incluir en exportación global</label>
+        <button id="exportar-plan-alimenticio-pdf" class="btn secondary" type="button">Exportar plan de comidas a PDF</button>
+      </div>
+    </section>
+    <section id="orden-analisis-section">
+      <h2>Órden de análisis</h2>
+      <p>Favor de realizar en Salud Digna los siguientes análisis:</p>
+      <form id="analisis-form">
+        <div class="analisis-list">
+          <label class="analisis-item">Paquete Salud Integral<input type="checkbox" name="analisis" value="Paquete Salud Integral" checked /></label>
+          <label class="analisis-item">Insulina<input type="checkbox" name="analisis" value="Insulina" checked /></label>
+          <label class="analisis-item">Vitamina D 25 hidroxi<input type="checkbox" name="analisis" value="Vitamina D 25 hidroxi" checked /></label>
+          <label class="analisis-item">TSH<input type="checkbox" name="analisis" value="TSH" checked /></label>
+          <label class="analisis-item">T4 Libre<input type="checkbox" name="analisis" value="T4 Libre" checked /></label>
+          <label class="analisis-item">Proteína C Reactiva ultrasensible<input type="checkbox" name="analisis" value="Proteína C Reactiva ultrasensible" checked /></label>
+          <label class="analisis-item">Hemoglobina glucosilada<input type="checkbox" name="analisis" value="Hemoglobina glucosilada" checked /></label>
+          <label id="analisis-densitometria" class="analisis-item" style="display:none;">Densitometría ósea de columna y fémur<input type="checkbox" name="analisis" value="Densitometría ósea de columna y fémur" checked /></label>
+          <label id="analisis-antigeno" class="analisis-item" style="display:none;">Antígeno prostático específico total<input type="checkbox" name="analisis" value="Antígeno prostático específico total" checked /></label>
+        </div>
+      </form>
+    </section>
+
+    <section id="export-orden-analisis-section">
+      <h2>Exportación de órden de análisis</h2>
+      <div id="orden-analisis-export" class="orden-export-box">
+        <h3 class="patient-title-inbody">Órden de análisis</h3>
+        <p>Estudios seleccionados:</p>
+        <ul id="orden-analisis-export-list" class="orden-export-list"></ul>
+        <p id="orden-analisis-export-empty" class="orden-export-empty" style="display:none;">No hay estudios seleccionados.</p>
+
+        <div class="orden-export-nota">
+          <p>Indicaciones:</p>
+          <div id="orden-analisis-indicaciones-editor" class="orden-export-nota-editor" contenteditable="true" aria-label="Indicaciones editables para orden de análisis">
+            <ol>
+              <li>Suspender suplementos que se estén consumiendo al menos 2 días antes, de preferencia 1 semana.</li>
+              <li>Un día antes del análisis hacer una cena ligera sin grasas, no realizar actividad física ni beber alcohol.</li>
+              <li>Asistir con 8 - 10 horas de ayuno (no más) y bien hidratado.</li>
+              <li>
+                Para la muestra de orina:
+                <ul>
+                  <li>Debe ser la primera de la mañana con retención de la orina en la vejiga de al menos 4 horas (no es necesario que retenga la orina toda la noche).</li>
+                  <li>Si se recolecta en casa debe ser en un recipiente para muestra médica nuevo y llevar dentro de las primeras 2 horas de la recolección (evite recolectar en otros recipientes).</li>
+                  <li>Para recolectar: primero asear el área íntima, desechar la orina de la primera parte de la micción y recolectar el resto.</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+      <div class="actions export-actions">
+        <label class="export-select"><input id="select-export-orden" type="checkbox" checked /> Incluir en exportación global</label>
+        <button id="exportar-orden-analisis-pdf" class="btn secondary" type="button">Exportar órden de análisis a PDF</button>
+      </div>
+    </section>
+
+    <div class="actions export-all-footer">
+      <button id="exportar-selecciones-pdf" class="btn" type="button">Exportar selecciones en un solo PDF</button>
+    </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>   
+  <script>
+    // Mostrar análisis adicionales según sexo y edad
+    function updateAnalisisOpcionales() {
+      const sexo = document.getElementById('sexo').value;
+      const edad = parseInt(document.getElementById('edad').value, 10);
+      const densitometria = document.getElementById('analisis-densitometria');
+      const antigeno = document.getElementById('analisis-antigeno');
+      if (sexo === 'mujer' && edad > 30) {
+        densitometria.style.display = '';
+      } else {
+        densitometria.style.display = 'none';
+      }
+      if (sexo === 'hombre' && edad > 40) {
+        antigeno.style.display = '';
+      } else {
+        antigeno.style.display = 'none';
+      }
+    }
+    document.getElementById('sexo').addEventListener('change', updateAnalisisOpcionales);
+    document.getElementById('edad').addEventListener('input', updateAnalisisOpcionales);
+    window.addEventListener('DOMContentLoaded', updateAnalisisOpcionales);
+  </script>
+  <script>
+    // Mostrar análisis adicionales según sexo y edad
+    function updateAnalisisOpcionales() {
+      const sexo = document.getElementById('sexo').value;
+      const edad = parseInt(document.getElementById('edad').value, 10);
+      const densitometria = document.getElementById('analisis-densitometria');
+      const antigeno = document.getElementById('analisis-antigeno');
+      if (sexo === 'mujer' && edad >= 30) {
+        densitometria.style.display = '';
+      } else {
+        densitometria.style.display = 'none';
+      }
+      if (sexo === 'hombre' && edad >= 40) {
+        antigeno.style.display = '';
+      } else {
+        antigeno.style.display = 'none';
+      }
+    }
+    document.getElementById('sexo').addEventListener('change', updateAnalisisOpcionales);
+    document.getElementById('edad').addEventListener('input', updateAnalisisOpcionales);
+    window.addEventListener('DOMContentLoaded', updateAnalisisOpcionales);
+  </script>
+  <script>
+    function formatRec(id, cmd) {
+      const el = document.getElementById(id);
+      el.focus();
+      document.execCommand(cmd, false, null);
+    }
+  </script>
   <script>
     const sexoInput = document.getElementById("sexo");
+    const nombrePacienteInput = document.getElementById("nombre-paciente");
+    const reportePacienteHeading = document.getElementById("reporte-paciente-heading");
     const brazoDerechoInput = document.getElementById("brazo-derecho");
     const brazoIzquierdoInput = document.getElementById("brazo-izquierdo");
     const promedioBrazosInput = document.getElementById("promedio-brazos");
@@ -480,9 +854,22 @@
     const evalAbdomen = document.getElementById("eval-abdomen");
     const diagnosticoSection = document.getElementById("diagnostico-section");
     const reportePacienteSection = document.getElementById("reporte-paciente-section");
+    const planAlimenticioSection = document.getElementById("plan-alimenticio-section");
+    const ordenAnalisisSection = document.getElementById("orden-analisis-export");
     const diagnosticoAntropometricoInput = document.getElementById("diagnostico-antropometrico");
     const exportarDiagnosticoPdfBtn = document.getElementById("exportar-diagnostico-pdf");
     const exportarReportePacientePdfBtn = document.getElementById("exportar-reporte-paciente-pdf");
+    const exportarPlanAlimenticioPdfBtn = document.getElementById("exportar-plan-alimenticio-pdf");
+    const exportarOrdenAnalisisPdfBtn = document.getElementById("exportar-orden-analisis-pdf");
+    const exportarSeleccionesPdfBtn = document.getElementById("exportar-selecciones-pdf");
+    const selectExportDiagnostico = document.getElementById("select-export-diagnostico");
+    const selectExportReporte = document.getElementById("select-export-reporte");
+    const selectExportPlan = document.getElementById("select-export-plan");
+    const selectExportOrden = document.getElementById("select-export-orden");
+    const analisisForm = document.getElementById("analisis-form");
+    const ordenAnalisisExportList = document.getElementById("orden-analisis-export-list");
+    const ordenAnalisisExportEmpty = document.getElementById("orden-analisis-export-empty");
+    const tacharButtons = document.querySelectorAll(".btn-tachar");
 
     const repGrasaLinea = document.getElementById("rep-grasa-linea");
     const repGrasaInterpretacion = document.getElementById("rep-grasa-interpretacion");
@@ -502,6 +889,7 @@
     let recomendacionesEditadasManualmente = false;
 
     function parseNumber(value) {
+      // Acepta coma o punto decimal para facilitar la entrada manual.
       const normalized = value.replace(",", ".").trim();
       if (normalized === "") {
         return null;
@@ -751,6 +1139,15 @@
       element.textContent = value ? `Interpretacion: ${value}` : "";
     }
 
+    function formatFechaActual() {
+      const today = new Date();
+      return today.toLocaleDateString("es-MX", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+    }
+
     function roundToOneDecimal(value) {
       return Math.round(value * 10) / 10;
     }
@@ -761,6 +1158,7 @@
       }
 
       const estaturaM = estaturaCm / 100;
+      // Objetivos de referencia por sexo para estimar peso/grasa/masa libre de grasa.
       const imcObjetivo = sexo === "mujer" ? 21 : 22;
       const grasaObjetivoRatio = sexo === "mujer" ? 0.23 : 0.15;
       const mlgObjetivoRatio = sexo === "mujer" ? 0.77 : 0.85;
@@ -819,6 +1217,7 @@
       }
 
       if (recomendaciones.length === 0) {
+        // Mensaje por defecto cuando no se detectan alertas clínicas en los datos cargados.
         recomendaciones.push("Mantener hábitos actuales y realizar seguimiento periódico para conservar los rangos obtenidos.");
       }
 
@@ -826,6 +1225,11 @@
     }
 
     function updateReportePaciente() {
+      const nombrePaciente = (nombrePacienteInput.value || "").trim();
+      const fechaActual = formatFechaActual();
+      const nombreTitulo = nombrePaciente || "Sin nombre";
+      reportePacienteHeading.textContent = `Resultado para paciente: ${nombreTitulo} | Fecha: ${fechaActual}`;
+
       const sexo = sexoInput.value;
       const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
       const grasaVisceral = parseNumber(grasaVisceralInput.value);
@@ -952,6 +1356,7 @@
     }
 
     function buildExportClone(element) {
+      // Se exporta un clon fuera de pantalla para no alterar visualmente el formulario original.
       const clone = element.cloneNode(true);
       clone.style.position = "fixed";
       clone.style.left = "-10000px";
@@ -1020,6 +1425,7 @@
       let renderedHeightPx = 0;
       let pageIndex = 0;
 
+      // Corta el canvas largo en páginas A4 consecutivas para evitar recortes de contenido.
       while (renderedHeightPx < canvas.height) {
         const sliceHeightPx = Math.min(pageSliceHeightPx, canvas.height - renderedHeightPx);
         const pageCanvas = document.createElement("canvas");
@@ -1063,7 +1469,127 @@
       await exportElementAsPdf(reportePacienteSection, "reporte-paciente-inbody.pdf");
     }
 
+    function aplicarTachadoEnEditor(editorId) {
+      const editor = document.getElementById(editorId);
+      if (!editor) {
+        return;
+      }
+
+      editor.focus();
+      document.execCommand("strikeThrough");
+    }
+
+    async function exportarPlanAlimenticioPdf() {
+      await exportElementAsPdf(planAlimenticioSection, "plan-comidas.pdf");
+    }
+
+    async function exportarOrdenAnalisisPdf() {
+      await exportElementAsPdf(ordenAnalisisSection, "orden-analisis.pdf");
+    }
+
+    function createCombinedExportElement(secciones) {
+      const container = document.querySelector(".container");
+      const wrapper = document.createElement("div");
+      wrapper.style.position = "fixed";
+      wrapper.style.left = "-10000px";
+      wrapper.style.top = "0";
+      wrapper.style.width = `${container.getBoundingClientRect().width}px`;
+      wrapper.style.padding = "18px";
+      wrapper.style.background = "#ffffff";
+      wrapper.style.border = "1px solid #e2e8f0";
+      wrapper.style.borderRadius = "10px";
+
+      secciones.forEach((seccion, index) => {
+        const titulo = document.createElement("h2");
+        titulo.textContent = seccion.titulo;
+        titulo.style.margin = "0 0 10px";
+        titulo.style.fontSize = "1.2rem";
+        titulo.style.color = "#0b4f4a";
+
+        const contenido = seccion.elemento.cloneNode(true);
+        const tituloInterno = contenido.querySelector("h2");
+        if (tituloInterno) {
+          tituloInterno.remove();
+        }
+
+        wrapper.appendChild(titulo);
+        wrapper.appendChild(contenido);
+
+        if (index < secciones.length - 1) {
+          const separador = document.createElement("hr");
+          separador.style.margin = "18px 0";
+          separador.style.border = "0";
+          separador.style.borderTop = "1px solid #dbeafe";
+          wrapper.appendChild(separador);
+        }
+      });
+
+      document.body.appendChild(wrapper);
+      return wrapper;
+    }
+
+    async function exportarSeleccionesPdf() {
+      const secciones = [];
+
+      if (selectExportDiagnostico.checked) {
+        secciones.push({ titulo: "Diagnóstico antropométrico", elemento: diagnosticoSection });
+      }
+
+      if (selectExportReporte.checked) {
+        secciones.push({ titulo: reportePacienteHeading.textContent, elemento: reportePacienteSection });
+      }
+
+      if (selectExportPlan.checked) {
+        secciones.push({ titulo: "Plan de comidas", elemento: planAlimenticioSection });
+      }
+
+      if (selectExportOrden.checked) {
+        secciones.push({ titulo: "Órden de análisis", elemento: ordenAnalisisSection });
+      }
+
+      if (secciones.length === 0) {
+        alert("Selecciona al menos una sección para exportar.");
+        return;
+      }
+
+      const combinedElement = createCombinedExportElement(secciones);
+
+      try {
+        await exportElementAsPdf(combinedElement, "exportacion-seleccionada.pdf");
+      } finally {
+        combinedElement.remove();
+      }
+    }
+
+    function updateOrdenAnalisisExport() {
+      const selectedItems = Array.from(document.querySelectorAll("#analisis-form .analisis-item input[type='checkbox']:checked"))
+        .filter((checkbox) => {
+          const label = checkbox.closest("label");
+          return label && getComputedStyle(label).display !== "none";
+        })
+        .map((checkbox) => {
+          const label = checkbox.closest("label");
+          return label ? label.textContent.trim() : "";
+        })
+        .filter(Boolean);
+
+      ordenAnalisisExportList.innerHTML = "";
+
+      if (selectedItems.length === 0) {
+        ordenAnalisisExportEmpty.style.display = "";
+        return;
+      }
+
+      ordenAnalisisExportEmpty.style.display = "none";
+      selectedItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ordenAnalisisExportList.appendChild(li);
+      });
+    }
+
     [
+      nombrePacienteInput,
       sexoInput,
       porcentajeGrasaInput,
       grasaVisceralInput,
@@ -1082,6 +1608,17 @@
 
     exportarDiagnosticoPdfBtn.addEventListener("click", exportarDiagnosticoPdf);
     exportarReportePacientePdfBtn.addEventListener("click", exportarReportePacientePdf);
+    exportarPlanAlimenticioPdfBtn.addEventListener("click", exportarPlanAlimenticioPdf);
+    exportarOrdenAnalisisPdfBtn.addEventListener("click", exportarOrdenAnalisisPdf);
+    exportarSeleccionesPdfBtn.addEventListener("click", exportarSeleccionesPdf);
+    analisisForm.addEventListener("change", updateOrdenAnalisisExport);
+    sexoInput.addEventListener("change", updateOrdenAnalisisExport);
+    document.getElementById("edad").addEventListener("input", updateOrdenAnalisisExport);
+    tacharButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        aplicarTachadoEnEditor(button.dataset.targetEditor);
+      });
+    });
     restaurarRecomendacionesBtn.addEventListener("click", () => {
       recomendacionesEditadasManualmente = false;
       updateReportePaciente();
@@ -1092,6 +1629,7 @@
 
     onInputChange();
     updateReportePaciente();
+    updateOrdenAnalisisExport();
   </script>
 </body>
 </html>
