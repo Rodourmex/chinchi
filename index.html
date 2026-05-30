@@ -563,7 +563,7 @@
     <section id="diagnostico-section">
       <h2>Diagnóstico antropométrico</h2>
       <div class="field">
-        <label for="diagnostico-antropometrico">Texto sugerido editable</label>
+        <label for="diagnostico-antropometrico" class="export-hide">Texto sugerido editable</label>
         <textarea id="diagnostico-antropometrico" name="diagnostico-antropometrico" rows="7"></textarea>
         <span class="hint">Puedes editar este texto manualmente.</span>
         <div class="actions export-actions">
@@ -1155,7 +1155,7 @@
         el.remove();
       });
 
-      clone.querySelectorAll("label[for='diagnostico-antropometrico']").forEach((el) => {
+      clone.querySelectorAll(".export-hide, label[for='diagnostico-antropometrico']").forEach((el) => {
         el.remove();
       });
 
