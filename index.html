@@ -420,6 +420,46 @@
       padding-top: 12px;
       border-top: 1px solid #e2e8f0;
     }
+
+    .meal-recommendation {
+      margin-top: 10px;
+      padding: 12px 16px;
+      border: 1px dashed #bfdbfe;
+      border-radius: 10px;
+      background: #f8fbff;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #1e293b;
+      min-height: 60px;
+    }
+
+    .meal-recommendation:focus {
+      outline: 2px solid #bfdbfe;
+      border-color: #3b82f6;
+      background: #fff;
+    }
+
+    .meal-recommendation p {
+      margin: 0 0 6px;
+    }
+
+    .meal-recommendation p:last-child {
+      margin-bottom: 0;
+    }
+
+    .rec-btn {
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      background: #f1f5f9;
+      color: #334155;
+      font-size: 0.82rem;
+      padding: 3px 8px;
+      cursor: pointer;
+    }
+
+    .rec-btn:hover {
+      background: #e2e8f0;
+    }
   </style>
 </head>
 <body>
@@ -467,28 +507,18 @@
         </div>
 
         <div class="field">
-          <label for="imc">IMC (kg/m2)</label>
-          <input id="imc" name="imc" type="number" step="0.1" placeholder="Ej. 21.7" />
-        </div>
-
-        <div class="field">
-          <label for="estatura">Estatura (cm)</label>
-          <input id="estatura" name="estatura" type="number" step="0.1" placeholder="Ej. 170.5" />
-        </div>
-
-        <div class="field">
           <label for="peso-actual">Peso actual (kg)</label>
-          <input id="peso-actual" name="peso_actual" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <input id="peso-actual" name="peso_actual" type="number" step="0.1" placeholder="Ej. 70.0" />
         </div>
 
         <div class="field">
           <label for="grasa-corporal-kg">Grasa corporal (kg)</label>
-          <input id="grasa-corporal-kg" name="grasa_corporal_kg" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <input id="grasa-corporal-kg" name="grasa_corporal_kg" type="number" step="0.1" placeholder="Ej. 14.0" />
         </div>
 
         <div class="field">
           <label for="mlg">MLG (kg)</label>
-          <input id="mlg" name="mlg" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <input id="mlg" name="mlg" type="number" step="0.1" placeholder="Ej. 56.0" />
         </div>
       </div>
     </section>
@@ -508,43 +538,17 @@
     </section>
 
     <section>
-      <h2>Segmental - Brazos, piernas y abdomen</h2>
+      <h2>Datos segmentales</h2>
       <div class="grid">
         <div class="field">
-          <label for="brazo-derecho">Brazo derecho (%)</label>
-          <input id="brazo-derecho" name="brazo_derecho" type="number" step="0.1" placeholder="Ej. 98" />
-          <div id="eval-brazo-derecho" class="evaluation"></div>
-        </div>
-
-        <div class="field">
-          <label for="brazo-izquierdo">Brazo izquierdo (%)</label>
-          <input id="brazo-izquierdo" name="brazo_izquierdo" type="number" step="0.1" placeholder="Ej. 99" />
-          <div id="eval-brazo-izquierdo" class="evaluation"></div>
-        </div>
-
-        <div class="field">
-          <label for="promedio-brazos">Promedio de izquierdo y derecho (%)</label>
-          <input id="promedio-brazos" name="promedio_brazos" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <label for="promedio-brazos">Promedio brazos (%)</label>
+          <input id="promedio-brazos" name="promedio_brazos" type="number" step="0.1" placeholder="Ej. 98.5" />
           <div id="eval-promedio-brazos" class="evaluation"></div>
         </div>
 
         <div class="field">
-          <label for="pierna-izquierda">Pierna izquierda (%)</label>
-          <input id="pierna-izquierda" name="pierna_izquierda" type="number" step="0.1" placeholder="Ej. 100" />
-          <span class="hint">Valor para calcular el promedio de piernas</span>
-          <div id="eval-pierna-izquierda" class="evaluation"></div>
-        </div>
-
-        <div class="field">
-          <label for="pierna-derecha">Pierna derecha (%)</label>
-          <input id="pierna-derecha" name="pierna_derecha" type="number" step="0.1" placeholder="Ej. 102" />
-          <span class="hint">Valor para calcular el promedio de piernas</span>
-          <div id="eval-pierna-derecha" class="evaluation"></div>
-        </div>
-
-        <div class="field">
-          <label for="promedio-piernas">Piernas (promedio de izquierda y derecha) (%)</label>
-          <input id="promedio-piernas" name="promedio_piernas" type="number" step="0.1" placeholder="Se calcula automaticamente" readonly />
+          <label for="promedio-piernas">Promedio piernas (%)</label>
+          <input id="promedio-piernas" name="promedio_piernas" type="number" step="0.1" placeholder="Ej. 101.0" />
           <div id="eval-promedio-piernas" class="evaluation"></div>
         </div>
 
@@ -559,7 +563,7 @@
     <section id="diagnostico-section">
       <h2>Diagnóstico antropométrico</h2>
       <div class="field">
-        <label for="diagnostico-antropometrico">Texto sugerido editable</label>
+        <label for="diagnostico-antropometrico" class="export-hide">Texto sugerido editable</label>
         <textarea id="diagnostico-antropometrico" name="diagnostico-antropometrico" rows="7"></textarea>
         <span class="hint">Puedes editar este texto manualmente.</span>
         <div class="actions export-actions">
@@ -593,19 +597,17 @@
         </div>
 
         <div class="patient-block">
-          <p class="patient-label">• M&uacute;sculo segmental</p>
+          <p class="patient-label">• Músculo segmental</p>
           <ul class="patient-sublist">
             <li id="rep-promedio-brazos">Promedio brazos: Sin dato</li>
             <li id="rep-promedio-piernas">Promedio piernas: Sin dato</li>
             <li id="rep-abdomen">Abdomen: Sin dato</li>
           </ul>
-          <p id="rep-segmental-interpretacion" class="patient-interpretation"></p>
         </div>
 
         <div class="patient-block">
           <p class="patient-label">• Datos adicionales</p>
           <ul class="patient-sublist">
-            <li id="rep-imc">IMC: Sin dato</li>
             <li id="rep-sexo">Sexo: Sin dato</li>
           </ul>
         </div>
@@ -636,13 +638,7 @@
               <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','italic')" title="Cursiva"><i>I</i></button>
               <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
             </div>
-          <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno">Base: proteina (pechuga de pollo o pavo o atun o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.
-            Opcional (dependiente de cantidad de ejercicio):
-            Tortillas de maiz o salmas o thin cero cero.
-            Tortillas de linaza o tostadas susalias o pan cero cero.
-            Avena o linaza cocidas y remojada previamente o amaranto natural.
-            Postre: 1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas u obleas sin azucar; o 1/3 de barrita proteica.
-          </div>
+          <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno"><p>• <em>Base:</em> Proteína (pechuga de pollo o pavo o atún o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.</p><p>Opcional (dependiente de cantidad de ejercicio):</p><p>• <em>Acompañamiento:</em> Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</p><p>• <em>Postre:</em> Fruta (1 porción)</p></div>
         </div>
 
         <div class="meal-block">
@@ -656,8 +652,7 @@
                         <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','italic')" title="Cursiva"><i>I</i></button>
                         <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
                       </div>
-            <div id="colacion-matutina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación matutina">Base: verduras picadas (jicama, pepino, apio, zanahoria, betabel) + semillas naturales (7 nueces o 10 almendras o 15 cacahuates o pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de cacao obscuro al 80% sin azucar).
-          1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas.</div>
+            <div id="colacion-matutina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación matutina"><p>Base: Verduras crudas (jícama, pepino, zanahoria, betabel) y semillas naturales.</p><p>Opcional (según ejercicio): fruta o/y lácteo fermentado (ej. yogur).</p></div>
         </div>
 
         <div class="meal-block">
@@ -671,7 +666,7 @@
                               <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','italic')" title="Cursiva"><i>I</i></button>
                               <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
                             </div>
-                  <div id="comida-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para comida">Base: pollo sin grasa ni piel o pescado de color o blanco, opcional 1-2/semana carne roja sin grasa (sabana o lomo o bistec) de res o puerco -> asados, al vapor, cocidos, guisados (mientras contenga poca grasa) + verduras cocidas o crudas sin aderezos + agua natural o de sabor sin azucar. Evitar fritos, capeados, empanizados, salsas grasosas y/o dulces como el mole, quesos y embutidos, sopas, consomes, arroz, pastas, pan, postres. Opcional (dependiente de cantidad de ejercicio): Frijoles, lentejas, habas, garbanzos o chicharos remojados y cocidas previamente. Piezas de tortillas de maiz o (x) piezas de tortillas de linaza. Arroz integral al vapor. Postre: 1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas. *Checar recomendaciones diarios de comedor en whatsapp, elegir las opciones marcadas en verde.</div>
+                  <div id="comida-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para comida"><p><em>Base:</em> Pollo sin grasa ni piel o pescado de color o blanco, opcional 1-2/semana carne roja sin grasa (sabana, lomo o bistec) de res o puerco. Verduras cocidas o crudas. Agua natural o de sabor sin azúcar.</p><p>- Evitar fritos, capeados, empanizados, salsas grasosas, dulces, quesos.</p><p>- Opcional (dependiente de ejercicio): Acompañamiento (arroz integral, frijoles, lentejas, habas, garbanzos). Postre: Porción de fruta.</p></div>
         </div>
 
         <div class="meal-block">
@@ -685,8 +680,7 @@
                           <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','italic')" title="Cursiva"><i>I</i></button>
                           <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
                         </div>
-              <div id="colacion-vespertina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación vespertina">Base: verduras picadas (jicama, pepino, apio, zanahoria, betabel) + semillas naturales (7 nueces o 10 almendras o 15 cacahuates o pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de cacao obscuro al 80% sin azucar).
-            1 porcion de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya, sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, pina, uvas.</div>
+              <div id="colacion-vespertina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación vespertina"><p>Base: Verduras crudas (jícama, pepino, zanahoria, betabel) y semillas naturales.</p><p>Opcional (según ejercicio): fruta o/y lácteo fermentado (ej. yogur).</p></div>
         </div>
 
         <div class="meal-block">
@@ -700,7 +694,7 @@
               <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','italic')" title="Cursiva"><i>I</i></button>
               <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
             </div>
-            <div id="cena-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para cena">Base: proteina (pechuga de pollo o pavo o atun o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate. Opcional (dependiente de cantidad de ejercicio): Tortillas de maiz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</div>
+            <div id="cena-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para cena"><p>Base: Proteína (pollo, pavo, atún, huevo entero + claras), verduras cocidas o crudas sin aderezos y aguacate.</p><p>Opcional (dependiente de cantidad de ejercicio): Acompañamiento de tortillas, pan integral, linaza o amaranto.</p></div>
         </div>
 
         <div class="meal-block">
@@ -824,31 +818,21 @@
     const sexoInput = document.getElementById("sexo");
     const nombrePacienteInput = document.getElementById("nombre-paciente");
     const reportePacienteHeading = document.getElementById("reporte-paciente-heading");
-    const brazoDerechoInput = document.getElementById("brazo-derecho");
-    const brazoIzquierdoInput = document.getElementById("brazo-izquierdo");
     const promedioBrazosInput = document.getElementById("promedio-brazos");
 
     const porcentajeGrasaInput = document.getElementById("porcentaje-grasa");
     const grasaVisceralInput = document.getElementById("grasa-visceral");
-    const imcInput = document.getElementById("imc");
-    const estaturaInput = document.getElementById("estatura");
     const pesoActualInput = document.getElementById("peso-actual");
     const grasaCorporalKgInput = document.getElementById("grasa-corporal-kg");
     const mlgInput = document.getElementById("mlg");
     const musculoTotalInput = document.getElementById("musculo-total");
 
-    const piernaIzquierdaInput = document.getElementById("pierna-izquierda");
-    const piernaDerechaInput = document.getElementById("pierna-derecha");
     const promedioPiernasInput = document.getElementById("promedio-piernas");
     const abdomenInput = document.getElementById("abdomen");
 
     const evalPorcentajeGrasa = document.getElementById("eval-porcentaje-grasa");
     const evalGrasaVisceral = document.getElementById("eval-grasa-visceral");
     const evalMusculoTotal = document.getElementById("eval-musculo-total");
-    const evalBrazoDerecho = document.getElementById("eval-brazo-derecho");
-    const evalBrazoIzquierdo = document.getElementById("eval-brazo-izquierdo");
-    const evalPiernaIzquierda = document.getElementById("eval-pierna-izquierda");
-    const evalPiernaDerecha = document.getElementById("eval-pierna-derecha");
     const evalPromedioBrazos = document.getElementById("eval-promedio-brazos");
     const evalPromedioPiernas = document.getElementById("eval-promedio-piernas");
     const evalAbdomen = document.getElementById("eval-abdomen");
@@ -879,9 +863,7 @@
     const repMusculoTotalInterpretacion = document.getElementById("rep-musculo-total-interpretacion");
     const repPromedioBrazos = document.getElementById("rep-promedio-brazos");
     const repPromedioPiernas = document.getElementById("rep-promedio-piernas");
-    const repSegmentalInterpretacion = document.getElementById("rep-segmental-interpretacion");
     const repAbdomen = document.getElementById("rep-abdomen");
-    const repImc = document.getElementById("rep-imc");
     const repSexo = document.getElementById("rep-sexo");
     const repRecomendaciones = document.getElementById("rep-recomendaciones");
     const restaurarRecomendacionesBtn = document.getElementById("restaurar-recomendaciones");
@@ -897,14 +879,6 @@
 
       const parsed = Number(normalized);
       return Number.isFinite(parsed) ? parsed : null;
-    }
-
-    function formatAverage(value) {
-      return value.toFixed(1);
-    }
-
-    function formatMetric(value) {
-      return value.toFixed(1);
     }
 
     function setEvaluation(target, text) {
@@ -1006,59 +980,12 @@
       return "FUERA DE RANGO DEFINIDO";
     }
 
-    function setAverage(leftInput, rightInput, targetInput) {
-      const left = parseNumber(leftInput.value);
-      const right = parseNumber(rightInput.value);
-
-      if (left === null || right === null) {
-        targetInput.value = "";
-        return;
-      }
-
-      targetInput.value = formatAverage((left + right) / 2);
-    }
-
-    function updatePromedios() {
-      setAverage(brazoIzquierdoInput, brazoDerechoInput, promedioBrazosInput);
-      setAverage(piernaIzquierdaInput, piernaDerechaInput, promedioPiernasInput);
-    }
-
-    function updateImcFields() {
-      const imc = parseNumber(imcInput.value);
-      const estaturaCm = parseNumber(estaturaInput.value);
-      const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
-
-      if (imc !== null && estaturaCm !== null && imc > 0 && estaturaCm > 0) {
-        const estaturaM = estaturaCm / 100;
-        const pesoCalculado = imc * estaturaM * estaturaM;
-        pesoActualInput.value = formatMetric(pesoCalculado);
-
-        if (porcentajeGrasa !== null) {
-          const grasaCalculada = pesoCalculado * (porcentajeGrasa / 100);
-          grasaCorporalKgInput.value = formatMetric(grasaCalculada);
-          mlgInput.value = formatMetric(pesoCalculado - grasaCalculada);
-        } else {
-          grasaCorporalKgInput.value = "";
-          mlgInput.value = "";
-        }
-        return;
-      }
-
-      pesoActualInput.value = "";
-      grasaCorporalKgInput.value = "";
-      mlgInput.value = "";
-    }
-
     function updateEvaluaciones() {
       const sexo = sexoInput.value;
 
       const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
       const grasaVisceral = parseNumber(grasaVisceralInput.value);
       const musculoTotal = parseNumber(musculoTotalInput.value);
-      const brazoDerecho = parseNumber(brazoDerechoInput.value);
-      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
-      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
-      const piernaDerecha = parseNumber(piernaDerechaInput.value);
       const promedioBrazos = parseNumber(promedioBrazosInput.value);
       const promedioPiernas = parseNumber(promedioPiernasInput.value);
       const abdomen = parseNumber(abdomenInput.value);
@@ -1066,59 +993,15 @@
       setEvaluation(evalPorcentajeGrasa, evalGrasaPorSexo(porcentajeGrasa, sexo));
       setEvaluation(evalGrasaVisceral, evalVisceral(grasaVisceral));
       setEvaluation(evalMusculoTotal, evalMusculo(musculoTotal));
-      setEvaluation(evalBrazoDerecho, evalMusculo(brazoDerecho));
-      setEvaluation(evalBrazoIzquierdo, evalMusculo(brazoIzquierdo));
-      setEvaluation(evalPiernaIzquierda, evalMusculo(piernaIzquierda));
-      setEvaluation(evalPiernaDerecha, evalMusculo(piernaDerecha));
       setEvaluation(evalPromedioBrazos, evalMusculo(promedioBrazos));
       setEvaluation(evalPromedioPiernas, evalMusculo(promedioPiernas));
       setEvaluation(evalAbdomen, evalMusculo(abdomen));
     }
 
     function onInputChange() {
-      updateImcFields();
-      updatePromedios();
       updateEvaluaciones();
       updateDiagnosticoAntropometrico();
       updateReportePaciente();
-    }
-
-    function buildDesequilibriosTexto(brazoIzquierdo, brazoDerecho, piernaIzquierda, piernaDerecha, promedioBrazos, promedioPiernas) {
-      const hallazgos = [];
-
-      if (brazoIzquierdo !== null && brazoDerecho !== null && Math.abs(brazoIzquierdo - brazoDerecho) >= 6) {
-        hallazgos.push("se observa desequilibrio hemisferico en brazos");
-      }
-
-      if (piernaIzquierda !== null && piernaDerecha !== null && Math.abs(piernaIzquierda - piernaDerecha) >= 3) {
-        hallazgos.push("se observa desequilibrio hemisferico en el tren inferior");
-      }
-
-      if (promedioBrazos !== null && promedioPiernas !== null && Math.abs(promedioBrazos - promedioPiernas) >= 3) {
-        hallazgos.push("se observa desequilibrio entre tren superior e inferior");
-      }
-
-      if (hallazgos.length === 0) {
-        return "sin hallazgos relevantes de desequilibrio muscular";
-      }
-
-      return hallazgos.join(", ");
-    }
-
-    function buildImcObservacionTexto(imc, sexo) {
-      if (imc === null || !sexo) {
-        return "";
-      }
-
-      if (sexo === "mujer" && imc < 21) {
-        return " Puede deberse a falta de masa muscular.";
-      }
-
-      if (sexo === "hombre" && imc < 22) {
-        return " Puede deberse a falta de masa muscular.";
-      }
-
-      return "";
     }
 
     function formatValueOrNd(value, suffix) {
@@ -1148,35 +1031,6 @@
       });
     }
 
-    function roundToOneDecimal(value) {
-      return Math.round(value * 10) / 10;
-    }
-
-    function calcularObjetivosComposicion(sexo, estaturaCm, pesoActual, grasaCorporalKg, mlgKg) {
-      if (!sexo || estaturaCm === null || pesoActual === null || grasaCorporalKg === null || mlgKg === null) {
-        return null;
-      }
-
-      const estaturaM = estaturaCm / 100;
-      // Objetivos de referencia por sexo para estimar peso/grasa/masa libre de grasa.
-      const imcObjetivo = sexo === "mujer" ? 21 : 22;
-      const grasaObjetivoRatio = sexo === "mujer" ? 0.23 : 0.15;
-      const mlgObjetivoRatio = sexo === "mujer" ? 0.77 : 0.85;
-
-      const pesoEstandar = roundToOneDecimal(estaturaM * estaturaM * imcObjetivo);
-      const grasaEstandarKg = roundToOneDecimal(pesoEstandar * grasaObjetivoRatio);
-      const mlgEstandarKg = roundToOneDecimal(pesoEstandar * mlgObjetivoRatio);
-
-      return {
-        pesoEstandar,
-        grasaEstandarKg,
-        mlgEstandarKg,
-        controlPesoKg: roundToOneDecimal(pesoEstandar - pesoActual),
-        controlGrasaKg: roundToOneDecimal(grasaEstandarKg - grasaCorporalKg),
-        controlMusculoKg: roundToOneDecimal(mlgEstandarKg - mlgKg),
-      };
-    }
-
     function generarRecomendaciones(data) {
       const recomendaciones = [];
 
@@ -1190,30 +1044,6 @@
 
       if (["BAJO", "NORMAL-BAJO"].includes(data.clasificacionMusculoTotal)) {
         recomendaciones.push("Aumentar masa muscular con entrenamiento de fuerza progresivo y plan proteico adecuado.");
-      }
-
-      if (data.objetivosComposicion && data.objetivosComposicion.controlGrasaKg < 0) {
-        recomendaciones.push(`Reducir aproximadamente ${Math.abs(data.objetivosComposicion.controlGrasaKg).toFixed(1)} kg de grasa corporal para acercarse al objetivo estimado.`);
-      }
-
-      if (data.objetivosComposicion && data.objetivosComposicion.controlMusculoKg > 0) {
-        recomendaciones.push(`Incrementar aproximadamente ${data.objetivosComposicion.controlMusculoKg.toFixed(1)} kg de músculo.`);
-      }
-
-      if (data.diferenciaBrazos >= 6) {
-        recomendaciones.push(`Se detecta desequilibrio entre brazos (diferencia ${data.diferenciaBrazos.toFixed(1)}%). Enfocar trabajo unilateral de tren superior para equilibrar fuerza y volumen entre ambos brazos.`);
-      }
-
-      if (data.diferenciaPiernas > 3) {
-        recomendaciones.push(`Se detecta desequilibrio entre piernas (diferencia ${data.diferenciaPiernas.toFixed(1)}%). Priorizar ejercicios unilaterales de tren inferior para reducir la asimetría entre pierna derecha e izquierda.`);
-      }
-
-      if (data.diferenciaPromedios > 3) {
-        recomendaciones.push(`Se detecta desequilibrio entre tren superior e inferior (diferencia ${data.diferenciaPromedios.toFixed(1)}%). Ajustar la planificación para mejorar la proporción muscular global por tren corporal.`);
-      }
-
-      if (data.imcBajo) {
-        recomendaciones.push("El IMC sugiere posible baja masa muscular; reforzar estrategia de ganancia muscular supervisada.");
       }
 
       if (recomendaciones.length === 0) {
@@ -1237,16 +1067,6 @@
       const promedioBrazos = parseNumber(promedioBrazosInput.value);
       const promedioPiernas = parseNumber(promedioPiernasInput.value);
       const abdomen = parseNumber(abdomenInput.value);
-      const imc = parseNumber(imcInput.value);
-      const estatura = parseNumber(estaturaInput.value);
-      const pesoActual = parseNumber(pesoActualInput.value);
-      const grasaCorporalKg = parseNumber(grasaCorporalKgInput.value);
-      const mlg = parseNumber(mlgInput.value);
-
-      const brazoDerecho = parseNumber(brazoDerechoInput.value);
-      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
-      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
-      const piernaDerecha = parseNumber(piernaDerechaInput.value);
 
       const clasificacionGrasa = evalGrasaPorSexo(porcentajeGrasa, sexo);
       const clasificacionVisceral = evalVisceral(grasaVisceral);
@@ -1254,13 +1074,6 @@
       const clasificacionPromedioBrazos = evalMusculo(promedioBrazos);
       const clasificacionPromedioPiernas = evalMusculo(promedioPiernas);
       const clasificacionAbdomen = evalMusculo(abdomen);
-
-      const diferenciaBrazos = brazoDerecho !== null && brazoIzquierdo !== null ? Math.abs(brazoDerecho - brazoIzquierdo) : 0;
-      const diferenciaPiernas = piernaDerecha !== null && piernaIzquierda !== null ? Math.abs(piernaDerecha - piernaIzquierda) : 0;
-      const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
-
-      const imcBajo = (sexo === "mujer" && imc !== null && imc < 21) || (sexo === "hombre" && imc !== null && imc < 22);
-      const objetivosComposicion = calcularObjetivosComposicion(sexo, estatura, pesoActual, grasaCorporalKg, mlg);
 
       repGrasaLinea.textContent = `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`;
       setInterpretacionLinea(repGrasaInterpretacion, clasificacionGrasa);
@@ -1274,27 +1087,13 @@
       repPromedioBrazos.textContent = `Promedio brazos: ${formatValuePaciente(promedioBrazos, "%")} (${clasificacionPromedioBrazos || "Sin interpretacion"})`;
       repPromedioPiernas.textContent = `Promedio piernas: ${formatValuePaciente(promedioPiernas, "%")} (${clasificacionPromedioPiernas || "Sin interpretacion"})`;
 
-      if (diferenciaBrazos > 6 || diferenciaPiernas > 3 || diferenciaPromedios > 3) {
-        repSegmentalInterpretacion.textContent = "Interpretacion: Hay datos de desequilibrio segmental";
-      } else if (promedioBrazos !== null || promedioPiernas !== null) {
-        repSegmentalInterpretacion.textContent = "Interpretacion: Sin desequilibrios segmentales relevantes";
-      } else {
-        repSegmentalInterpretacion.textContent = "";
-      }
-
       repAbdomen.textContent = `Abdomen: ${formatValuePaciente(abdomen, "%")} (${clasificacionAbdomen || "Sin interpretacion"})`;
-      repImc.textContent = `IMC: ${formatValuePaciente(imc, " kg/m2")}`;
       repSexo.textContent = `Sexo: ${sexo ? sexo.charAt(0).toUpperCase() + sexo.slice(1) : "Sin dato"}`;
 
       const recomendaciones = generarRecomendaciones({
         clasificacionGrasa,
         clasificacionVisceral,
         clasificacionMusculoTotal,
-        diferenciaBrazos,
-        diferenciaPiernas,
-        diferenciaPromedios,
-        imcBajo,
-        objetivosComposicion,
       });
 
       if (!recomendacionesEditadasManualmente) {
@@ -1310,12 +1109,6 @@
       const musculoTotal = parseNumber(musculoTotalInput.value);
       const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
       const grasaVisceral = parseNumber(grasaVisceralInput.value);
-      const imc = parseNumber(imcInput.value);
-
-      const brazoDerecho = parseNumber(brazoDerechoInput.value);
-      const brazoIzquierdo = parseNumber(brazoIzquierdoInput.value);
-      const piernaIzquierda = parseNumber(piernaIzquierdaInput.value);
-      const piernaDerecha = parseNumber(piernaDerechaInput.value);
       const promedioBrazos = parseNumber(promedioBrazosInput.value);
       const promedioPiernas = parseNumber(promedioPiernasInput.value);
 
@@ -1323,11 +1116,6 @@
         musculoTotal,
         porcentajeGrasa,
         grasaVisceral,
-        imc,
-        brazoDerecho,
-        brazoIzquierdo,
-        piernaIzquierda,
-        piernaDerecha,
         promedioBrazos,
         promedioPiernas,
       ].some((value) => value !== null) || Boolean(sexo);
@@ -1341,18 +1129,7 @@
       const clasificacionGrasa = evalGrasaPorSexo(porcentajeGrasa, sexo) || "N/D";
       const clasificacionVisceral = evalVisceral(grasaVisceral) || "N/D";
 
-      const desequilibriosTexto = buildDesequilibriosTexto(
-        brazoIzquierdo,
-        brazoDerecho,
-        piernaIzquierda,
-        piernaDerecha,
-        promedioBrazos,
-        promedioPiernas
-      );
-
-      const imcObservacion = buildImcObservacionTexto(imc, sexo);
-
-      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), ${desequilibriosTexto}, con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${imcObservacion}`;
+      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).`;
     }
 
     function buildExportClone(element) {
@@ -1368,6 +1145,18 @@
 
       clone.querySelectorAll("button").forEach((btn) => {
         btn.remove();
+      });
+
+      clone.querySelectorAll(".export-actions").forEach((el) => {
+        el.remove();
+      });
+
+      clone.querySelectorAll(".hint").forEach((el) => {
+        el.remove();
+      });
+
+      clone.querySelectorAll(".export-hide, label[for='diagnostico-antropometrico']").forEach((el) => {
+        el.remove();
       });
 
       clone.querySelectorAll("textarea").forEach((textarea) => {
@@ -1593,13 +1382,12 @@
       sexoInput,
       porcentajeGrasaInput,
       grasaVisceralInput,
-      imcInput,
-      estaturaInput,
+      pesoActualInput,
+      grasaCorporalKgInput,
+      mlgInput,
       musculoTotalInput,
-      brazoDerechoInput,
-      brazoIzquierdoInput,
-      piernaIzquierdaInput,
-      piernaDerechaInput,
+      promedioBrazosInput,
+      promedioPiernasInput,
       abdomenInput,
     ].forEach((input) => {
       input.addEventListener("input", onInputChange);
