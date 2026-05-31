@@ -1031,6 +1031,18 @@
       });
     }
 
+    function getTrenMenosDesarrollado(promedioBrazos, promedioPiernas) {
+      if (promedioBrazos === null || promedioPiernas === null) {
+        return "";
+      }
+
+      if (Math.abs(promedioBrazos - promedioPiernas) <= 3) {
+        return "";
+      }
+
+      return promedioBrazos < promedioPiernas ? "tren superior" : "tren inferior";
+    }
+
     function generarRecomendaciones(data) {
       const recomendaciones = [];
 
@@ -1044,6 +1056,10 @@
 
       if (["BAJO", "NORMAL-BAJO"].includes(data.clasificacionMusculoTotal)) {
         recomendaciones.push("Aumentar masa muscular con entrenamiento de fuerza progresivo y plan proteico adecuado.");
+      }
+
+      if (data.diferenciaPromedios > 3 && data.trenMenosDesarrollado) {
+        recomendaciones.push(`Se detecta desequilibrio entre tren superior e inferior (diferencia ${data.diferenciaPromedios.toFixed(1)}%). Incrementar progresivamente la carga de entrenamiento del ${data.trenMenosDesarrollado}.`);
       }
 
       if (recomendaciones.length === 0) {
@@ -1074,6 +1090,8 @@
       const clasificacionPromedioBrazos = evalMusculo(promedioBrazos);
       const clasificacionPromedioPiernas = evalMusculo(promedioPiernas);
       const clasificacionAbdomen = evalMusculo(abdomen);
+      const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
+      const trenMenosDesarrollado = getTrenMenosDesarrollado(promedioBrazos, promedioPiernas);
 
       repGrasaLinea.textContent = `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`;
       setInterpretacionLinea(repGrasaInterpretacion, clasificacionGrasa);
@@ -1094,6 +1112,8 @@
         clasificacionGrasa,
         clasificacionVisceral,
         clasificacionMusculoTotal,
+        diferenciaPromedios,
+        trenMenosDesarrollado,
       });
 
       if (!recomendacionesEditadasManualmente) {
@@ -1128,17 +1148,29 @@
       const clasificacionMusculo = evalMusculo(musculoTotal) || "N/D";
       const clasificacionGrasa = evalGrasaPorSexo(porcentajeGrasa, sexo) || "N/D";
       const clasificacionVisceral = evalVisceral(grasaVisceral) || "N/D";
+      const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
+      const trenMenosDesarrollado = getTrenMenosDesarrollado(promedioBrazos, promedioPiernas);
+      const textoDesequilibrio = diferenciaPromedios > 3
+        ? ` Se observa desequilibrio entre tren superior e inferior (diferencia ${diferenciaPromedios.toFixed(1)}%). Se recomienda incrementar la carga de entrenamiento del ${trenMenosDesarrollado}.`
+        : "";
 
-      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).`;
+      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${textoDesequilibrio}`;
     }
 
     function buildExportClone(element) {
       // Se exporta un clon fuera de pantalla para no alterar visualmente el formulario original.
       const clone = element.cloneNode(true);
+      const container = document.querySelector(".container");
+      const elementWidth = element.getBoundingClientRect().width;
+      const containerWidth = container ? container.getBoundingClientRect().width : 0;
+      const viewportWidth = Math.max(320, window.innerWidth || 1024);
+      const fallbackWidth = Math.max(320, Math.min(900, viewportWidth - 48));
+      const exportWidth = Math.max(elementWidth, containerWidth, fallbackWidth);
+
       clone.style.position = "fixed";
       clone.style.left = "-10000px";
       clone.style.top = "0";
-      clone.style.width = `${element.getBoundingClientRect().width}px`;
+      clone.style.width = `${exportWidth}px`;
       clone.style.margin = "0";
       clone.style.background = "#ffffff";
       clone.style.zIndex = "-1";
@@ -1176,23 +1208,104 @@
       return clone;
     }
 
-    async function exportElementAsPdf(element, fileName) {
-      if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) {
-        alert("No se pudo cargar el generador de PDF.");
-        return;
-      }
-
+    async function renderElementToCanvas(element) {
       const exportClone = buildExportClone(element);
 
-      let canvas;
       try {
-        canvas = await window.html2canvas(exportClone, {
+        return await window.html2canvas(exportClone, {
           scale: 2,
           useCORS: true,
           backgroundColor: "#ffffff",
         });
       } finally {
         exportClone.remove();
+      }
+    }
+
+    function drawCanvasFittedToPage(doc, canvas, margin) {
+      if (!canvas || !Number.isFinite(canvas.width) || !Number.isFinite(canvas.height) || canvas.width <= 0 || canvas.height <= 0) {
+        throw new Error("La imagen renderizada para exportación es inválida (ancho/alto en cero).");
+      }
+
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const contentWidth = pageWidth - margin * 2;
+      const contentHeight = pageHeight - margin * 2;
+
+      let renderWidth = contentWidth;
+      let renderHeight = (canvas.height * contentWidth) / canvas.width;
+
+      if (!Number.isFinite(renderHeight) || renderHeight <= 0) {
+        throw new Error("No fue posible calcular el tamaño final de la sección para el PDF.");
+      }
+
+      if (renderHeight > contentHeight) {
+        const scale = contentHeight / renderHeight;
+        renderWidth = renderWidth * scale;
+        renderHeight = renderHeight * scale;
+      }
+
+      const x = margin + (contentWidth - renderWidth) / 2;
+      const y = margin;
+
+      if (![x, y, renderWidth, renderHeight].every((value) => Number.isFinite(value) && value >= 0)) {
+        throw new Error("Coordenadas inválidas al insertar la sección en el PDF.");
+      }
+
+      const image = canvas.toDataURL("image/jpeg", 0.92);
+      try {
+        doc.addImage(image, "JPEG", x, y, renderWidth, renderHeight);
+      } catch (error) {
+        throw new Error(`Error al agregar imagen al PDF (${renderWidth.toFixed(2)}x${renderHeight.toFixed(2)} mm): ${error.message}`);
+      }
+    }
+
+    function getExportErrorReason(error) {
+      if (!error || !error.message) {
+        return "Error desconocido al generar el archivo.";
+      }
+
+      if (error.message.includes("Incomplete or corrupt PNG file")) {
+        return "La imagen generada para el PDF estaba corrupta o incompleta.";
+      }
+
+      return error.message;
+    }
+
+    function buildSectionForExport(section) {
+      const wrapper = document.createElement("section");
+
+      if (section.titulo) {
+        const title = document.createElement("h2");
+        title.textContent = section.titulo;
+        title.style.margin = "0 0 10px";
+        title.style.fontSize = "1.2rem";
+        title.style.color = "#0b4f4a";
+        wrapper.appendChild(title);
+      }
+
+      const content = section.elemento.cloneNode(true);
+      if (section.titulo) {
+        const innerTitle = content.querySelector("h2");
+        if (innerTitle) {
+          innerTitle.remove();
+        }
+      }
+
+      wrapper.appendChild(content);
+      return wrapper;
+    }
+
+    async function exportSectionsAsPdf(sections, fileName) {
+      if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) {
+        alert("No se pudo cargar el generador de PDF.");
+        return;
+      }
+
+      const validSections = sections.filter((section) => section && section.elemento);
+      if (validSections.length === 0) {
+        alert("No hay contenido para exportar.");
+        return;
       }
 
       const { jsPDF } = window.jspdf;
@@ -1201,53 +1314,42 @@
         unit: "mm",
         format: "a4",
       });
-
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
       const margin = 10;
-      const contentWidth = pageWidth - margin * 2;
-      const contentHeight = pageHeight - margin * 2;
 
-      const pxPerMm = canvas.width / contentWidth;
-      const pageSliceHeightPx = Math.max(1, Math.floor(contentHeight * pxPerMm));
+      try {
+        for (let i = 0; i < validSections.length; i += 1) {
+          const currentSection = validSections[i];
+          const sectionNode = buildSectionForExport(currentSection);
+          const sectionName = currentSection.titulo || `Seccion ${i + 1}`;
+          const canvas = await renderElementToCanvas(sectionNode);
 
-      let renderedHeightPx = 0;
-      let pageIndex = 0;
+          if (i > 0) {
+            doc.addPage();
+          }
 
-      // Corta el canvas largo en páginas A4 consecutivas para evitar recortes de contenido.
-      while (renderedHeightPx < canvas.height) {
-        const sliceHeightPx = Math.min(pageSliceHeightPx, canvas.height - renderedHeightPx);
-        const pageCanvas = document.createElement("canvas");
-        pageCanvas.width = canvas.width;
-        pageCanvas.height = sliceHeightPx;
-
-        const pageContext = pageCanvas.getContext("2d");
-        pageContext.drawImage(
-          canvas,
-          0,
-          renderedHeightPx,
-          canvas.width,
-          sliceHeightPx,
-          0,
-          0,
-          canvas.width,
-          sliceHeightPx
-        );
-
-        const sliceImage = pageCanvas.toDataURL("image/png");
-        const sliceHeightMm = sliceHeightPx / pxPerMm;
-
-        if (pageIndex > 0) {
-          doc.addPage();
+          // Cada sección se coloca completa en su propia hoja, escalando si es muy larga para evitar cortes.
+          try {
+            drawCanvasFittedToPage(doc, canvas, margin);
+          } catch (sectionError) {
+            throw new Error(`${sectionName}: ${sectionError.message}`);
+          }
         }
 
-        doc.addImage(sliceImage, "PNG", margin, margin, contentWidth, sliceHeightMm);
-
-        renderedHeightPx += sliceHeightPx;
-        pageIndex += 1;
+        doc.save(fileName);
+      } catch (error) {
+        const reason = getExportErrorReason(error);
+        alert(`No se pudo realizar la exportación.\nRazón: ${reason}`);
+        console.error("Error al exportar PDF:", error);
       }
+    }
 
-      doc.save(fileName);
+    async function exportElementAsPdf(element, fileName) {
+      await exportSectionsAsPdf([
+        {
+          titulo: "",
+          elemento: element,
+        },
+      ], fileName);
     }
 
     async function exportarDiagnosticoPdf() {
@@ -1276,47 +1378,6 @@
       await exportElementAsPdf(ordenAnalisisSection, "orden-analisis.pdf");
     }
 
-    function createCombinedExportElement(secciones) {
-      const container = document.querySelector(".container");
-      const wrapper = document.createElement("div");
-      wrapper.style.position = "fixed";
-      wrapper.style.left = "-10000px";
-      wrapper.style.top = "0";
-      wrapper.style.width = `${container.getBoundingClientRect().width}px`;
-      wrapper.style.padding = "18px";
-      wrapper.style.background = "#ffffff";
-      wrapper.style.border = "1px solid #e2e8f0";
-      wrapper.style.borderRadius = "10px";
-
-      secciones.forEach((seccion, index) => {
-        const titulo = document.createElement("h2");
-        titulo.textContent = seccion.titulo;
-        titulo.style.margin = "0 0 10px";
-        titulo.style.fontSize = "1.2rem";
-        titulo.style.color = "#0b4f4a";
-
-        const contenido = seccion.elemento.cloneNode(true);
-        const tituloInterno = contenido.querySelector("h2");
-        if (tituloInterno) {
-          tituloInterno.remove();
-        }
-
-        wrapper.appendChild(titulo);
-        wrapper.appendChild(contenido);
-
-        if (index < secciones.length - 1) {
-          const separador = document.createElement("hr");
-          separador.style.margin = "18px 0";
-          separador.style.border = "0";
-          separador.style.borderTop = "1px solid #dbeafe";
-          wrapper.appendChild(separador);
-        }
-      });
-
-      document.body.appendChild(wrapper);
-      return wrapper;
-    }
-
     async function exportarSeleccionesPdf() {
       const secciones = [];
 
@@ -1341,13 +1402,7 @@
         return;
       }
 
-      const combinedElement = createCombinedExportElement(secciones);
-
-      try {
-        await exportElementAsPdf(combinedElement, "exportacion-seleccionada.pdf");
-      } finally {
-        combinedElement.remove();
-      }
+      await exportSectionsAsPdf(secciones, "exportacion-seleccionada.pdf");
     }
 
     function updateOrdenAnalisisExport() {
