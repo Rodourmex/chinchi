@@ -867,8 +867,119 @@
     const repSexo = document.getElementById("rep-sexo");
     const repRecomendaciones = document.getElementById("rep-recomendaciones");
     const restaurarRecomendacionesBtn = document.getElementById("restaurar-recomendaciones");
+    const CONTROL_SELECTOR = "input[id], select[id], textarea[id]";
+    const STORAGE_KEY = "chinchi-form-state-v1";
+    const ALLOWED_CONTENT_TAGS = new Set(["BR", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
 
     let recomendacionesEditadasManualmente = false;
+
+    function sanitizePersistedHtml(value) {
+      const template = document.createElement("template");
+      template.innerHTML = typeof value === "string" ? value : "";
+
+      const sanitizeNode = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return;
+        }
+
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+          node.remove();
+          return;
+        }
+
+        if (!ALLOWED_CONTENT_TAGS.has(node.tagName)) {
+          const textNode = document.createTextNode(node.textContent || "");
+          node.replaceWith(textNode);
+          return;
+        }
+
+        Array.from(node.attributes).forEach((attr) => node.removeAttribute(attr.name));
+        Array.from(node.childNodes).forEach(sanitizeNode);
+      };
+
+      Array.from(template.content.childNodes).forEach(sanitizeNode);
+      return template.innerHTML;
+    }
+
+    function saveFormState() {
+      const controlsState = {};
+      const contentEditableState = {};
+      const analisisChecksState = {};
+
+      document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
+        controlsState[control.id] = control.type === "checkbox" ? control.checked : control.value;
+      });
+
+      document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
+        contentEditableState[element.id] = sanitizePersistedHtml(element.innerHTML);
+      });
+
+      document.querySelectorAll("#analisis-form input[type='checkbox'][name='analisis']").forEach((checkbox) => {
+        analisisChecksState[checkbox.value] = checkbox.checked;
+      });
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          controls: controlsState,
+          contentEditable: contentEditableState,
+          analisisChecks: analisisChecksState,
+          recomendacionesEditadasManualmente,
+        }),
+      );
+    }
+
+    function loadFormState() {
+      const savedState = localStorage.getItem(STORAGE_KEY);
+      if (!savedState) {
+        return;
+      }
+
+      let parsedState = null;
+      try {
+        parsedState = JSON.parse(savedState);
+      } catch (_error) {
+        localStorage.removeItem(STORAGE_KEY);
+        return;
+      }
+
+      if (parsedState && parsedState.controls) {
+        Object.entries(parsedState.controls).forEach(([id, value]) => {
+          const control = document.getElementById(id);
+          if (!control) {
+            return;
+          }
+          if (control.type === "checkbox") {
+            control.checked = Boolean(value);
+            return;
+          }
+          control.value = value ?? "";
+        });
+      }
+
+      if (parsedState && parsedState.contentEditable) {
+        Object.entries(parsedState.contentEditable).forEach(([id, value]) => {
+          const element = document.getElementById(id);
+          if (element) {
+            element.innerHTML = sanitizePersistedHtml(value);
+          }
+        });
+      }
+
+      if (parsedState && parsedState.analisisChecks) {
+        document.querySelectorAll("#analisis-form input[type='checkbox'][name='analisis']").forEach((checkbox) => {
+          if (Object.prototype.hasOwnProperty.call(parsedState.analisisChecks, checkbox.value)) {
+            checkbox.checked = Boolean(parsedState.analisisChecks[checkbox.value]);
+          }
+        });
+      }
+
+      if (typeof parsedState.recomendacionesEditadasManualmente === "boolean") {
+        recomendacionesEditadasManualmente = parsedState.recomendacionesEditadasManualmente;
+      } else if ((repRecomendaciones.value || "").trim()) {
+        recomendacionesEditadasManualmente = true;
+      }
+    }
 
     function parseNumber(value) {
       // Acepta coma o punto decimal para facilitar la entrada manual.
@@ -1421,6 +1532,7 @@
 
       if (selectedItems.length === 0) {
         ordenAnalisisExportEmpty.style.display = "";
+        saveFormState();
         return;
       }
 
@@ -1430,6 +1542,7 @@
         li.textContent = item;
         ordenAnalisisExportList.appendChild(li);
       });
+      saveFormState();
     }
 
     [
@@ -1449,6 +1562,16 @@
       input.addEventListener("change", onInputChange);
     });
 
+    document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
+      const isCheckbox = control.type === "checkbox";
+      const isSelect = control.tagName === "SELECT";
+      control.addEventListener(isCheckbox || isSelect ? "change" : "input", saveFormState);
+    });
+
+    document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
+      element.addEventListener("input", saveFormState);
+    });
+
     exportarDiagnosticoPdfBtn.addEventListener("click", exportarDiagnosticoPdf);
     exportarReportePacientePdfBtn.addEventListener("click", exportarReportePacientePdf);
     exportarPlanAlimenticioPdfBtn.addEventListener("click", exportarPlanAlimenticioPdf);
@@ -1465,11 +1588,15 @@
     restaurarRecomendacionesBtn.addEventListener("click", () => {
       recomendacionesEditadasManualmente = false;
       updateReportePaciente();
+      saveFormState();
     });
     repRecomendaciones.addEventListener("input", () => {
       recomendacionesEditadasManualmente = true;
+      saveFormState();
     });
 
+    loadFormState();
+    updateAnalisisOpcionales();
     onInputChange();
     updateReportePaciente();
     updateOrdenAnalisisExport();
