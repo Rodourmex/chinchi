@@ -867,21 +867,51 @@
     const repSexo = document.getElementById("rep-sexo");
     const repRecomendaciones = document.getElementById("rep-recomendaciones");
     const restaurarRecomendacionesBtn = document.getElementById("restaurar-recomendaciones");
+    const CONTROL_SELECTOR = "input[id], select[id], textarea[id]";
     const STORAGE_KEY = "chinchi-form-state-v1";
+    const ALLOWED_CONTENT_TAGS = new Set(["BR", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
 
     let recomendacionesEditadasManualmente = false;
+
+    function sanitizePersistedHtml(value) {
+      const template = document.createElement("template");
+      template.innerHTML = typeof value === "string" ? value : "";
+
+      const sanitizeNode = (node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return;
+        }
+
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+          node.remove();
+          return;
+        }
+
+        if (!ALLOWED_CONTENT_TAGS.has(node.tagName)) {
+          const textNode = document.createTextNode(node.textContent || "");
+          node.replaceWith(textNode);
+          return;
+        }
+
+        Array.from(node.attributes).forEach((attr) => node.removeAttribute(attr.name));
+        Array.from(node.childNodes).forEach(sanitizeNode);
+      };
+
+      Array.from(template.content.childNodes).forEach(sanitizeNode);
+      return template.innerHTML;
+    }
 
     function saveFormState() {
       const controlsState = {};
       const contentEditableState = {};
       const analisisChecksState = {};
 
-      document.querySelectorAll("input[id], select[id], textarea[id]").forEach((control) => {
+      document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
         controlsState[control.id] = control.type === "checkbox" ? control.checked : control.value;
       });
 
       document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
-        contentEditableState[element.id] = element.innerHTML;
+        contentEditableState[element.id] = sanitizePersistedHtml(element.innerHTML);
       });
 
       document.querySelectorAll("#analisis-form input[type='checkbox'][name='analisis']").forEach((checkbox) => {
@@ -894,6 +924,7 @@
           controls: controlsState,
           contentEditable: contentEditableState,
           analisisChecks: analisisChecksState,
+          recomendacionesEditadasManualmente,
         }),
       );
     }
@@ -930,7 +961,7 @@
         Object.entries(parsedState.contentEditable).forEach(([id, value]) => {
           const element = document.getElementById(id);
           if (element) {
-            element.innerHTML = value ?? "";
+            element.innerHTML = sanitizePersistedHtml(value);
           }
         });
       }
@@ -943,7 +974,9 @@
         });
       }
 
-      if ((repRecomendaciones.value || "").trim()) {
+      if (typeof parsedState.recomendacionesEditadasManualmente === "boolean") {
+        recomendacionesEditadasManualmente = parsedState.recomendacionesEditadasManualmente;
+      } else if ((repRecomendaciones.value || "").trim()) {
         recomendacionesEditadasManualmente = true;
       }
     }
@@ -1080,7 +1113,6 @@
       updateEvaluaciones();
       updateDiagnosticoAntropometrico();
       updateReportePaciente();
-      saveFormState();
     }
 
     function formatValueOrNd(value, suffix) {
@@ -1530,9 +1562,10 @@
       input.addEventListener("change", onInputChange);
     });
 
-    document.querySelectorAll("input[id], select[id], textarea[id]").forEach((control) => {
-      control.addEventListener("input", saveFormState);
-      control.addEventListener("change", saveFormState);
+    document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
+      const isCheckbox = control.type === "checkbox";
+      const isSelect = control.tagName === "SELECT";
+      control.addEventListener(isCheckbox || isSelect ? "change" : "input", saveFormState);
     });
 
     document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
@@ -1563,9 +1596,7 @@
     });
 
     loadFormState();
-    if (typeof updateAnalisisOpcionales === "function") {
-      updateAnalisisOpcionales();
-    }
+    updateAnalisisOpcionales();
     onInputChange();
     updateReportePaciente();
     updateOrdenAnalisisExport();
