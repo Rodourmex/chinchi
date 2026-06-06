@@ -510,16 +510,19 @@
           <label for="peso-actual">Peso actual (kg)</label>
           <input id="peso-actual" name="peso_actual" type="number" step="0.1" placeholder="Ej. 70.0" />
         </div>
-
         <div class="field">
+          <label for="estatura">Estatura (m)</label>
+          <input id="estatura" name="estatura" type="number" step="0.01" min="0" placeholder="Ej. 1.68" />
+          <span class="hint">Se usa para estimar el objetivo con IMC base.</span>
+        </div>
+        <!-- <div class="field">
           <label for="grasa-corporal-kg">Grasa corporal (kg)</label>
           <input id="grasa-corporal-kg" name="grasa_corporal_kg" type="number" step="0.1" placeholder="Ej. 14.0" />
-        </div>
-
-        <div class="field">
+        </div> -->
+        <!-- <div class="field">
           <label for="mlg">MLG (kg)</label>
           <input id="mlg" name="mlg" type="number" step="0.1" placeholder="Ej. 56.0" />
-        </div>
+        </div> -->
       </div>
     </section>
 
@@ -527,7 +530,7 @@
     <!-- Sección movida al final -->
 
     <section>
-      <h2>An&aacute;lisis de m&uacute;sculo</h2>
+      <h2>Análisis de músculo</h2>
       <div class="grid">
         <div class="field">
           <label for="musculo-total">Total (%)</label>
@@ -605,13 +608,6 @@
           </ul>
         </div>
 
-        <div class="patient-block">
-          <p class="patient-label">• Datos adicionales</p>
-          <ul class="patient-sublist">
-            <li id="rep-sexo">Sexo: Sin dato</li>
-          </ul>
-        </div>
-
         <p class="patient-rec-title">• Recomendaciones</p>
         <textarea id="rep-recomendaciones" class="patient-rec-editor" aria-label="Recomendaciones para paciente" placeholder="Escribe recomendaciones..."></textarea>
         <div class="patient-rec-actions">
@@ -627,6 +623,7 @@
     <section id="plan-alimenticio-section">
       <h2>Plan de comidas</h2>
       <div class="meal-plan">
+        <!-- Desayuno -->
         <div class="meal-block">
           <p class="meal-label">Desayuno</p>
           <div class="meal-toolbar">
@@ -638,51 +635,138 @@
               <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','italic')" title="Cursiva"><i>I</i></button>
               <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
             </div>
-          <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno"><p>• <em>Base:</em> Proteína (pechuga de pollo o pavo o atún o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.</p><p>Opcional (dependiente de cantidad de ejercicio):</p><p>• <em>Acompañamiento:</em> Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</p><p>• <em>Postre:</em> Fruta (1 porción)</p></div>
+          <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno">
+            <p style="margin: 0%;"><strong>Base:</strong>
+              <p style="margin-left: 20px;">
+                Proteína (pechuga de pollo o pavo o atún o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.
+              </p>
+            </p>
+            <p style="margin: 0%;"><strong>Opcional</strong> (dependiente de cantidad de ejercicio):</p>
+            <div style="margin-left: 20px;">
+              <p>  • <strong>Acompañamiento:</strong> Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</p>
+              <p>• <strong>Postre:</strong>
+                Fruta (1 porción) --> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arándanos azules frescos, guayaba, papaya, sandia o melón; o ½ taza o pieza de fruta: plátano, mango, pera, pina, uvas u obleas sin azucar; o 1/3
+                de barrita proteica.
+              </p>
+            </div>
+          </div>
         </div>
-
+        <!-- Colación matutina -->
         <div class="meal-block">
-          <p class="meal-label">Colacion matutina</p>
+          <p class="meal-label">Colación matutina</p>
           <div class="meal-toolbar">
             <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-matutina-editor">Tachar seleccion</button>
           </div>
           <div id="colacion-matutina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion matutina"></div>
-                      <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
-                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','bold')" title="Negrita"><b>B</b></button>
-                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','italic')" title="Cursiva"><i>I</i></button>
-                        <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
-                      </div>
-            <div id="colacion-matutina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación matutina"><p>Base: Verduras crudas (jícama, pepino, zanahoria, betabel) y semillas naturales.</p><p>Opcional (según ejercicio): fruta o/y lácteo fermentado (ej. yogur).</p></div>
+            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+              <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','bold')" title="Negrita"><b>B</b></button>
+              <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','italic')" title="Cursiva"><i>I</i></button>
+              <button type="button" class="rec-btn" onclick="formatRec('colacion-matutina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+            </div>
+            <div id="colacion-matutina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación matutina">
+              <p>
+                <strong>Base:</strong> 
+                <p style="margin-left: 20px;">
+                  Verduras picadas (jícama, pepino, zanahoria, betabel)
+                  y semillas naturales (7 nueces o 10 almendras o 15 cacahuates o
+                  pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de
+                  cacao obscuro al 80% sin azucar).
+                </p>
+              </p>
+              <p style="margin: 0%;"><strong>Opcional (según ejercicio):</strong> 
+                <div style="margin-left: 20px;">
+                  <p>1 porción de fruta o/y lácteo fermentado:</p>
+                  <p>2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas,
+                    frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya,
+                    sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, piña,
+                    uvas. +/o ½ taza de yogur o kéfir o jocoque bajo en grasa sin azucar</p>
+                  </p>
+                </div>
+            </div>
         </div>
-
-        <div class="meal-block">
+        <!-- Comida -->
+        <div class="meal-block"> 
           <p class="meal-label">Comida</p>
           <div class="meal-toolbar">
             <button class="btn ghost btn-tachar" type="button" data-target-editor="comida-editor">Tachar seleccion</button>
           </div>
           <div id="comida-editor" class="meal-editor" contenteditable="true" aria-label="Comida"></div>
-                            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
-                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','bold')" title="Negrita"><b>B</b></button>
-                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','italic')" title="Cursiva"><i>I</i></button>
-                              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
-                            </div>
-                  <div id="comida-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para comida"><p><em>Base:</em> Pollo sin grasa ni piel o pescado de color o blanco, opcional 1-2/semana carne roja sin grasa (sabana, lomo o bistec) de res o puerco. Verduras cocidas o crudas. Agua natural o de sabor sin azúcar.</p><p>- Evitar fritos, capeados, empanizados, salsas grasosas, dulces, quesos.</p><p>- Opcional (dependiente de ejercicio): Acompañamiento (arroz integral, frijoles, lentejas, habas, garbanzos). Postre: Porción de fruta.</p></div>
+            <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','bold')" title="Negrita"><b>B</b></button>
+              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','italic')" title="Cursiva"><i>I</i></button>
+              <button type="button" class="rec-btn" onclick="formatRec('comida-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+            </div>
+            <div id="comida-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para comida">
+              <p style="margin: 0;"><strong>Base:</strong> 
+                <p style="margin-left: 20px;">
+                  Pollo sin grasa ni piel o pescado de color o blanco, opcional 1-2/semana
+                  carne roja sin grasa (sabana, lomo o bistec) de res o puerco --> Asados, al vapor, cocidos, guisados (con poca grasa).
+                  + Verduras cocidas o crudas. Agua natural o de sabor sin azúcar.
+                </p>
+              </p>
+              <p>
+                <strong>
+                Evitar fritos, capeados, empanizados, salsas grasosas y/o dulces como el mole,
+                  quesos y embutidos, sopas, consomés, arroz, pastas, pan, postres, aderezos.
+                </strong>
+              </p>
+              <p><strong>Opcional</strong> (dependiente de ejercicio): 
+                <div style="margin-left: 20px;">
+                  <p>
+                    • <strong>Acompañamiento:</strong>
+                    <p>Frijoles, lentejas, habas, garbanzos o chicharos remojados y cocidas previamente,
+                      tortillas de maíz o piezas de tortillas de linaza. Arroz integral al vapor.
+                    </p>
+                  </p>
+                  <p>
+                    • <strong>Postre:</strong>
+                    <p>
+                      1 porción de fruta -> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras,
+                      arándanos azules frescos, guayaba, papaya, sandia o melón; o ½ taza o pieza de fruta: plátano, mango, pera,
+                      piña, uvas.
+                    </p>
+                  </p>
+                </div>
+              </p>
+              <p>
+                <strong>*Checar recomendaciones diarios de comedor en whatsapp, elegir las opciones marcadas en verde.</strong>
+              </p>
+            </div>
         </div>
-
+        <!-- Colación vespertina -->
         <div class="meal-block">
-          <p class="meal-label">Colacion vespertina</p>
+          <p class="meal-label">Colación vespertina</p>
           <div class="meal-toolbar">
             <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-vespertina-editor">Tachar seleccion</button>
           </div>
           <div id="colacion-vespertina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion vespertina"></div>
-                        <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
-                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','bold')" title="Negrita"><b>B</b></button>
-                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','italic')" title="Cursiva"><i>I</i></button>
-                          <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
-                        </div>
-              <div id="colacion-vespertina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación vespertina"><p>Base: Verduras crudas (jícama, pepino, zanahoria, betabel) y semillas naturales.</p><p>Opcional (según ejercicio): fruta o/y lácteo fermentado (ej. yogur).</p></div>
+              <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
+                <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','bold')" title="Negrita"><b>B</b></button>
+                <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','italic')" title="Cursiva"><i>I</i></button>
+                <button type="button" class="rec-btn" onclick="formatRec('colacion-vespertina-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
+              </div>
+              <div id="colacion-vespertina-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para colación vespertina">
+              <p>
+                <strong>Base:</strong> 
+                <p style="margin-left: 20px;">
+                  Verduras picadas (jícama, pepino, zanahoria, betabel)
+                  y semillas naturales (7 nueces o 10 almendras o 15 cacahuates o
+                  pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de
+                  cacao obscuro al 80% sin azucar).
+                </p>
+              </p>
+              <p style="margin: 0%;">• <strong>Opcional (según ejercicio):</strong> </p> 
+                <div style="margin-left: 20px;">
+                  <p>1 porción de fruta o/y lácteo fermentado:</p>
+                  <p>2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas,
+                    frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya,
+                    sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, piña,
+                    uvas. +/o ½ taza de yogur o kéfir o jocoque bajo en grasa sin azucar
+                  </p>
+                </div>
+            </div>
         </div>
-
+        <!-- Cena -->
         <div class="meal-block">
           <p class="meal-label">Cena</p>
           <div class="meal-toolbar">
@@ -694,10 +778,21 @@
               <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','italic')" title="Cursiva"><i>I</i></button>
               <button type="button" class="rec-btn" onclick="formatRec('cena-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
             </div>
-            <div id="cena-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para cena"><p>Base: Proteína (pollo, pavo, atún, huevo entero + claras), verduras cocidas o crudas sin aderezos y aguacate.</p><p>Opcional (dependiente de cantidad de ejercicio): Acompañamiento de tortillas, pan integral, linaza o amaranto.</p></div>
-        </div>
-
-        <div class="meal-block">
+            <div id="cena-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para cena">
+              <p style="margin: 0%;">
+                <strong>Base:</strong>
+              </p>
+              <p style="margin-left: 20px;">Proteína (pollo, pavo, atún o huevo entero + claras) 
+                + verduras cocidas o crudas sin aderezos + aguacate.
+              </p>
+              <p>
+                <strong>Opcional</strong> (dependiente de cantidad de ejercicio):
+              </p>
+              <p style="margin-left: 20px;">
+                <strong>Acompañamiento:</strong> 
+                Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.
+              </p>
+            </div>
         </div>
       </div>
       <div class="actions export-actions">
@@ -727,7 +822,7 @@
       <h2>Exportación de órden de análisis</h2>
       <div id="orden-analisis-export" class="orden-export-box">
         <h3 class="patient-title-inbody">Órden de análisis</h3>
-        <p>Estudios seleccionados:</p>
+        <p>Favor de realizar en Salud Digna los siguientes análisis:</p>
         <ul id="orden-analisis-export-list" class="orden-export-list"></ul>
         <p id="orden-analisis-export-empty" class="orden-export-empty" style="display:none;">No hay estudios seleccionados.</p>
 
@@ -770,28 +865,6 @@
       const edad = parseInt(document.getElementById('edad').value, 10);
       const densitometria = document.getElementById('analisis-densitometria');
       const antigeno = document.getElementById('analisis-antigeno');
-      if (sexo === 'mujer' && edad > 30) {
-        densitometria.style.display = '';
-      } else {
-        densitometria.style.display = 'none';
-      }
-      if (sexo === 'hombre' && edad > 40) {
-        antigeno.style.display = '';
-      } else {
-        antigeno.style.display = 'none';
-      }
-    }
-    document.getElementById('sexo').addEventListener('change', updateAnalisisOpcionales);
-    document.getElementById('edad').addEventListener('input', updateAnalisisOpcionales);
-    window.addEventListener('DOMContentLoaded', updateAnalisisOpcionales);
-  </script>
-  <script>
-    // Mostrar análisis adicionales según sexo y edad
-    function updateAnalisisOpcionales() {
-      const sexo = document.getElementById('sexo').value;
-      const edad = parseInt(document.getElementById('edad').value, 10);
-      const densitometria = document.getElementById('analisis-densitometria');
-      const antigeno = document.getElementById('analisis-antigeno');
       if (sexo === 'mujer' && edad >= 30) {
         densitometria.style.display = '';
       } else {
@@ -816,6 +889,7 @@
   </script>
   <script>
     const sexoInput = document.getElementById("sexo");
+    const edadInput = document.getElementById("edad");
     const nombrePacienteInput = document.getElementById("nombre-paciente");
     const reportePacienteHeading = document.getElementById("reporte-paciente-heading");
     const promedioBrazosInput = document.getElementById("promedio-brazos");
@@ -823,6 +897,7 @@
     const porcentajeGrasaInput = document.getElementById("porcentaje-grasa");
     const grasaVisceralInput = document.getElementById("grasa-visceral");
     const pesoActualInput = document.getElementById("peso-actual");
+    const estaturaInput = document.getElementById("estatura");
     const grasaCorporalKgInput = document.getElementById("grasa-corporal-kg");
     const mlgInput = document.getElementById("mlg");
     const musculoTotalInput = document.getElementById("musculo-total");
@@ -864,14 +939,19 @@
     const repPromedioBrazos = document.getElementById("rep-promedio-brazos");
     const repPromedioPiernas = document.getElementById("rep-promedio-piernas");
     const repAbdomen = document.getElementById("rep-abdomen");
-    const repSexo = document.getElementById("rep-sexo");
     const repRecomendaciones = document.getElementById("rep-recomendaciones");
     const restaurarRecomendacionesBtn = document.getElementById("restaurar-recomendaciones");
     const CONTROL_SELECTOR = "input[id], select[id], textarea[id]";
-    const STORAGE_KEY = "chinchi-form-state-v1";
+    const STORAGE_KEY_PREFIX = "chinchi-form-state-v2";
+    const LEGACY_STORAGE_KEY = "chinchi-form-state-v1";
     const ALLOWED_CONTENT_TAGS = new Set(["BR", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
 
     let recomendacionesEditadasManualmente = false;
+
+    function getStorageKey() {
+      const pathScope = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
+      return `${STORAGE_KEY_PREFIX}:${pathScope}`;
+    }
 
     function sanitizePersistedHtml(value) {
       const template = document.createElement("template");
@@ -902,6 +982,7 @@
     }
 
     function saveFormState() {
+      const storageKey = getStorageKey();
       const controlsState = {};
       const contentEditableState = {};
       const analisisChecksState = {};
@@ -919,7 +1000,7 @@
       });
 
       localStorage.setItem(
-        STORAGE_KEY,
+        storageKey,
         JSON.stringify({
           controls: controlsState,
           contentEditable: contentEditableState,
@@ -930,7 +1011,15 @@
     }
 
     function loadFormState() {
-      const savedState = localStorage.getItem(STORAGE_KEY);
+      const storageKey = getStorageKey();
+      let savedState = localStorage.getItem(storageKey);
+      if (!savedState) {
+        const legacyState = localStorage.getItem(LEGACY_STORAGE_KEY);
+        if (legacyState) {
+          savedState = legacyState;
+          localStorage.setItem(storageKey, legacyState);
+        }
+      }
       if (!savedState) {
         return;
       }
@@ -939,7 +1028,7 @@
       try {
         parsedState = JSON.parse(savedState);
       } catch (_error) {
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(storageKey);
         return;
       }
 
@@ -1154,28 +1243,102 @@
       return promedioBrazos < promedioPiernas ? "tren superior" : "tren inferior";
     }
 
+    function getObjetivoGrasa(sexo, pesoActual, estatura, porcentajeGrasa) {
+      if (!sexo || pesoActual === null || estatura === null || porcentajeGrasa === null) {
+        return null;
+      }
+
+      if (pesoActual <= 0 || estatura <= 0 || porcentajeGrasa < 0) {
+        return null;
+      }
+
+      const imcObjetivo = sexo === "mujer" ? 21 : 22;
+      const rangoGrasa = sexo === "mujer"
+        ? { minimo: 18, maximo: 30 }
+        : { minimo: 15, maximo: 20 };
+      const pesoObjetivo = imcObjetivo * estatura * estatura;
+      const grasaActualKg = pesoActual * (porcentajeGrasa / 100);
+      const grasaObjetivoMinKg = pesoObjetivo * (rangoGrasa.minimo / 100);
+      const grasaObjetivoMaxKg = pesoObjetivo * (rangoGrasa.maximo / 100);
+      const grasaABajarMinKg = Math.max(0, grasaActualKg - grasaObjetivoMaxKg);
+      const grasaABajarMaxKg = Math.max(0, grasaActualKg - grasaObjetivoMinKg);
+
+      return {
+        imcObjetivo,
+        rangoGrasa,
+        pesoObjetivo,
+        grasaActualKg,
+        grasaObjetivoMinKg,
+        grasaObjetivoMaxKg,
+        grasaABajarMinKg,
+        grasaABajarMaxKg,
+      };
+    }
+
+    function getRecomendacionDesequilibrioMuscular(promedioBrazos, promedioPiernas, abdomen) {
+      if (promedioBrazos === null || promedioPiernas === null || abdomen === null) {
+        return null;
+      }
+
+      const trenSuperior = (promedioBrazos + abdomen) / 2;
+      const trenInferior = promedioPiernas;
+      const diferencia = Math.abs(trenSuperior - trenInferior);
+
+      if (diferencia <= 3) {
+        return null;
+      }
+
+      const trenMasDesarrollado = trenSuperior > trenInferior ? "tren superior" : "tren inferior";
+      const parteMenosDesarrollada = Math.min(trenSuperior, trenInferior);
+      const rangoMinimo = parteMenosDesarrollada < 100 ? 100 : null;
+
+      if (trenMasDesarrollado === "tren superior") {
+        const promedioSuperior = trenSuperior;
+
+        if (rangoMinimo !== null) {
+          return `Se detecta desequilibrio muscular. El tren inferior es la parte menos desarrollada; llevarlo a un rango mínimo de ${rangoMinimo.toFixed(1)} %, óptimo de ${promedioSuperior.toFixed(1)} %.`;
+        }
+        return `Se detecta desequilibrio muscular. El tren inferior es la parte menos desarrollada; llevarlo al promedio de abdomen y brazos (${promedioSuperior.toFixed(1)} %).`;
+      }
+
+      const porcentajeInferior = trenInferior;
+      if (rangoMinimo !== null) {
+        return `Se detecta desequilibrio muscular. El tren superior es la parte menos desarrollada; llevarlo a un rango mínimo de ${rangoMinimo.toFixed(1)} %, óptimo de ${porcentajeInferior.toFixed(1)} %.`;
+      }
+      return `Se detecta desequilibrio muscular. El tren superior es la parte menos desarrollada; llevarlo al ${porcentajeInferior.toFixed(1)}% de desarrollo.`;
+    }
+
     function generarRecomendaciones(data) {
       const recomendaciones = [];
 
-      if (["PRE OBESIDAD", "OBESIDAD GRADO 1", "OBESIDAD GRADO 2", "OBESIDAD GRADO 3"].includes(data.clasificacionGrasa)) {
-        recomendaciones.push("Priorizar reducción de grasa corporal con déficit calórico controlado y actividad física regular.");
+      // if (["PRE OBESIDAD", "OBESIDAD GRADO 1", "OBESIDAD GRADO 2", "OBESIDAD GRADO 3"].includes(data.clasificacionGrasa)) {
+      //   recomendaciones.push("Priorizar reducción de grasa corporal con déficit calórico controlado y actividad física regular.");
+      // }
+
+      if (data.objetivoGrasa && data.objetivoGrasa.grasaABajarMinKg > 0.05) {
+        recomendaciones.push(`Disminución de: ${data.objetivoGrasa.grasaABajarMinKg.toFixed(1)} - ${data.objetivoGrasa.grasaABajarMaxKg.toFixed(1)} kg de grasa para llegar a un porcentaje de grasa entre ${data.objetivoGrasa.rangoGrasa.minimo} % y ${data.objetivoGrasa.rangoGrasa.maximo} %`);
       }
 
       if (["ELEVADA", "MUY ELEVADA"].includes(data.clasificacionVisceral)) {
-        recomendaciones.push("Disminuir grasa visceral por debajo de 9 con seguimiento nutricional y ejercicio de fuerza + cardio.");
+        recomendaciones.push("Disminuir grasa visceral por debajo de 9, de preferencia debajo de 6.");
       }
 
-      if (["BAJO", "NORMAL-BAJO"].includes(data.clasificacionMusculoTotal)) {
-        recomendaciones.push("Aumentar masa muscular con entrenamiento de fuerza progresivo y plan proteico adecuado.");
+      if (data.musculoTotal !== null && data.musculoTotal < 100) {
+        recomendaciones.push("Aumentar masa muscular hasta llegar o superar el 100%");
       }
 
-      if (data.diferenciaPromedios > 3 && data.trenMenosDesarrollado) {
-        recomendaciones.push(`Se detecta desequilibrio entre tren superior e inferior (diferencia ${data.diferenciaPromedios.toFixed(1)}%). Incrementar progresivamente la carga de entrenamiento del ${data.trenMenosDesarrollado}.`);
+      const recomendacionDesequilibrio = getRecomendacionDesequilibrioMuscular(
+        data.promedioBrazos,
+        data.promedioPiernas,
+        data.abdomen,
+      );
+      if (recomendacionDesequilibrio) {
+        recomendaciones.push(recomendacionDesequilibrio);
       }
 
       if (recomendaciones.length === 0) {
         // Mensaje por defecto cuando no se detectan alertas clínicas en los datos cargados.
-        recomendaciones.push("Mantener hábitos actuales y realizar seguimiento periódico para conservar los rangos obtenidos.");
+        recomendaciones.push("No se detectan áreas de oportunidad, se requiere evaluación por parte de Zelma Barrientos");
       }
 
       return recomendaciones;
@@ -1191,6 +1354,8 @@
       const porcentajeGrasa = parseNumber(porcentajeGrasaInput.value);
       const grasaVisceral = parseNumber(grasaVisceralInput.value);
       const musculoTotal = parseNumber(musculoTotalInput.value);
+      const pesoActual = parseNumber(pesoActualInput.value);
+      const estatura = parseNumber(estaturaInput.value);
       const promedioBrazos = parseNumber(promedioBrazosInput.value);
       const promedioPiernas = parseNumber(promedioPiernasInput.value);
       const abdomen = parseNumber(abdomenInput.value);
@@ -1203,6 +1368,7 @@
       const clasificacionAbdomen = evalMusculo(abdomen);
       const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
       const trenMenosDesarrollado = getTrenMenosDesarrollado(promedioBrazos, promedioPiernas);
+      const objetivoGrasa = getObjetivoGrasa(sexo, pesoActual, estatura, porcentajeGrasa);
 
       repGrasaLinea.textContent = `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`;
       setInterpretacionLinea(repGrasaInterpretacion, clasificacionGrasa);
@@ -1217,14 +1383,19 @@
       repPromedioPiernas.textContent = `Promedio piernas: ${formatValuePaciente(promedioPiernas, "%")} (${clasificacionPromedioPiernas || "Sin interpretacion"})`;
 
       repAbdomen.textContent = `Abdomen: ${formatValuePaciente(abdomen, "%")} (${clasificacionAbdomen || "Sin interpretacion"})`;
-      repSexo.textContent = `Sexo: ${sexo ? sexo.charAt(0).toUpperCase() + sexo.slice(1) : "Sin dato"}`;
 
       const recomendaciones = generarRecomendaciones({
         clasificacionGrasa,
         clasificacionVisceral,
         clasificacionMusculoTotal,
+        musculoTotal,
         diferenciaPromedios,
         trenMenosDesarrollado,
+        estatura,
+        objetivoGrasa,
+        promedioBrazos,
+        promedioPiernas,
+        abdomen,
       });
 
       if (!recomendacionesEditadasManualmente) {
@@ -1265,7 +1436,7 @@
         ? ` Se observa desequilibrio entre tren superior e inferior (diferencia ${diferenciaPromedios.toFixed(1)}%). Se recomienda incrementar la carga de entrenamiento del ${trenMenosDesarrollado}.`
         : "";
 
-      diagnosticoAntropometricoInput.value = `Paciente con músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${textoDesequilibrio}`;
+      diagnosticoAntropometricoInput.value = `Se observa músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${textoDesequilibrio}`;
     }
 
     function buildExportClone(element) {
@@ -1548,19 +1719,23 @@
     [
       nombrePacienteInput,
       sexoInput,
+      edadInput,
       porcentajeGrasaInput,
       grasaVisceralInput,
       pesoActualInput,
+      estaturaInput,
       grasaCorporalKgInput,
       mlgInput,
       musculoTotalInput,
       promedioBrazosInput,
       promedioPiernasInput,
       abdomenInput,
-    ].forEach((input) => {
-      input.addEventListener("input", onInputChange);
-      input.addEventListener("change", onInputChange);
-    });
+    ]
+      .filter(Boolean)
+      .forEach((input) => {
+        input.addEventListener("input", onInputChange);
+        input.addEventListener("change", onInputChange);
+      });
 
     document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
       const isCheckbox = control.type === "checkbox";

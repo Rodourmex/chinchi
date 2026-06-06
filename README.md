@@ -37,6 +37,11 @@ El flujo principal incluye:
 
 6. Usa los botones de exportacion para generar PDF.
 
+## Persistencia local
+
+- La informacion se guarda en localStorage de forma especifica por archivo (incluye la ruta del archivo en la llave de guardado).
+- Si copias `index.html` a otra carpeta, esa copia inicia con su propio almacenamiento independiente.
+
 ## Campos calculados automaticamente
 
 - Promedio de brazos (%): promedio de brazo derecho e izquierdo.
