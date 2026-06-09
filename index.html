@@ -631,36 +631,36 @@
     <section id="reporte-paciente-section">
       <h2 id="reporte-paciente-heading">Resultado para paciente: Sin nombre | Fecha: --/--/----</h2>
       <div id="reporte-paciente" class="patient-report">
-        <h3 class="patient-title-inbody">Análisis de composición corporal con InBody</h3>
+        <h3 id="rep-analisis-titulo" class="patient-title-inbody" contenteditable="true">Análisis de composición corporal con InBody</h3>
 
         <div class="patient-block">
-          <p class="patient-label">• Porcentaje de grasa corporal</p>
-          <p id="rep-grasa-linea" class="patient-line">Valor: Sin dato</p>
-          <p id="rep-grasa-interpretacion" class="patient-interpretation"></p>
+          <p class="patient-label" contenteditable="true">• Porcentaje de grasa corporal</p>
+          <p id="rep-grasa-linea" class="patient-line" contenteditable="true">Valor: Sin dato</p>
+          <p id="rep-grasa-interpretacion" class="patient-interpretation" contenteditable="true"></p>
         </div>
 
         <div class="patient-block">
-          <p class="patient-label">• Grasa visceral (interna)</p>
-          <p id="rep-visceral-linea" class="patient-line">Valor: Sin dato</p>
-          <p id="rep-visceral-interpretacion" class="patient-interpretation"></p>
+          <p class="patient-label" contenteditable="true">• Grasa visceral (interna)</p>
+          <p id="rep-visceral-linea" class="patient-line" contenteditable="true">Valor: Sin dato</p>
+          <p id="rep-visceral-interpretacion" class="patient-interpretation" contenteditable="true"></p>
         </div>
 
         <div class="patient-block">
-          <p class="patient-label">• M&uacute;sculo total</p>
-          <p id="rep-musculo-total-linea" class="patient-line">Valor: Sin dato</p>
-          <p id="rep-musculo-total-interpretacion" class="patient-interpretation"></p>
+          <p class="patient-label" contenteditable="true">• M&uacute;sculo total</p>
+          <p id="rep-musculo-total-linea" class="patient-line" contenteditable="true">Valor: Sin dato</p>
+          <p id="rep-musculo-total-interpretacion" class="patient-interpretation" contenteditable="true"></p>
         </div>
 
         <div class="patient-block">
-          <p class="patient-label">• Músculo segmental</p>
+          <p class="patient-label" contenteditable="true">• Músculo segmental</p>
           <ul class="patient-sublist">
-            <li id="rep-promedio-brazos">Promedio brazos: Sin dato</li>
-            <li id="rep-promedio-piernas">Promedio piernas: Sin dato</li>
-            <li id="rep-abdomen">Abdomen: Sin dato</li>
+            <li id="rep-promedio-brazos" contenteditable="true">Promedio brazos: Sin dato</li>
+            <li id="rep-promedio-piernas" contenteditable="true">Promedio piernas: Sin dato</li>
+            <li id="rep-abdomen" contenteditable="true">Abdomen: Sin dato</li>
           </ul>
         </div>
 
-        <p class="patient-rec-title">• Recomendaciones</p>
+        <p class="patient-rec-title" contenteditable="true">• Recomendaciones</p>
         <textarea id="rep-recomendaciones" class="patient-rec-editor" aria-label="Recomendaciones para paciente" placeholder="Escribe recomendaciones..."></textarea>
         <div class="patient-rec-actions">
           <button id="restaurar-recomendaciones" class="btn ghost" type="button">Restaurar recomendaciones automáticas</button>
@@ -813,16 +813,16 @@
     <section id="export-apartados-adicionales-section">
       <h2>Evaluación del estilo de vida</h2>
       <div id="apartados-adicionales-export" class="orden-export-box">
-        <h3 class="patient-title-inbody">Evaluación del estilo de vida</h3>
-        <p class="patient-label">Análisis dietético</p>
+        <h3 class="patient-title-inbody" contenteditable="true">Evaluación del estilo de vida</h3>
+        <p class="patient-label" contenteditable="true">Análisis dietético</p>
         <p id="apartados-adicionales-export-text" class="patient-line" contenteditable="true"></p>
-        <p class="patient-label" style="margin-top: 12px;">Actividad Física</p>
+        <p class="patient-label" style="margin-top: 12px;" contenteditable="true">Actividad Física</p>
         <p id="apartados-actividad-fisica-export-text" class="patient-line" contenteditable="true"></p>
-        <p class="patient-label" style="margin-top: 12px;">Análisis de sueño</p>
+        <p class="patient-label" style="margin-top: 12px;" contenteditable="true">Análisis de sueño</p>
         <p id="apartados-sueno-export-text" class="patient-line" contenteditable="true"></p>
-        <p class="patient-label" style="margin-top: 12px;">Hidratación</p>
+        <p class="patient-label" style="margin-top: 12px;" contenteditable="true">Hidratación</p>
         <p id="apartados-hidratacion-export-text" class="patient-line" contenteditable="true"></p>
-        <p class="patient-label" style="margin-top: 12px;">Consumo de sustancias nocivas</p>
+        <p id="apartados-adicciones-label" class="patient-label" style="margin-top: 12px;" contenteditable="true">Consumo de sustancias nocivas</p>
         <p id="apartados-adicciones-export-text" class="patient-line" contenteditable="true"></p>
         <p id="apartados-adicionales-export-empty" class="orden-export-empty" style="display:none;">No se identificaron hallazgos para reportar.</p>
       </div>
@@ -1063,7 +1063,7 @@
             <option value="suficiente">35 a 39 ml/kg</option>
             <option value="optimo">40 ml/kg o más</option>
           </select>
-          <span id="q13-agua-hint" class="hint">Ingresa el peso actual para ver las opciones convertidas a litros por día.</span>
+          <span id="q13-agua-hint" class="hint">Selecciona sexo e ingresa estatura para calcular las opciones con peso meta (IMC objetivo).</span>
         </div>
 
         <div class="question-card">
@@ -1293,6 +1293,7 @@
     const apartadosActividadFisicaExportText = document.getElementById("apartados-actividad-fisica-export-text");
     const apartadosSuenoExportText = document.getElementById("apartados-sueno-export-text");
     const apartadosHidratacionExportText = document.getElementById("apartados-hidratacion-export-text");
+    const apartadosAdiccionesLabel = document.getElementById("apartados-adicciones-label");
     const apartadosAdiccionesExportText = document.getElementById("apartados-adicciones-export-text");
     const apartadosAdicionalesExportEmpty = document.getElementById("apartados-adicionales-export-empty");
     const suplementacionList = document.getElementById("suplementacion-list");
@@ -1301,6 +1302,7 @@
     const tacharButtons = document.querySelectorAll(".btn-tachar");
 
     let suplementacionEditadaManualmente = false;
+    let diagnosticoEditadoManualmente = false;
     const repGrasaLinea = document.getElementById("rep-grasa-linea");
     const repGrasaInterpretacion = document.getElementById("rep-grasa-interpretacion");
     const repVisceralLinea = document.getElementById("rep-visceral-linea");
@@ -1316,6 +1318,22 @@
     const STORAGE_KEY_PREFIX = "chinchi-form-state-v2";
     const LEGACY_STORAGE_KEY = "chinchi-form-state-v1";
     const ALLOWED_CONTENT_TAGS = new Set(["BR", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
+    const AUTO_TEXT_ELEMENT_IDS = new Set([
+      "rep-grasa-linea",
+      "rep-grasa-interpretacion",
+      "rep-visceral-linea",
+      "rep-visceral-interpretacion",
+      "rep-musculo-total-linea",
+      "rep-musculo-total-interpretacion",
+      "rep-promedio-brazos",
+      "rep-promedio-piernas",
+      "rep-abdomen",
+      "apartados-adicionales-export-text",
+      "apartados-actividad-fisica-export-text",
+      "apartados-sueno-export-text",
+      "apartados-hidratacion-export-text",
+      "apartados-adicciones-export-text",
+    ]);
 
     let recomendacionesEditadasManualmente = false;
 
@@ -1352,10 +1370,29 @@
       return template.innerHTML;
     }
 
+    function isManualTextEdit(element) {
+      return Boolean(element && element.dataset && element.dataset.manualEdit === "true");
+    }
+
+    function setManualTextEdit(element, value) {
+      if (!element || !element.dataset) {
+        return;
+      }
+      element.dataset.manualEdit = value ? "true" : "false";
+    }
+
+    function setAutoTextIfNotManual(element, text) {
+      if (!element || isManualTextEdit(element)) {
+        return;
+      }
+      element.textContent = text;
+    }
+
     function saveFormState() {
       const storageKey = getStorageKey();
       const controlsState = {};
       const contentEditableState = {};
+      const manualContentEditableState = {};
       const analisisChecksState = {};
 
       document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
@@ -1364,6 +1401,9 @@
 
       document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
         contentEditableState[element.id] = sanitizePersistedHtml(element.innerHTML);
+        if (AUTO_TEXT_ELEMENT_IDS.has(element.id)) {
+          manualContentEditableState[element.id] = isManualTextEdit(element);
+        }
       });
 
       document.querySelectorAll("#analisis-form input[type='checkbox'][name='analisis']").forEach((checkbox) => {
@@ -1376,8 +1416,10 @@
           controls: controlsState,
           contentEditable: contentEditableState,
           analisisChecks: analisisChecksState,
+          manualContentEditable: manualContentEditableState,
           recomendacionesEditadasManualmente,
           suplementacionEditadaManualmente,
+          diagnosticoEditadoManualmente,
         }),
       );
     }
@@ -1427,6 +1469,15 @@
         });
       }
 
+      if (parsedState && parsedState.manualContentEditable) {
+        Object.entries(parsedState.manualContentEditable).forEach(([id, value]) => {
+          const element = document.getElementById(id);
+          if (element && AUTO_TEXT_ELEMENT_IDS.has(id)) {
+            setManualTextEdit(element, Boolean(value));
+          }
+        });
+      }
+
       if (parsedState && parsedState.analisisChecks) {
         document.querySelectorAll("#analisis-form input[type='checkbox'][name='analisis']").forEach((checkbox) => {
           if (Object.prototype.hasOwnProperty.call(parsedState.analisisChecks, checkbox.value)) {
@@ -1443,6 +1494,12 @@
 
       if (typeof parsedState.suplementacionEditadaManualmente === "boolean") {
         suplementacionEditadaManualmente = parsedState.suplementacionEditadaManualmente;
+      }
+
+      if (typeof parsedState.diagnosticoEditadoManualmente === "boolean") {
+        diagnosticoEditadoManualmente = parsedState.diagnosticoEditadoManualmente;
+      } else {
+        diagnosticoEditadoManualmente = false;
       }
     }
 
@@ -1596,7 +1653,7 @@
     }
 
     function setInterpretacionLinea(element, value) {
-      element.textContent = value ? `Interpretacion: ${value}` : "";
+      setAutoTextIfNotManual(element, value ? `Interpretacion: ${value}` : "");
     }
 
     function formatFechaActual() {
@@ -1747,19 +1804,19 @@
       const trenMenosDesarrollado = getTrenMenosDesarrollado(promedioBrazos, promedioPiernas);
       const objetivoGrasa = getObjetivoGrasa(sexo, pesoActual, estatura, porcentajeGrasa);
 
-      repGrasaLinea.textContent = `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`;
+      setAutoTextIfNotManual(repGrasaLinea, `Valor: ${formatValuePaciente(porcentajeGrasa, "%")}`);
       setInterpretacionLinea(repGrasaInterpretacion, clasificacionGrasa);
 
-      repVisceralLinea.textContent = `Valor: ${formatValuePaciente(grasaVisceral, "")}`;
+      setAutoTextIfNotManual(repVisceralLinea, `Valor: ${formatValuePaciente(grasaVisceral, "")}`);
       setInterpretacionLinea(repVisceralInterpretacion, clasificacionVisceral);
 
-      repMusculoTotalLinea.textContent = `Valor: ${formatValuePaciente(musculoTotal, "%")}`;
+      setAutoTextIfNotManual(repMusculoTotalLinea, `Valor: ${formatValuePaciente(musculoTotal, "%")}`);
       setInterpretacionLinea(repMusculoTotalInterpretacion, clasificacionMusculoTotal);
 
-      repPromedioBrazos.textContent = `Promedio brazos: ${formatValuePaciente(promedioBrazos, "%")} (${clasificacionPromedioBrazos || "Sin interpretacion"})`;
-      repPromedioPiernas.textContent = `Promedio piernas: ${formatValuePaciente(promedioPiernas, "%")} (${clasificacionPromedioPiernas || "Sin interpretacion"})`;
+      setAutoTextIfNotManual(repPromedioBrazos, `Promedio brazos: ${formatValuePaciente(promedioBrazos, "%")} (${clasificacionPromedioBrazos || "Sin interpretacion"})`);
+      setAutoTextIfNotManual(repPromedioPiernas, `Promedio piernas: ${formatValuePaciente(promedioPiernas, "%")} (${clasificacionPromedioPiernas || "Sin interpretacion"})`);
 
-      repAbdomen.textContent = `Abdomen: ${formatValuePaciente(abdomen, "%")} (${clasificacionAbdomen || "Sin interpretacion"})`;
+      setAutoTextIfNotManual(repAbdomen, `Abdomen: ${formatValuePaciente(abdomen, "%")} (${clasificacionAbdomen || "Sin interpretacion"})`);
 
       const recomendaciones = generarRecomendaciones({
         clasificacionGrasa,
@@ -1783,6 +1840,10 @@
     }
 
     function updateDiagnosticoAntropometrico() {
+      if (diagnosticoEditadoManualmente) {
+        return;
+      }
+
       const sexo = sexoInput.value;
 
       const musculoTotal = parseNumber(musculoTotalInput.value);
@@ -2263,7 +2324,8 @@
         return;
       }
 
-      const pesoActual = parseNumber(pesoActualInput.value || "");
+      const sexo = sexoInput ? sexoInput.value : "";
+      const estatura = parseNumber(estaturaInput ? estaturaInput.value : "");
       const optionIns = select.querySelector("option[value='insuficiente']");
       const optionSuf = select.querySelector("option[value='suficiente']");
       const optionOpt = select.querySelector("option[value='optimo']");
@@ -2272,22 +2334,25 @@
         return;
       }
 
-      if (pesoActual === null || pesoActual <= 0) {
+      if (!sexo || estatura === null || estatura <= 0) {
         optionIns.textContent = "Menos de 35 ml/kg";
         optionSuf.textContent = "35 a 39 ml/kg";
         optionOpt.textContent = "40 ml/kg o más";
-        q13AguaHint.textContent = "Ingresa el peso actual para ver las opciones convertidas a litros por día.";
+        q13AguaHint.textContent = "Selecciona sexo e ingresa estatura para calcular las opciones con peso meta (IMC objetivo).";
         return;
       }
 
-      const litros35 = (pesoActual * 35) / 1000;
-      const litros39 = (pesoActual * 39) / 1000;
-      const litros40 = (pesoActual * 40) / 1000;
+      const imcObjetivo = sexo === "mujer" ? 21 : 22;
+      const pesoMeta = imcObjetivo * estatura * estatura;
+
+      const litros35 = (pesoMeta * 35) / 1000;
+      const litros39 = (pesoMeta * 39) / 1000;
+      const litros40 = (pesoMeta * 40) / 1000;
 
       optionIns.textContent = `Menos de ${formatLiters(litros35)} L/día (< 35 ml/kg)`;
       optionSuf.textContent = `${formatLiters(litros35)} a ${formatLiters(litros39)} L/día (35 a 39 ml/kg)`;
       optionOpt.textContent = `${formatLiters(litros40)} L/día o más (40 ml/kg o más)`;
-      q13AguaHint.textContent = `Opciones calculadas con ${pesoActual.toFixed(1)} kg de peso actual.`;
+      q13AguaHint.textContent = `Opciones calculadas con peso meta de ${pesoMeta.toFixed(2)} kg (IMC ${imcObjetivo}) usando estatura de ${estatura.toFixed(2)} m.`;
     }
 
     function buildLifestyleFindings() {
@@ -2540,34 +2605,30 @@
 
       const minutosAcostarse = parseTimeToMinutes(suenoAcostarse);
       if (minutosAcostarse !== null && (minutosAcostarse < 21 * 60 || minutosAcostarse > 23 * 60)) {
-        hallazgosSueno.push("Horario de acostarse inadecuado (debe ser entre 9 y 11)");
+        hallazgosSueno.push("Horario de acostarse inadecuado");
       }
 
       const minutosDespertar = parseTimeToMinutes(suenoLevantarse);
       if (minutosDespertar !== null && (minutosDespertar < 5 * 60 || minutosDespertar > 7 * 60)) {
-        hallazgosSueno.push("Horario de despertar inadecuado (debe ser entre 5 y 7 am)");
+        hallazgosSueno.push("Horario de despertar inadecuado");
       }
-
-      apartadosAdicionalesExportText.textContent = "";
-      apartadosActividadFisicaExportText.textContent = "";
-      apartadosSuenoExportText.textContent = "";
 
       apartadosAdicionalesExportEmpty.style.display = "none";
       if (hallazgos.length > 0) {
-        apartadosAdicionalesExportText.textContent = `En la dieta actual se observó lo siguiente: ${sentenceCaseAfterComma(hallazgos)}.`;
+        setAutoTextIfNotManual(apartadosAdicionalesExportText, `En la dieta actual se observó lo siguiente: ${sentenceCaseAfterComma(hallazgos)}.`);
+      } else {
+        setAutoTextIfNotManual(apartadosAdicionalesExportText, "");
       }
       if (hallazgosActividadFisica.length > 0) {
-        apartadosActividadFisicaExportText.textContent = sentenceCaseAfterComma(hallazgosActividadFisica) + ".";
+        setAutoTextIfNotManual(apartadosActividadFisicaExportText, sentenceCaseAfterComma(hallazgosActividadFisica) + ".");
       } else {
-        apartadosActividadFisicaExportText.textContent = "Adecuado.";
+        setAutoTextIfNotManual(apartadosActividadFisicaExportText, "Actividad física adecuada en tiempo, tipo y frecuencia.");
       }
       if (hallazgosSueno.length > 0) {
-        apartadosSuenoExportText.textContent = sentenceCaseAfterComma(hallazgosSueno) + ".";
+        setAutoTextIfNotManual(apartadosSuenoExportText, sentenceCaseAfterComma(hallazgosSueno) + ".");
+      } else {
+        setAutoTextIfNotManual(apartadosSuenoExportText, "Sueño adecuado en duración y horarios.");
       }
-
-      if (hallazgosSueno.length === 0) {
-        apartadosSuenoExportText.textContent = "Adecuado";
-      } 
 
       const hallazgosHidratacion = [];
       const aguaSelect = document.getElementById("q13-agua").value;
@@ -2576,9 +2637,10 @@
         hallazgosHidratacion.push(`insuficiente`);
       }
 
-      apartadosHidratacionExportText.textContent = "";
       if (hallazgosHidratacion.length > 0) {
-        apartadosHidratacionExportText.textContent = sentenceCaseAfterComma(hallazgosHidratacion) + ".";
+        setAutoTextIfNotManual(apartadosHidratacionExportText, sentenceCaseAfterComma(hallazgosHidratacion) + ".");
+      } else {
+        setAutoTextIfNotManual(apartadosHidratacionExportText, "La cantidad de agua es adecuada");
       }
 
       const hallazgosAdicciones = [];
@@ -2596,17 +2658,32 @@
         hallazgosAdicciones.push("tabaquismo positivo");
       }
 
-      apartadosAdiccionesExportText.textContent = "";
       if (hallazgosAdicciones.length > 0) {
-        apartadosAdiccionesExportText.textContent = sentenceCaseAfterComma(hallazgosAdicciones) + ".";
+        setAutoTextIfNotManual(apartadosAdiccionesExportText, sentenceCaseAfterComma(hallazgosAdicciones) + ".");
+      } else {
+        setAutoTextIfNotManual(apartadosAdiccionesExportText, "");
       }
 
-      if (
-        hallazgos.length === 0 &&
-        hallazgosSueno.length === 0 &&
-        hallazgosHidratacion.length === 0 &&
-        hallazgosAdicciones.length === 0
-      ) {
+      const tieneTextoAdicciones = ((apartadosAdiccionesExportText.textContent || "").trim()).length > 0;
+      if (apartadosAdiccionesLabel) {
+        apartadosAdiccionesLabel.style.display = tieneTextoAdicciones ? "" : "none";
+      }
+      apartadosAdiccionesExportText.style.display = tieneTextoAdicciones ? "" : "none";
+
+      const existeTextoVisible = [
+        apartadosAdicionalesExportText,
+        apartadosActividadFisicaExportText,
+        apartadosSuenoExportText,
+        apartadosHidratacionExportText,
+        apartadosAdiccionesExportText,
+      ].some((element) => {
+        if (!element || element.style.display === "none") {
+          return false;
+        }
+        return ((element.textContent || "").trim()).length > 0;
+      });
+
+      if (!existeTextoVisible) {
         apartadosAdicionalesExportEmpty.style.display = "";
       }
 
@@ -2681,7 +2758,15 @@
       });
 
       suplementacionEditadaManualmente = false;
+      diagnosticoEditadoManualmente = false;
       recomendacionesEditadasManualmente = false;
+
+      AUTO_TEXT_ELEMENT_IDS.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+          setManualTextEdit(element, false);
+        }
+      });
 
       if (repRecomendaciones) {
         repRecomendaciones.value = "";
@@ -2749,8 +2834,20 @@
     });
 
     document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
-      element.addEventListener("input", saveFormState);
+      element.addEventListener("input", () => {
+        if (AUTO_TEXT_ELEMENT_IDS.has(element.id)) {
+          setManualTextEdit(element, true);
+        }
+        saveFormState();
+      });
     });
+
+    if (diagnosticoAntropometricoInput) {
+      diagnosticoAntropometricoInput.addEventListener("input", () => {
+        diagnosticoEditadoManualmente = true;
+        saveFormState();
+      });
+    }
 
     if (suplementacionList) {
       suplementacionList.addEventListener("input", () => {
@@ -2773,6 +2870,7 @@
     sexoInput.addEventListener("change", updateOrdenAnalisisExport);
     sexoInput.addEventListener("change", updateApartadosAdicionalesReporte);
     sexoInput.addEventListener("change", updateSuplementacion);
+    sexoInput.addEventListener("change", updateAguaOptionsByPeso);
     document.getElementById("edad").addEventListener("input", updateOrdenAnalisisExport);
     tacharButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -2844,6 +2942,11 @@
         updateApartadosAdicionalesReporte();
         updateSuplementacion();
       });
+    }
+
+    if (estaturaInput) {
+      estaturaInput.addEventListener("input", updateAguaOptionsByPeso);
+      estaturaInput.addEventListener("change", updateAguaOptionsByPeso);
     }
   </script>
 </body>
