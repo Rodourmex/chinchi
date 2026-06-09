@@ -419,6 +419,10 @@
       margin-top: 18px;
       padding-top: 12px;
       border-top: 1px solid #e2e8f0;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     .meal-recommendation {
@@ -459,6 +463,57 @@
 
     .rec-btn:hover {
       background: #e2e8f0;
+    }
+
+    .additional-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .question-card {
+      border: 1px solid #dbe3ef;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fcfdff;
+    }
+
+    .question-card p {
+      margin: 0 0 8px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .question-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .aux-card {
+      margin-top: 8px;
+      border: 1px dashed #9db4d3;
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: #f8fbff;
+      color: #0f172a;
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .aux-card p {
+      margin: 0 0 6px;
+      font-weight: 800;
+      color: #1e3a8a;
+    }
+
+    .aux-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .aux-card li {
+      margin-bottom: 4px;
     }
   </style>
 </head>
@@ -525,9 +580,6 @@
         </div> -->
       </div>
     </section>
-
-    <section id="orden-analisis-section">
-    <!-- Sección movida al final -->
 
     <section>
       <h2>Análisis de músculo</h2>
@@ -617,6 +669,166 @@
       <div class="actions export-actions">
         <label class="export-select"><input id="select-export-reporte" type="checkbox" checked /> Incluir en exportación global</label>
         <button id="exportar-reporte-paciente-pdf" class="btn secondary" type="button">Exportar reporte para paciente a PDF</button>
+      </div>
+    </section>
+
+    <section id="frecuencia-consumo-alimentos-section">
+      <h2>Frecuencia de consumo de alimentos</h2>
+      <div class="additional-grid">
+        <div class="question-card">
+          <p>1. Consumo de fuentes de calcio</p>
+          <div class="question-grid">
+            <div class="field">
+              <label for="q1-calcio-azucar">Lácteos enteros/con azúcar o bebidas vegetales con azúcar o de coco</label>
+              <select id="q1-calcio-azucar">
+                <option value="">Selecciona una opción</option>
+                <option value="si">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="q1-calcio-light">Lácteos/bebidas vegetales light y sin azúcar (excepto coco)</label>
+              <select id="q1-calcio-light">
+                <option value="">Selecciona una opción</option>
+                <option value="menos2">Menos de 2 veces al día</option>
+                <option value="2a3">2 - 3 veces al día</option>
+                <option value="mas3">Más de 3 veces al día</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>2. Consumo de harinas refinadas y azúcares</p>
+          <select id="q2-harinas">
+            <option value="">Selecciona una opción</option>
+            <option value="diario">Diario</option>
+            <option value="3a6">3 - 6 veces por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="1">1 vez por semana</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>3. Consumo de alimentos ultraprocesados o altos en grasa</p>
+          <select id="q3-ultraprocesados">
+            <option value="">Selecciona una opción</option>
+            <option value="diario">Diario</option>
+            <option value="3a6">3 - 6 veces por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="0a1">0 - 1 vez por semana</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>4. Frecuencia de consumo de carne roja</p>
+          <select id="q4-carne-roja">
+            <option value="">Selecciona una opción</option>
+            <option value="diario">Diario</option>
+            <option value="4a6">4 - 6 veces por semana</option>
+            <option value="3">3 veces por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="0a1">0 - 1 vez por semana</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>5. Frecuencia de consumo de embutidos</p>
+          <select id="q5-embutidos">
+            <option value="">Selecciona una opción</option>
+            <option value="mas2">Más de 2 veces por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="1">1 vez por semana</option>
+            <option value="quincenal">1 vez cada dos semanas</option>
+            <option value="mensual">1 vez al mes</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>6. Frecuencia de consumo de pescados azules</p>
+          <select id="q6-pescado-azul">
+            <option value="">Selecciona una opción</option>
+            <option value="menos1">Menos de 1 vez por semana</option>
+            <option value="1a2">1 - 2 veces por semana</option>
+            <option value="mas2">Más de 2 veces por semana</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>7. Frecuencia de consumo de huevo</p>
+          <div class="question-grid">
+            <div class="field">
+              <label for="q7-riesgo-metabolico">¿Presenta hiperglucemia o dislipidemias?</label>
+              <select id="q7-riesgo-metabolico">
+                <option value="">Selecciona una opción</option>
+                <option value="si">Sí</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="q7-huevo">Consumo semanal de huevo</label>
+              <select id="q7-huevo">
+                <option value="">Selecciona una opción</option>
+                <option value="menos3">Menos de 3 huevos/semana</option>
+                <option value="3a4">3 - 4 huevos/semana</option>
+                <option value="5a14">5 - 14 huevos/semana</option>
+                <option value="mas14">Más de 14 huevos/semana</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>8. Frecuencia de consumo de verduras</p>
+          <select id="q8-verduras">
+            <option value="">Selecciona una opción</option>
+            <option value="menos1">Menos de 1 vez por día</option>
+            <option value="1a2">1 - 2 veces por día</option>
+            <option value="cada-comida">En cada comida</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>9. Frecuencia de consumo de frutas</p>
+          <select id="q9-frutas">
+            <option value="">Selecciona una opción</option>
+            <option value="menos1">Menos de 1 por día</option>
+            <option value="1a3">1 - 3 por día</option>
+            <option value="mas3">Más de 3 por día</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>10. Frecuencia de consumo de aguacate/semillas</p>
+          <select id="q9b-aguacate-semillas">
+            <option value="">Selecciona una opción</option>
+            <option value="insuficiente">Insuficiente</option>
+            <option value="adecuada">Adecuada</option>
+            <option value="optima">Óptima</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section id="export-apartados-adicionales-section">
+      <h2>Evaluación del estilo de vida</h2>
+      <div id="apartados-adicionales-export" class="orden-export-box">
+        <h3 class="patient-title-inbody">Evaluación del estilo de vida</h3>
+        <p class="patient-label">Análisis dietético</p>
+        <p id="apartados-adicionales-export-text" class="patient-line" contenteditable="true"></p>
+        <p class="patient-label" style="margin-top: 12px;">Actividad Física</p>
+        <p id="apartados-actividad-fisica-export-text" class="patient-line" contenteditable="true"></p>
+        <p class="patient-label" style="margin-top: 12px;">Análisis de sueño</p>
+        <p id="apartados-sueno-export-text" class="patient-line" contenteditable="true"></p>
+        <p class="patient-label" style="margin-top: 12px;">Hidratación</p>
+        <p id="apartados-hidratacion-export-text" class="patient-line" contenteditable="true"></p>
+        <p class="patient-label" style="margin-top: 12px;">Consumo de sustancias nocivas</p>
+        <p id="apartados-adicciones-export-text" class="patient-line" contenteditable="true"></p>
+        <p id="apartados-adicionales-export-empty" class="orden-export-empty" style="display:none;">No se identificaron hallazgos para reportar.</p>
+      </div>
+      <div class="actions export-actions">
+        <label class="export-select"><input id="select-export-apartados" type="checkbox" checked /> Incluir en exportación global</label>
+        <button id="exportar-apartados-adicionales-pdf" class="btn secondary" type="button">Exportar evaluación a PDF</button>
       </div>
     </section>
 
@@ -800,6 +1012,119 @@
         <button id="exportar-plan-alimenticio-pdf" class="btn secondary" type="button">Exportar plan de comidas a PDF</button>
       </div>
     </section>
+    <section id="apartados-adicionales-section">
+      <h2>Apartados adicionales</h2>
+      <div class="additional-grid">
+        <div class="question-card">
+          <p>11. Horas sentado</p>
+          <select id="q10-sentado">
+            <option value="">Selecciona una opción</option>
+            <option value="menos4">Menos de 4 horas</option>
+            <option value="4a8">4 - 8 horas</option>
+            <option value="mas8">Más de 8 horas</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>12. Actividad cardiovascular (bicicleta, elíptica, natación, trote)</p>
+          <select id="q11-cardio">
+            <option value="">Selecciona una opción</option>
+            <option value="menos150">Menos de 150 min/semana</option>
+            <option value="150">150 min/semana</option>
+            <option value="mas150">Más de 150 min/semana</option>
+          </select>
+          <div class="aux-card no-export">
+            <p>Guía rápida para cumplir 150 minutos/semana</p>
+            <ul>
+              <li>22 minutos x 7 días/semana</li>
+              <li>30 minutos x 5 días/semana</li>
+              <li>40 minutos x 4 días/semana</li>
+              <li>50 minutos x 3 días/semana</li>
+              <li>1 hora 15 minutos x 2 días/semana</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <p>13. Actividad de fuerza</p>
+          <select id="q12-fuerza">
+            <option value="">Selecciona una opción</option>
+            <option value="menos1">1 vez o menos por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="3omas">3 o más veces por semana</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>14. ¿Cuánta agua total consume por día?</p>
+          <select id="q13-agua">
+            <option value="">Selecciona una opción</option>
+            <option value="insuficiente">Menos de 35 ml/kg</option>
+            <option value="suficiente">35 a 39 ml/kg</option>
+            <option value="optimo">40 ml/kg o más</option>
+          </select>
+          <span id="q13-agua-hint" class="hint">Ingresa el peso actual para ver las opciones convertidas a litros por día.</span>
+        </div>
+
+        <div class="question-card">
+          <p>15. Sueño (horarios regulares)</p>
+          <div class="question-grid">
+            <div class="field">
+              <label for="q14-sueno-acostarse">Hora regular de acostarse</label>
+              <input id="q14-sueno-acostarse" type="time" />
+            </div>
+            <div class="field">
+              <label for="q14-sueno-levantarse">Hora regular de levantarse</label>
+              <input id="q14-sueno-levantarse" type="time" />
+            </div>
+          </div>
+          <span class="hint">La evaluación considera duración total de sueño y adecuación de horarios.</span>
+        </div>
+
+        <div class="question-card">
+          <p>16. Presencia de dificultades para dormir (comenzar a dormir o levantarse seguido o con facilidad)</p>
+          <select id="q15-dificultad-sueno">
+            <option value="">Selecciona una opción</option>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+          </select>
+          <span class="hint">Esta respuesta se usa para recomendaciones de suplementación, no para la evaluación exportable.</span>
+        </div>
+
+        <div class="question-card">
+          <p>17. Consumo de alcohol (porciones por día)</p>
+          <select id="q15-alcohol">
+            <option value="">Selecciona una opción</option>
+            <option value="0">0 porciones</option>
+            <option value="1">1 porción</option>
+            <option value="2">2 porciones</option>
+            <option value="3omas">3 o más porciones</option>
+          </select>
+          <span class="hint">Para 2 porciones, la clasificación depende del sexo.</span>
+        </div>
+
+        <div class="question-card">
+          <p>18. Tabaquismo</p>
+          <select id="q16-tabaquismo">
+            <option value="">Selecciona una opción</option>
+            <option value="si">Sí fuma</option>
+            <option value="no">No fuma</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <section id="suplementacion-section">
+      <h2>Suplementación sugerida</h2>
+      <div class="orden-export-box">
+        <ul id="suplementacion-list" class="orden-export-list" contenteditable="true" aria-label="Suplementación sugerida editable"></ul>
+        <p id="suplementacion-empty" class="orden-export-empty" style="display:none;">Sin sugerencias de suplementación con los datos actuales.</p>
+      </div>
+      <div class="actions export-actions">
+        <label class="export-select"><input id="select-export-suplementacion" type="checkbox" checked /> Incluir en exportación global</label>
+      </div>
+    </section>
+
     <section id="orden-analisis-section">
       <h2>Órden de análisis</h2>
       <p>Favor de realizar en Salud Digna los siguientes análisis:</p>
@@ -814,8 +1139,14 @@
           <label class="analisis-item">Hemoglobina glucosilada<input type="checkbox" name="analisis" value="Hemoglobina glucosilada" checked /></label>
           <label id="analisis-densitometria" class="analisis-item" style="display:none;">Densitometría ósea de columna y fémur<input type="checkbox" name="analisis" value="Densitometría ósea de columna y fémur" checked /></label>
           <label id="analisis-antigeno" class="analisis-item" style="display:none;">Antígeno prostático específico total<input type="checkbox" name="analisis" value="Antígeno prostático específico total" checked /></label>
+          <label class="analisis-item">Glucosa sérica<input type="checkbox" name="analisis" value="Glucosa sérica" /></label>
+          <label class="analisis-item">Colesterol total, HDL y LDL<input type="checkbox" name="analisis" value="Colesterol total, LDL y HDL"/></label>
         </div>
       </form>
+      <div class="field" style="margin-top: 12px;">
+        <label for="notas-laboratorio">Notas</label>
+        <textarea id="notas-laboratorio" rows="4" placeholder="Añade notas complementarias para laboratorios bioquímicos..."></textarea>
+      </div>
     </section>
 
     <section id="export-orden-analisis-section">
@@ -825,12 +1156,14 @@
         <p>Favor de realizar en Salud Digna los siguientes análisis:</p>
         <ul id="orden-analisis-export-list" class="orden-export-list"></ul>
         <p id="orden-analisis-export-empty" class="orden-export-empty" style="display:none;">No hay estudios seleccionados.</p>
+        <p class="patient-label" style="margin-top: 12px;">Notas</p>
+        <p id="orden-analisis-notas-export" class="patient-line">Sin notas adicionales.</p>
 
         <div class="orden-export-nota">
           <p>Indicaciones:</p>
           <div id="orden-analisis-indicaciones-editor" class="orden-export-nota-editor" contenteditable="true" aria-label="Indicaciones editables para orden de análisis">
             <ol>
-              <li>Suspender suplementos que se estén consumiendo al menos 2 días antes, de preferencia 1 semana.</li>
+              <li>Suspender suplementos que se estén consumiendo al menos 1 semana antes.</li>
               <li>Un día antes del análisis hacer una cena ligera sin grasas, no realizar actividad física ni beber alcohol.</li>
               <li>Asistir con 8 - 10 horas de ayuno (no más) y bien hidratado.</li>
               <li>
@@ -851,7 +1184,24 @@
       </div>
     </section>
 
+    <section id="notas-section">
+      <h2>Notas</h2>
+      <div class="orden-export-box">
+        <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales..."></textarea>
+      </div>
+    </section>
+
+    <section id="contacto-nutri-section">
+      <h2>Datos de contacto de la nutrióloga</h2>
+      <div class="orden-export-box">
+        <p class="patient-line">Licenciada en Nutrición y Bienestar Integral; Zelma Barrientos Lara</p>
+        <p class="patient-line">Cédula profesional: 10010272</p>
+        <p class="patient-line">WhatsApp: <a id="contacto-whatsapp" href="https://wa.me/525529716857?text=Hola%20Dra.%20tengo%20dudas%20con%20mi%20plan" target="_blank" rel="noopener noreferrer">5529716857</a></p>
+      </div>
+    </section>
+
     <div class="actions export-all-footer">
+      <button id="limpiar-formulario" class="btn ghost" type="button">Limpiar formulario</button>
       <button id="exportar-selecciones-pdf" class="btn" type="button">Exportar selecciones en un solo PDF</button>
     </div>
   </main>
@@ -914,22 +1264,43 @@
     const diagnosticoSection = document.getElementById("diagnostico-section");
     const reportePacienteSection = document.getElementById("reporte-paciente-section");
     const planAlimenticioSection = document.getElementById("plan-alimenticio-section");
+    const suplementacionSection = document.getElementById("suplementacion-section");
+    const notasSection = document.getElementById("notas-section");
+    const contactoNutriSection = document.getElementById("contacto-nutri-section");
     const ordenAnalisisSection = document.getElementById("orden-analisis-export");
     const diagnosticoAntropometricoInput = document.getElementById("diagnostico-antropometrico");
     const exportarDiagnosticoPdfBtn = document.getElementById("exportar-diagnostico-pdf");
     const exportarReportePacientePdfBtn = document.getElementById("exportar-reporte-paciente-pdf");
     const exportarPlanAlimenticioPdfBtn = document.getElementById("exportar-plan-alimenticio-pdf");
     const exportarOrdenAnalisisPdfBtn = document.getElementById("exportar-orden-analisis-pdf");
+    const exportarApartadosAdicionalesPdfBtn = document.getElementById("exportar-apartados-adicionales-pdf");
+    const limpiarFormularioBtn = document.getElementById("limpiar-formulario");
     const exportarSeleccionesPdfBtn = document.getElementById("exportar-selecciones-pdf");
     const selectExportDiagnostico = document.getElementById("select-export-diagnostico");
     const selectExportReporte = document.getElementById("select-export-reporte");
     const selectExportPlan = document.getElementById("select-export-plan");
     const selectExportOrden = document.getElementById("select-export-orden");
+    const selectExportApartados = document.getElementById("select-export-apartados");
+    const selectExportSuplementacion = document.getElementById("select-export-suplementacion");
     const analisisForm = document.getElementById("analisis-form");
     const ordenAnalisisExportList = document.getElementById("orden-analisis-export-list");
     const ordenAnalisisExportEmpty = document.getElementById("orden-analisis-export-empty");
+    const notasLaboratorioInput = document.getElementById("notas-laboratorio");
+    const ordenAnalisisNotasExport = document.getElementById("orden-analisis-notas-export");
+    const apartadosAdicionalesSection = document.getElementById("apartados-adicionales-section");
+    const apartadosAdicionalesExport = document.getElementById("apartados-adicionales-export");
+    const apartadosAdicionalesExportText = document.getElementById("apartados-adicionales-export-text");
+    const apartadosActividadFisicaExportText = document.getElementById("apartados-actividad-fisica-export-text");
+    const apartadosSuenoExportText = document.getElementById("apartados-sueno-export-text");
+    const apartadosHidratacionExportText = document.getElementById("apartados-hidratacion-export-text");
+    const apartadosAdiccionesExportText = document.getElementById("apartados-adicciones-export-text");
+    const apartadosAdicionalesExportEmpty = document.getElementById("apartados-adicionales-export-empty");
+    const suplementacionList = document.getElementById("suplementacion-list");
+    const suplementacionEmpty = document.getElementById("suplementacion-empty");
+    const q13AguaHint = document.getElementById("q13-agua-hint");
     const tacharButtons = document.querySelectorAll(".btn-tachar");
 
+    let suplementacionEditadaManualmente = false;
     const repGrasaLinea = document.getElementById("rep-grasa-linea");
     const repGrasaInterpretacion = document.getElementById("rep-grasa-interpretacion");
     const repVisceralLinea = document.getElementById("rep-visceral-linea");
@@ -1006,6 +1377,7 @@
           contentEditable: contentEditableState,
           analisisChecks: analisisChecksState,
           recomendacionesEditadasManualmente,
+          suplementacionEditadaManualmente,
         }),
       );
     }
@@ -1067,6 +1439,10 @@
         recomendacionesEditadasManualmente = parsedState.recomendacionesEditadasManualmente;
       } else if ((repRecomendaciones.value || "").trim()) {
         recomendacionesEditadasManualmente = true;
+      }
+
+      if (typeof parsedState.suplementacionEditadaManualmente === "boolean") {
+        suplementacionEditadaManualmente = parsedState.suplementacionEditadaManualmente;
       }
     }
 
@@ -1202,6 +1578,7 @@
       updateEvaluaciones();
       updateDiagnosticoAntropometrico();
       updateReportePaciente();
+      updateSuplementacion();
     }
 
     function formatValueOrNd(value, suffix) {
@@ -1433,10 +1810,10 @@
       const diferenciaPromedios = promedioBrazos !== null && promedioPiernas !== null ? Math.abs(promedioBrazos - promedioPiernas) : 0;
       const trenMenosDesarrollado = getTrenMenosDesarrollado(promedioBrazos, promedioPiernas);
       const textoDesequilibrio = diferenciaPromedios > 3
-        ? ` Se observa desequilibrio entre tren superior e inferior (diferencia ${diferenciaPromedios.toFixed(1)}%). Se recomienda incrementar la carga de entrenamiento del ${trenMenosDesarrollado}.`
+        ? ` Desequilibrio entre tren superior e inferior (diferencia ${diferenciaPromedios.toFixed(1)}%). Se recomienda incrementar la carga de entrenamiento del ${trenMenosDesarrollado}.`
         : "";
 
-      diagnosticoAntropometricoInput.value = `Se observa músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${textoDesequilibrio}`;
+      diagnosticoAntropometricoInput.value = `Músculo en rango ${clasificacionMusculo} (${formatValueOrNd(musculoTotal, "%")}), con un porcentaje de grasa ${clasificacionGrasa} (${formatValueOrNd(porcentajeGrasa, "%")}) y un nivel ${clasificacionVisceral} de grasa visceral (${formatValueOrNd(grasaVisceral, "")}).${textoDesequilibrio}`;
     }
 
     function buildExportClone(element) {
@@ -1466,6 +1843,10 @@
       });
 
       clone.querySelectorAll(".hint").forEach((el) => {
+        el.remove();
+      });
+
+      clone.querySelectorAll(".no-export").forEach((el) => {
         el.remove();
       });
 
@@ -1554,6 +1935,121 @@
       return error.message;
     }
 
+    function addNutriContactPage(doc) {
+      const waUrl = "https://wa.me/525529716857?text=Hola%20Dra.%20tengo%20dudas%20con%20mi%20plan";
+      doc.addPage();
+      doc.setFontSize(14);
+      doc.setTextColor(11, 79, 74);
+      doc.text("Datos de contacto de la nutrióloga", 12, 20);
+
+      doc.setFontSize(11);
+      doc.setTextColor(15, 23, 42);
+      doc.text("Licenciada en Nutrición y Bienestar Integral; Zelma Barrientos Lara", 12, 32);
+      doc.text("Cédula profesional: 10010272", 12, 40);
+
+      doc.setTextColor(11, 90, 156);
+      if (typeof doc.textWithLink === "function") {
+        doc.textWithLink("WhatsApp: 5529716857", 12, 48, { url: waUrl });
+      } else {
+        doc.text("WhatsApp: 5529716857", 12, 48);
+      }
+    }
+
+    function addNutriContactTextBlock(doc, startY) {
+      const waUrl = "https://wa.me/525529716857?text=Hola%20Dra.%20tengo%20dudas%20con%20mi%20plan";
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const topMargin = 10;
+      let y = Number.isFinite(startY) ? startY : topMargin;
+
+      if (y > pageHeight - 28) {
+        doc.addPage();
+        y = 20;
+      }
+
+      doc.setFontSize(14);
+      doc.setTextColor(11, 79, 74);
+      doc.text("Datos de contacto de la nutrióloga", 12, y);
+
+      doc.setFontSize(11);
+      doc.setTextColor(15, 23, 42);
+      doc.text("Licenciada en Nutrición y Bienestar Integral; Zelma Barrientos Lara", 12, y + 12);
+      doc.text("Cédula profesional: 10010272", 12, y + 20);
+
+      doc.setTextColor(11, 90, 156);
+      if (typeof doc.textWithLink === "function") {
+        doc.textWithLink("WhatsApp: 5529716857", 12, y + 28, { url: waUrl });
+      } else if (typeof doc.link === "function") {
+        doc.text("WhatsApp: 5529716857", 12, y + 28);
+        doc.link(12, y + 24, 55, 6, { url: waUrl });
+      } else {
+        doc.text("WhatsApp: 5529716857", 12, y + 28);
+      }
+    }
+
+    function getCanvasPlacement(doc, canvas, margin) {
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+      const contentWidth = pageWidth - margin * 2;
+      const contentHeight = pageHeight - margin * 2;
+
+      let renderWidth = contentWidth;
+      let renderHeight = (canvas.height * contentWidth) / canvas.width;
+
+      if (renderHeight > contentHeight) {
+        const scale = contentHeight / renderHeight;
+        renderWidth *= scale;
+        renderHeight *= scale;
+      }
+
+      const x = margin + (contentWidth - renderWidth) / 2;
+      const y = margin;
+
+      return { x, y, renderWidth, renderHeight };
+    }
+
+    function addLinkAnnotationForExportClone(doc, canvas, placement, exportClone) {
+      if (!exportClone) {
+        return;
+      }
+
+      const linkElement = exportClone.querySelector("#contacto-whatsapp");
+      if (!linkElement) {
+        return;
+      }
+
+      const cloneRect = exportClone.getBoundingClientRect();
+      const linkRect = linkElement.getBoundingClientRect();
+      if (!cloneRect.width || !cloneRect.height || !linkRect.width || !linkRect.height) {
+        return;
+      }
+
+      const scaleX = placement.renderWidth / canvas.width;
+      const scaleY = placement.renderHeight / canvas.height;
+      const relativeLeft = linkRect.left - cloneRect.left;
+      const relativeTop = linkRect.top - cloneRect.top;
+      const linkX = placement.x + relativeLeft * scaleX;
+      const linkY = placement.y + relativeTop * scaleY;
+      const linkW = Math.max(linkRect.width * scaleX, 8);
+      const linkH = Math.max(linkRect.height * scaleY, 4);
+
+      if (typeof doc.link === "function") {
+        doc.link(linkX, linkY, linkW, linkH, { url: linkElement.href });
+      } else if (typeof doc.textWithLink === "function") {
+        doc.textWithLink("WhatsApp: 5529716857", linkX, linkY + linkH, { url: linkElement.href });
+      }
+    }
+
+    function buildSupplementationNotesContactSheet() {
+      const wrapper = document.createElement("section");
+      wrapper.appendChild(suplementacionSection.cloneNode(true));
+
+      if (notasSection) {
+        wrapper.appendChild(notasSection.cloneNode(true));
+      }
+
+      return wrapper;
+    }
+
     function buildSectionForExport(section) {
       const wrapper = document.createElement("section");
 
@@ -1578,7 +2074,7 @@
       return wrapper;
     }
 
-    async function exportSectionsAsPdf(sections, fileName) {
+    async function exportSectionsAsPdf(sections, fileName, options = {}) {
       if (!window.jspdf || !window.jspdf.jsPDF || !window.html2canvas) {
         alert("No se pudo cargar el generador de PDF.");
         return;
@@ -1597,13 +2093,22 @@
         format: "a4",
       });
       const margin = 10;
+      const appendContactPage = options.appendContactPage !== false;
 
       try {
         for (let i = 0; i < validSections.length; i += 1) {
           const currentSection = validSections[i];
           const sectionNode = buildSectionForExport(currentSection);
           const sectionName = currentSection.titulo || `Seccion ${i + 1}`;
-          const canvas = await renderElementToCanvas(sectionNode);
+          const shouldAnnotateContact = currentSection.titulo === "Suplementación, notas y contacto";
+          const exportClone = shouldAnnotateContact ? buildExportClone(sectionNode) : null;
+          const canvas = shouldAnnotateContact
+            ? await window.html2canvas(exportClone, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: "#ffffff",
+              })
+            : await renderElementToCanvas(sectionNode);
 
           if (i > 0) {
             doc.addPage();
@@ -1611,10 +2116,23 @@
 
           // Cada sección se coloca completa en su propia hoja, escalando si es muy larga para evitar cortes.
           try {
+            const placement = getCanvasPlacement(doc, canvas, margin);
             drawCanvasFittedToPage(doc, canvas, margin);
+
+            if (shouldAnnotateContact) {
+              addNutriContactTextBlock(doc, placement.y + placement.renderHeight + 8);
+            }
           } catch (sectionError) {
             throw new Error(`${sectionName}: ${sectionError.message}`);
+          } finally {
+            if (exportClone) {
+              exportClone.remove();
+            }
           }
+        }
+
+        if (appendContactPage) {
+          addNutriContactPage(doc);
         }
 
         doc.save(fileName);
@@ -1660,15 +2178,24 @@
       await exportElementAsPdf(ordenAnalisisSection, "orden-analisis.pdf");
     }
 
+    async function exportarApartadosAdicionalesPdf() {
+      await exportElementAsPdf(apartadosAdicionalesExport, "evaluacion-apartados-adicionales.pdf");
+    }
+
     async function exportarSeleccionesPdf() {
       const secciones = [];
-
-      if (selectExportDiagnostico.checked) {
-        secciones.push({ titulo: "Diagnóstico antropométrico", elemento: diagnosticoSection });
-      }
+      let appendContactPage = true;
 
       if (selectExportReporte.checked) {
         secciones.push({ titulo: reportePacienteHeading.textContent, elemento: reportePacienteSection });
+      }
+
+      if (selectExportApartados.checked) {
+        secciones.push({ titulo: "Evaluación del estilo de vida", elemento: apartadosAdicionalesExport });
+      }
+
+      if (selectExportDiagnostico.checked) {
+        secciones.push({ titulo: "Diagnóstico antropométrico", elemento: diagnosticoSection });
       }
 
       if (selectExportPlan.checked) {
@@ -1679,12 +2206,17 @@
         secciones.push({ titulo: "Órden de análisis", elemento: ordenAnalisisSection });
       }
 
+      if (selectExportSuplementacion && selectExportSuplementacion.checked) {
+        secciones.push({ titulo: "Suplementación, notas y contacto", elemento: buildSupplementationNotesContactSheet() });
+        appendContactPage = false;
+      }
+
       if (secciones.length === 0) {
         alert("Selecciona al menos una sección para exportar.");
         return;
       }
 
-      await exportSectionsAsPdf(secciones, "exportacion-seleccionada.pdf");
+      await exportSectionsAsPdf(secciones, "exportacion-seleccionada.pdf", { appendContactPage });
     }
 
     function updateOrdenAnalisisExport() {
@@ -1701,6 +2233,11 @@
 
       ordenAnalisisExportList.innerHTML = "";
 
+      if (ordenAnalisisNotasExport) {
+        const notas = notasLaboratorioInput ? notasLaboratorioInput.value.trim() : "";
+        ordenAnalisisNotasExport.textContent = notas || "Sin notas adicionales.";
+      }
+
       if (selectedItems.length === 0) {
         ordenAnalisisExportEmpty.style.display = "";
         saveFormState();
@@ -1713,6 +2250,453 @@
         li.textContent = item;
         ordenAnalisisExportList.appendChild(li);
       });
+      saveFormState();
+    }
+
+    function formatLiters(valueInLiters) {
+      return valueInLiters.toFixed(2);
+    }
+
+    function updateAguaOptionsByPeso() {
+      const select = document.getElementById("q13-agua");
+      if (!select) {
+        return;
+      }
+
+      const pesoActual = parseNumber(pesoActualInput.value || "");
+      const optionIns = select.querySelector("option[value='insuficiente']");
+      const optionSuf = select.querySelector("option[value='suficiente']");
+      const optionOpt = select.querySelector("option[value='optimo']");
+
+      if (!optionIns || !optionSuf || !optionOpt) {
+        return;
+      }
+
+      if (pesoActual === null || pesoActual <= 0) {
+        optionIns.textContent = "Menos de 35 ml/kg";
+        optionSuf.textContent = "35 a 39 ml/kg";
+        optionOpt.textContent = "40 ml/kg o más";
+        q13AguaHint.textContent = "Ingresa el peso actual para ver las opciones convertidas a litros por día.";
+        return;
+      }
+
+      const litros35 = (pesoActual * 35) / 1000;
+      const litros39 = (pesoActual * 39) / 1000;
+      const litros40 = (pesoActual * 40) / 1000;
+
+      optionIns.textContent = `Menos de ${formatLiters(litros35)} L/día (< 35 ml/kg)`;
+      optionSuf.textContent = `${formatLiters(litros35)} a ${formatLiters(litros39)} L/día (35 a 39 ml/kg)`;
+      optionOpt.textContent = `${formatLiters(litros40)} L/día o más (40 ml/kg o más)`;
+      q13AguaHint.textContent = `Opciones calculadas con ${pesoActual.toFixed(1)} kg de peso actual.`;
+    }
+
+    function buildLifestyleFindings() {
+      const hallazgos = [];
+      const parseTimeToMinutes = (timeValue) => {
+        if (!timeValue || typeof timeValue !== "string" || !timeValue.includes(":")) {
+          return null;
+        }
+        const [hoursRaw, minutesRaw] = timeValue.split(":");
+        const hours = Number(hoursRaw);
+        const minutes = Number(minutesRaw);
+        if (!Number.isFinite(hours) || !Number.isFinite(minutes)) {
+          return null;
+        }
+        return hours * 60 + minutes;
+      };
+
+      const getSleepDurationHours = (bedTime, wakeTime) => {
+        const bedMinutes = parseTimeToMinutes(bedTime);
+        const wakeMinutes = parseTimeToMinutes(wakeTime);
+        if (bedMinutes === null || wakeMinutes === null) {
+          return null;
+        }
+
+        let totalMinutes = wakeMinutes - bedMinutes;
+        if (totalMinutes <= 0) {
+          totalMinutes += 24 * 60;
+        }
+        return totalMinutes / 60;
+      };
+
+      const classifySleepDuration = (hoursSlept) => {
+        if (hoursSlept === null) {
+          return "";
+        }
+        if (hoursSlept < 6 || hoursSlept > 9.5) {
+          return "riesgoso";
+        }
+        if (hoursSlept >= 6 && hoursSlept <= 7.5) {
+          return "mínimo";
+        }
+        if (hoursSlept > 7.5 && hoursSlept <= 9.5) {
+          return "óptimo";
+        }
+        return "mínimo";
+      };
+
+      const isBedtimeAdequate = (bedTime) => {
+        const minutes = parseTimeToMinutes(bedTime);
+        if (minutes === null) {
+          return null;
+        }
+        return minutes >= 21 * 60 && minutes <= 23 * 60;
+      };
+
+      const isWakeTimeAdequate = (wakeTime) => {
+        const minutes = parseTimeToMinutes(wakeTime);
+        if (minutes === null) {
+          return null;
+        }
+        return minutes >= 5 * 60 && minutes <= 7 * 60;
+      };
+
+      const calcioAzucar = document.getElementById("q1-calcio-azucar").value;
+      const calcioLight = document.getElementById("q1-calcio-light").value;
+      const ultraprocesados = document.getElementById("q3-ultraprocesados").value;
+      const carneRoja = document.getElementById("q4-carne-roja").value;
+      const embutidos = document.getElementById("q5-embutidos").value;
+      const pescadoAzul = document.getElementById("q6-pescado-azul").value;
+      const verduras = document.getElementById("q8-verduras").value;
+      const frutas = document.getElementById("q9-frutas").value;
+      const aguacateSemillas = document.getElementById("q9b-aguacate-semillas").value;
+
+      const ultraprocesadosElevados = ultraprocesados === "diario" || ultraprocesados === "3a6";
+      const carneRojaElevada = carneRoja === "diario" || carneRoja === "4a6";
+      const embutidosAltos = embutidos === "mas2" || embutidos === "2";
+      const algunoModerado = ultraprocesados === "2" || carneRoja === "3" || embutidos === "1";
+
+      const pescadoInsuficiente = pescadoAzul === "menos1";
+      const aguacateSemillasInsuficiente = aguacateSemillas === "insuficiente";
+      const frutaInsuficiente = frutas === "menos1";
+      const verduraInsuficiente = verduras === "menos1";
+
+      const calcioInsuficientePorFrecuencia = calcioLight === "menos2";
+      const calcioInsuficientePorTipo = calcioAzucar === "si";
+
+      const azucaresElevados = ultraprocesadosElevados || calcioAzucar === "si";
+      if (azucaresElevados) {
+        hallazgos.push("Ingesta de azúcares elevados");
+      }
+
+      let grasaElevada = false;
+      if (carneRojaElevada || ultraprocesadosElevados || embutidosAltos) {
+        hallazgos.push("Ingesta de grasa elevada");
+        grasaElevada = true;
+      } else if (algunoModerado) {
+        hallazgos.push("Ingesta de grasa moderada");
+      }
+
+      if (grasaElevada) {
+        hallazgos.push("Ingesta de grasa saturada elevada");
+      }
+
+      if (pescadoInsuficiente || aguacateSemillasInsuficiente) {
+        hallazgos.push("Ingesta de grasas insaturadas deficiente");
+      }
+
+      const fibraInsuficiente = frutaInsuficiente || verduraInsuficiente;
+      if (fibraInsuficiente) {
+        hallazgos.push("Consumo de fibra insuficiente");
+      }
+
+      if (calcioInsuficientePorFrecuencia || calcioInsuficientePorTipo) {
+        if (calcioInsuficientePorFrecuencia && calcioInsuficientePorTipo) {
+          hallazgos.push("Ingesta de calcio insuficiente por baja frecuencia y además las fuentes son altas en azúcar y/o grasa");
+        } else if (calcioInsuficientePorFrecuencia) {
+          hallazgos.push("Ingesta de calcio insuficiente por baja frecuencia de fuentes light/sin azúcar");
+        } else {
+          hallazgos.push("Ingesta de calcio suficiente pero con predominio de fuentes con azúcar o grasa");
+        }
+      }
+
+      if (fibraInsuficiente) {
+        hallazgos.push("Consumo insuficiente de vitaminas C y B");
+      }
+
+      const riesgoMetabolico = document.getElementById("q7-riesgo-metabolico").value;
+      const huevos = document.getElementById("q7-huevo").value;
+      const huevoInsuficiente = huevos === "menos3";
+      if (huevos) {
+        let resultadoHuevo = "";
+        if (huevos === "menos3") {
+          resultadoHuevo = "Ingesta deficiente de huevo";
+        } else if (riesgoMetabolico === "si") {
+          if (huevos === "3a4") {
+            resultadoHuevo = "Ingesta óptima de huevo para contexto de hiperglucemia/dislipidemia";
+          } else {
+            resultadoHuevo = "Ingesta excesiva de huevo para contexto de hiperglucemia/dislipidemia";
+          }
+        } else if (huevos === "3a4" || huevos === "5a14") {
+          resultadoHuevo = "Ingesta óptima de huevo";
+        } else {
+          resultadoHuevo = "Ingesta excesiva de huevo";
+        }
+
+        const etiquetaRiesgo = riesgoMetabolico
+          ? ` (hiperglucemia/dislipidemia: ${riesgoMetabolico === "si" ? "sí" : "no"})`
+          : "";
+
+      }
+
+      if (huevoInsuficiente || verduraInsuficiente) {
+        hallazgos.push("Consumo insuficiente de vitamina A");
+      }
+
+      if (aguacateSemillasInsuficiente || verduraInsuficiente) {
+        hallazgos.push("Consumo insuficiente de vitamina E");
+      }
+
+      return hallazgos;
+    }
+
+    function updateApartadosAdicionalesReporte() {
+      if (!apartadosAdicionalesExportText || !apartadosActividadFisicaExportText || !apartadosSuenoExportText || !apartadosHidratacionExportText || !apartadosAdiccionesExportText || !apartadosAdicionalesExportEmpty) {
+        return;
+      }
+
+      const sentenceCaseAfterComma = (parts) => {
+        const cleanParts = (parts || []).map((item) => (item || "").trim()).filter(Boolean);
+        if (cleanParts.length === 0) {
+          return "";
+        }
+
+        return cleanParts
+          .map((item, index) => {
+            if (index === 0) {
+              return item.charAt(0).toLocaleUpperCase("es-MX") + item.slice(1);
+            }
+            return item.charAt(0).toLocaleLowerCase("es-MX") + item.slice(1);
+          })
+          .join(", ");
+      };
+
+      const hallazgos = buildLifestyleFindings().filter((item) => (item || "").trim() !== "");
+      const hallazgosActividadFisica = [];
+      const hallazgosSueno = [];
+      const horasSentado = document.getElementById("q10-sentado").value;
+      const actividadFuerza = document.getElementById("q12-fuerza").value;
+      const suenoAcostarse = document.getElementById("q14-sueno-acostarse").value;
+      const suenoLevantarse = document.getElementById("q14-sueno-levantarse").value;
+
+      const parseTimeToMinutes = (timeValue) => {
+        if (!timeValue || typeof timeValue !== "string" || !timeValue.includes(":")) {
+          return null;
+        }
+        const [hoursRaw, minutesRaw] = timeValue.split(":");
+        const hours = Number(hoursRaw);
+        const minutes = Number(minutesRaw);
+        if (!Number.isFinite(hours) || !Number.isFinite(minutes)) {
+          return null;
+        }
+        return hours * 60 + minutes;
+      };
+
+      const getSleepDurationHours = (bedTime, wakeTime) => {
+        const bedMinutes = parseTimeToMinutes(bedTime);
+        const wakeMinutes = parseTimeToMinutes(wakeTime);
+        if (bedMinutes === null || wakeMinutes === null) {
+          return null;
+        }
+
+        let totalMinutes = wakeMinutes - bedMinutes;
+        if (totalMinutes <= 0) {
+          totalMinutes += 24 * 60;
+        }
+        return totalMinutes / 60;
+      };
+
+      if (horasSentado === "4a8") {
+        hallazgosActividadFisica.push("Sedentarismo moderado");
+      } else if (horasSentado === "mas8") {
+        hallazgosActividadFisica.push("Sedentarismo severo");
+      }
+
+      const actividadCardio = document.getElementById("q11-cardio").value;
+      if (actividadCardio === "menos150") {
+        hallazgosActividadFisica.push("Actividad cardiovascular insuficiente");
+      }
+
+      if (actividadCardio === "150") {
+        hallazgosActividadFisica.push("Actividad cardiovascular mínima recomendada");
+      } else if (actividadCardio === "mas150") {
+        hallazgosActividadFisica.push("Actividad cardiovascular óptima");
+      }
+
+      if (actividadFuerza === "menos1") {
+        hallazgosActividadFisica.push("Actividad de fuerza insuficiente");
+      }
+
+      if (actividadFuerza === "2") {
+        hallazgosActividadFisica.push("Actividad de fuerza adecuada");
+      } else if (actividadFuerza === "3omas") {
+        hallazgosActividadFisica.push("Actividad de fuerza óptima");
+      }
+
+      const horasSueno = getSleepDurationHours(suenoAcostarse, suenoLevantarse);
+      if (horasSueno !== null && horasSueno < 6) {
+        hallazgosSueno.push("Tiempo insuficiente");
+      }
+
+      const minutosAcostarse = parseTimeToMinutes(suenoAcostarse);
+      if (minutosAcostarse !== null && (minutosAcostarse < 21 * 60 || minutosAcostarse > 23 * 60)) {
+        hallazgosSueno.push("Horario de acostarse inadecuado (debe ser entre 9 y 11)");
+      }
+
+      const minutosDespertar = parseTimeToMinutes(suenoLevantarse);
+      if (minutosDespertar !== null && (minutosDespertar < 5 * 60 || minutosDespertar > 7 * 60)) {
+        hallazgosSueno.push("Horario de despertar inadecuado (debe ser entre 5 y 7 am)");
+      }
+
+      apartadosAdicionalesExportText.textContent = "";
+      apartadosActividadFisicaExportText.textContent = "";
+      apartadosSuenoExportText.textContent = "";
+
+      apartadosAdicionalesExportEmpty.style.display = "none";
+      if (hallazgos.length > 0) {
+        apartadosAdicionalesExportText.textContent = `En la dieta actual se observó lo siguiente: ${sentenceCaseAfterComma(hallazgos)}.`;
+      }
+      if (hallazgosActividadFisica.length > 0) {
+        apartadosActividadFisicaExportText.textContent = sentenceCaseAfterComma(hallazgosActividadFisica) + ".";
+      } else {
+        apartadosActividadFisicaExportText.textContent = "Adecuado.";
+      }
+      if (hallazgosSueno.length > 0) {
+        apartadosSuenoExportText.textContent = sentenceCaseAfterComma(hallazgosSueno) + ".";
+      }
+
+      if (hallazgosSueno.length === 0) {
+        apartadosSuenoExportText.textContent = "Adecuado";
+      } 
+
+      const hallazgosHidratacion = [];
+      const aguaSelect = document.getElementById("q13-agua").value;
+      const pesoKg = parseNumber(pesoActualInput.value || "");
+      if (aguaSelect === "insuficiente") {
+        hallazgosHidratacion.push(`insuficiente`);
+      }
+
+      apartadosHidratacionExportText.textContent = "";
+      if (hallazgosHidratacion.length > 0) {
+        apartadosHidratacionExportText.textContent = sentenceCaseAfterComma(hallazgosHidratacion) + ".";
+      }
+
+      const hallazgosAdicciones = [];
+      const alcohol = document.getElementById("q15-alcohol").value;
+      const tabaquismo = document.getElementById("q16-tabaquismo").value;
+      const sexoVal = sexoInput.value;
+      const alcoholExcesivo =
+        alcohol === "3omas" ||
+        (alcohol === "2" && sexoVal !== "hombre") ||
+        (alcohol === "1" && sexoVal === "mujer");
+      if (alcoholExcesivo) {
+        hallazgosAdicciones.push("consumo excesivo de alcohol");
+      }
+      if (tabaquismo === "si") {
+        hallazgosAdicciones.push("tabaquismo positivo");
+      }
+
+      apartadosAdiccionesExportText.textContent = "";
+      if (hallazgosAdicciones.length > 0) {
+        apartadosAdiccionesExportText.textContent = sentenceCaseAfterComma(hallazgosAdicciones) + ".";
+      }
+
+      if (
+        hallazgos.length === 0 &&
+        hallazgosSueno.length === 0 &&
+        hallazgosHidratacion.length === 0 &&
+        hallazgosAdicciones.length === 0
+      ) {
+        apartadosAdicionalesExportEmpty.style.display = "";
+      }
+
+      saveFormState();
+    }
+
+    function hasExcesoGrasa(clasificacionGrasa, clasificacionVisceral) {
+      const excesoPorcentajeGrasa = ["PRE OBESIDAD", "OBESIDAD GRADO 1", "OBESIDAD GRADO 2", "OBESIDAD GRADO 3"].includes(clasificacionGrasa);
+      const excesoVisceral = ["ELEVADA", "MUY ELEVADA"].includes(clasificacionVisceral);
+      return excesoPorcentajeGrasa || excesoVisceral;
+    }
+
+    function updateSuplementacion() {
+      if (!suplementacionList || !suplementacionEmpty) {
+        return;
+      }
+
+      if (suplementacionEditadaManualmente) {
+        suplementacionEmpty.style.display = (suplementacionList.textContent || "").trim() ? "none" : "";
+        return;
+      }
+
+      const sugerencias = [];
+      const dificultadSueno = document.getElementById("q15-dificultad-sueno").value;
+      const clasificacionGrasa = evalGrasaPorSexo(parseNumber(porcentajeGrasaInput.value), sexoInput.value);
+      const clasificacionVisceral = evalVisceral(parseNumber(grasaVisceralInput.value));
+
+      if (dificultadSueno === "si") {
+        sugerencias.push("Magnesio Multiblue Relajante (bote morado) - 1 cápsula diario 30 - 60 minutos antes de acostarse durante 30 días.");
+      }
+
+      if (hasExcesoGrasa(clasificacionGrasa, clasificacionVisceral)) {
+        sugerencias.push("Akkermansia Healthaddiction - 2 cápsulas diario antes de acostarse durante 1 mes");  
+      }
+
+      suplementacionList.innerHTML = "";
+      if (sugerencias.length === 0) {
+        suplementacionEmpty.style.display = "";
+        return;
+      }
+
+      suplementacionEmpty.style.display = "none";
+      sugerencias.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        suplementacionList.appendChild(li);
+      });
+    }
+
+    function limpiarFormulario() {
+      const confirmacion = window.confirm("Se borrarán todos los campos del formulario. ¿Deseas continuar?");
+      if (!confirmacion) {
+        return;
+      }
+
+      document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
+        if (control.type === "checkbox" || control.type === "radio") {
+          control.checked = false;
+          return;
+        }
+
+        if (control.tagName === "SELECT") {
+          control.selectedIndex = 0;
+          return;
+        }
+
+        control.value = "";
+      });
+
+      document.querySelectorAll("[contenteditable='true'][id]").forEach((element) => {
+        element.innerHTML = "";
+      });
+
+      suplementacionEditadaManualmente = false;
+      recomendacionesEditadasManualmente = false;
+
+      if (repRecomendaciones) {
+        repRecomendaciones.value = "";
+      }
+
+      localStorage.removeItem(getStorageKey());
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+
+      updateAnalisisOpcionales();
+      updateAguaOptionsByPeso();
+      onInputChange();
+      updateReportePaciente();
+      updateOrdenAnalisisExport();
+      updateApartadosAdicionalesReporte();
+      updateSuplementacion();
       saveFormState();
     }
 
@@ -1730,6 +2714,27 @@
       promedioBrazosInput,
       promedioPiernasInput,
       abdomenInput,
+      document.getElementById("q1-calcio-azucar"),
+      document.getElementById("q1-calcio-light"),
+      document.getElementById("q2-harinas"),
+      document.getElementById("q3-ultraprocesados"),
+      document.getElementById("q4-carne-roja"),
+      document.getElementById("q5-embutidos"),
+      document.getElementById("q6-pescado-azul"),
+      document.getElementById("q7-riesgo-metabolico"),
+      document.getElementById("q7-huevo"),
+      document.getElementById("q8-verduras"),
+      document.getElementById("q9-frutas"),
+      document.getElementById("q9b-aguacate-semillas"),
+      document.getElementById("q10-sentado"),
+      document.getElementById("q11-cardio"),
+      document.getElementById("q12-fuerza"),
+      document.getElementById("q13-agua"),
+      document.getElementById("q14-sueno-acostarse"),
+      document.getElementById("q14-sueno-levantarse"),
+      document.getElementById("q15-dificultad-sueno"),
+      document.getElementById("q15-alcohol"),
+      document.getElementById("q16-tabaquismo"),
     ]
       .filter(Boolean)
       .forEach((input) => {
@@ -1747,13 +2752,27 @@
       element.addEventListener("input", saveFormState);
     });
 
+    if (suplementacionList) {
+      suplementacionList.addEventListener("input", () => {
+        suplementacionEditadaManualmente = true;
+        saveFormState();
+      });
+    }
+
     exportarDiagnosticoPdfBtn.addEventListener("click", exportarDiagnosticoPdf);
     exportarReportePacientePdfBtn.addEventListener("click", exportarReportePacientePdf);
     exportarPlanAlimenticioPdfBtn.addEventListener("click", exportarPlanAlimenticioPdf);
     exportarOrdenAnalisisPdfBtn.addEventListener("click", exportarOrdenAnalisisPdf);
+    exportarApartadosAdicionalesPdfBtn.addEventListener("click", exportarApartadosAdicionalesPdf);
+    limpiarFormularioBtn.addEventListener("click", limpiarFormulario);
     exportarSeleccionesPdfBtn.addEventListener("click", exportarSeleccionesPdf);
     analisisForm.addEventListener("change", updateOrdenAnalisisExport);
+    if (notasLaboratorioInput) {
+      notasLaboratorioInput.addEventListener("input", updateOrdenAnalisisExport);
+    }
     sexoInput.addEventListener("change", updateOrdenAnalisisExport);
+    sexoInput.addEventListener("change", updateApartadosAdicionalesReporte);
+    sexoInput.addEventListener("change", updateSuplementacion);
     document.getElementById("edad").addEventListener("input", updateOrdenAnalisisExport);
     tacharButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -1772,9 +2791,60 @@
 
     loadFormState();
     updateAnalisisOpcionales();
+    updateAguaOptionsByPeso();
     onInputChange();
     updateReportePaciente();
     updateOrdenAnalisisExport();
+    updateApartadosAdicionalesReporte();
+    updateSuplementacion();
+
+    [
+      "q1-calcio-azucar",
+      "q1-calcio-light",
+      "q2-harinas",
+      "q3-ultraprocesados",
+      "q4-carne-roja",
+      "q5-embutidos",
+      "q6-pescado-azul",
+      "q7-riesgo-metabolico",
+      "q7-huevo",
+      "q8-verduras",
+      "q9-frutas",
+      "q9b-aguacate-semillas",
+      "q10-sentado",
+      "q11-cardio",
+      "q12-fuerza",
+      "q13-agua",
+      "q14-sueno-acostarse",
+      "q14-sueno-levantarse",
+      "q15-dificultad-sueno",
+      "q15-alcohol",
+      "q16-tabaquismo",
+    ].forEach((id) => {
+      const control = document.getElementById(id);
+      if (!control) {
+        return;
+      }
+      control.addEventListener("change", updateApartadosAdicionalesReporte);
+      control.addEventListener("change", updateSuplementacion);
+      if (control.tagName === "INPUT") {
+        control.addEventListener("input", updateApartadosAdicionalesReporte);
+        control.addEventListener("input", updateSuplementacion);
+      }
+    });
+
+    if (pesoActualInput) {
+      pesoActualInput.addEventListener("input", () => {
+        updateAguaOptionsByPeso();
+        updateApartadosAdicionalesReporte();
+        updateSuplementacion();
+      });
+      pesoActualInput.addEventListener("change", () => {
+        updateAguaOptionsByPeso();
+        updateApartadosAdicionalesReporte();
+        updateSuplementacion();
+      });
+    }
   </script>
 </body>
 </html>
