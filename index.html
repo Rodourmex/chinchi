@@ -1059,8 +1059,8 @@
           <p>14. ¿Cuánta agua total consume por día?</p>
           <select id="q13-agua">
             <option value="">Selecciona una opción</option>
-            <option value="insuficiente">Menos de 35 ml/kg</option>
-            <option value="suficiente">35 a 39 ml/kg</option>
+            <option value="insuficiente">Menos de 30 ml/kg</option>
+            <option value="suficiente">30 a 39 ml/kg</option>
             <option value="optimo">40 ml/kg o más</option>
           </select>
           <span id="q13-agua-hint" class="hint">Selecciona sexo e ingresa estatura para calcular las opciones con peso meta (IMC objetivo).</span>
@@ -2345,12 +2345,12 @@
       const imcObjetivo = sexo === "mujer" ? 21 : 22;
       const pesoMeta = imcObjetivo * estatura * estatura;
 
-      const litros35 = (pesoMeta * 35) / 1000;
+      const litros30 = (pesoMeta * 30) / 1000;
       const litros39 = (pesoMeta * 39) / 1000;
       const litros40 = (pesoMeta * 40) / 1000;
 
-      optionIns.textContent = `Menos de ${formatLiters(litros35)} L/día (< 35 ml/kg)`;
-      optionSuf.textContent = `${formatLiters(litros35)} a ${formatLiters(litros39)} L/día (35 a 39 ml/kg)`;
+      optionIns.textContent = `Menos de ${formatLiters(litros30)} L/día (< 30 ml/kg)`;
+      optionSuf.textContent = `${formatLiters(litros30)} a ${formatLiters(litros39)} L/día (30 a 39 ml/kg)`;
       optionOpt.textContent = `${formatLiters(litros40)} L/día o más (40 ml/kg o más)`;
       q13AguaHint.textContent = `Opciones calculadas con peso meta de ${pesoMeta.toFixed(2)} kg (IMC ${imcObjetivo}) usando estatura de ${estatura.toFixed(2)} m.`;
     }
@@ -2441,7 +2441,7 @@
 
       const azucaresElevados = ultraprocesadosElevados || calcioAzucar === "si";
       if (azucaresElevados) {
-        hallazgos.push("Ingesta de azúcares elevados");
+        hallazgos.push("Ingesta de azúcares y/o harinas refinadas elevada");
       }
 
       let grasaElevada = false;
