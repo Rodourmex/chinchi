@@ -293,7 +293,36 @@
     .meal-toolbar {
       margin-bottom: 6px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .meal-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #334155;
+    }
+
+    .meal-toggle input[type="checkbox"] {
+      margin: 0;
+      width: 16px;
+      height: 16px;
+    }
+
+    .meal-block.meal-disabled .meal-label {
+      color: #6b7280;
+    }
+
+    .meal-block.meal-disabled .btn-tachar,
+    .meal-block.meal-disabled .meal-editor,
+    .meal-block.meal-disabled .rec-toolbar,
+    .meal-block.meal-disabled .meal-recommendation {
+      display: none;
     }
 
     .meal-editor {
@@ -570,14 +599,6 @@
           <input id="estatura" name="estatura" type="number" step="0.01" min="0" placeholder="Ej. 1.68" />
           <span class="hint">Se usa para estimar el objetivo con IMC base.</span>
         </div>
-        <!-- <div class="field">
-          <label for="grasa-corporal-kg">Grasa corporal (kg)</label>
-          <input id="grasa-corporal-kg" name="grasa_corporal_kg" type="number" step="0.1" placeholder="Ej. 14.0" />
-        </div> -->
-        <!-- <div class="field">
-          <label for="mlg">MLG (kg)</label>
-          <input id="mlg" name="mlg" type="number" step="0.1" placeholder="Ej. 56.0" />
-        </div> -->
       </div>
     </section>
 
@@ -700,12 +721,26 @@
 
         <div class="question-card">
           <p>2. Consumo de harinas refinadas y azúcares</p>
+          <p>2a. Consumo de harinas refinadas</p>
           <select id="q2-harinas">
             <option value="">Selecciona una opción</option>
             <option value="diario">Diario</option>
             <option value="3a6">3 - 6 veces por semana</option>
             <option value="2">2 veces por semana</option>
             <option value="1">1 vez por semana</option>
+            <option value="no">Ninguna</option>
+          </select>
+        </div>
+
+        <div class="question-card">
+          <p>2b. Consumo de azúcares</p>
+          <select id="q2-azucares">
+            <option value="">Selecciona una opción</option>
+            <option value="diario">Diario</option>
+            <option value="3a6">3 - 6 veces por semana</option>
+            <option value="2">2 veces por semana</option>
+            <option value="1">1 vez por semana</option>
+            <option value="no">Ninguna</option>
           </select>
         </div>
 
@@ -802,9 +837,9 @@
           <p>10. Frecuencia de consumo de aguacate/semillas</p>
           <select id="q9b-aguacate-semillas">
             <option value="">Selecciona una opción</option>
-            <option value="insuficiente">Insuficiente</option>
-            <option value="adecuada">Adecuada</option>
-            <option value="optima">Óptima</option>
+            <option value="insuficiente">Menos de 3 veces por semana</option>
+            <option value="adecuada">3 - 7 veces por semana</option>
+            <option value="optima">Más de 7 veces por semana</option>
           </select>
         </div>
       </div>
@@ -839,7 +874,8 @@
         <div class="meal-block">
           <p class="meal-label">Desayuno</p>
           <div class="meal-toolbar">
-            <button class="btn ghost btn-tachar" type="button" data-target-editor="desayuno-editor">Tachar seleccion</button>
+            <label class="meal-toggle no-export"><input id="meal-toggle-desayuno" class="meal-toggle-input" type="checkbox" data-target-editor="desayuno-editor" data-target-recommendation="desayuno-recommendation" checked /> Realizar esta comida</label>
+            <button class="btn ghost btn-tachar no-export" type="button" data-target-editor="desayuno-editor">Tachar seleccion</button>
           </div>
           <div id="desayuno-editor" class="meal-editor" contenteditable="true" aria-label="Desayuno"></div>
             <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
@@ -867,7 +903,8 @@
         <div class="meal-block">
           <p class="meal-label">Colación matutina</p>
           <div class="meal-toolbar">
-            <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-matutina-editor">Tachar seleccion</button>
+            <label class="meal-toggle no-export"><input id="meal-toggle-colacion-matutina" class="meal-toggle-input" type="checkbox" data-target-editor="colacion-matutina-editor" data-target-recommendation="colacion-matutina-recommendation" checked /> Realizar esta comida</label>
+            <button class="btn ghost btn-tachar no-export" type="button" data-target-editor="colacion-matutina-editor">Tachar seleccion</button>
           </div>
           <div id="colacion-matutina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion matutina"></div>
             <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
@@ -900,7 +937,8 @@
         <div class="meal-block"> 
           <p class="meal-label">Comida</p>
           <div class="meal-toolbar">
-            <button class="btn ghost btn-tachar" type="button" data-target-editor="comida-editor">Tachar seleccion</button>
+            <label class="meal-toggle no-export"><input id="meal-toggle-comida" class="meal-toggle-input" type="checkbox" data-target-editor="comida-editor" data-target-recommendation="comida-recommendation" checked /> Realizar esta comida</label>
+            <button class="btn ghost btn-tachar no-export" type="button" data-target-editor="comida-editor">Tachar seleccion</button>
           </div>
           <div id="comida-editor" class="meal-editor" contenteditable="true" aria-label="Comida"></div>
             <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
@@ -949,7 +987,8 @@
         <div class="meal-block">
           <p class="meal-label">Colación vespertina</p>
           <div class="meal-toolbar">
-            <button class="btn ghost btn-tachar" type="button" data-target-editor="colacion-vespertina-editor">Tachar seleccion</button>
+            <label class="meal-toggle no-export"><input id="meal-toggle-colacion-vespertina" class="meal-toggle-input" type="checkbox" data-target-editor="colacion-vespertina-editor" data-target-recommendation="colacion-vespertina-recommendation" checked /> Realizar esta comida</label>
+            <button class="btn ghost btn-tachar no-export" type="button" data-target-editor="colacion-vespertina-editor">Tachar seleccion</button>
           </div>
           <div id="colacion-vespertina-editor" class="meal-editor" contenteditable="true" aria-label="Colacion vespertina"></div>
               <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
@@ -982,7 +1021,8 @@
         <div class="meal-block">
           <p class="meal-label">Cena</p>
           <div class="meal-toolbar">
-            <button class="btn ghost btn-tachar" type="button" data-target-editor="cena-editor">Tachar seleccion</button>
+            <label class="meal-toggle no-export"><input id="meal-toggle-cena" class="meal-toggle-input" type="checkbox" data-target-editor="cena-editor" data-target-recommendation="cena-recommendation" checked /> Realizar esta comida</label>
+            <button class="btn ghost btn-tachar no-export" type="button" data-target-editor="cena-editor">Tachar seleccion</button>
           </div>
           <div id="cena-editor" class="meal-editor" contenteditable="true" aria-label="Cena"></div>
             <div class="rec-toolbar" style="margin-bottom:4px; display:flex; gap:4px;">
@@ -1116,6 +1156,7 @@
 
     <section id="suplementacion-section">
       <h2>Suplementación sugerida</h2>
+      <p>Tomar suplementos solo después de realizar los estudios bioquímicos recomendados.</p>
       <div class="orden-export-box">
         <ul id="suplementacion-list" class="orden-export-list" contenteditable="true" aria-label="Suplementación sugerida editable"></ul>
         <p id="suplementacion-empty" class="orden-export-empty" style="display:none;">Sin sugerencias de suplementación con los datos actuales.</p>
@@ -1145,7 +1186,7 @@
       </form>
       <div class="field" style="margin-top: 12px;">
         <label for="notas-laboratorio">Notas</label>
-        <textarea id="notas-laboratorio" rows="4" placeholder="Añade notas complementarias para laboratorios bioquímicos..."></textarea>
+        <textarea id="notas-laboratorio" rows="4" placeholder="Añade notas complementarias para laboratorios bioquímicos...">No tomar suplementos hasta después de realizar los estudios</textarea>
       </div>
     </section>
 
@@ -1300,6 +1341,7 @@
     const suplementacionEmpty = document.getElementById("suplementacion-empty");
     const q13AguaHint = document.getElementById("q13-agua-hint");
     const tacharButtons = document.querySelectorAll(".btn-tachar");
+    const mealToggleInputs = document.querySelectorAll(".meal-toggle-input");
 
     let suplementacionEditadaManualmente = false;
     let diagnosticoEditadoManualmente = false;
@@ -1317,7 +1359,7 @@
     const CONTROL_SELECTOR = "input[id], select[id], textarea[id]";
     const STORAGE_KEY_PREFIX = "chinchi-form-state-v2";
     const LEGACY_STORAGE_KEY = "chinchi-form-state-v1";
-    const ALLOWED_CONTENT_TAGS = new Set(["BR", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
+    const ALLOWED_CONTENT_TAGS = new Set(["BR", "DIV", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
     const AUTO_TEXT_ELEMENT_IDS = new Set([
       "rep-grasa-linea",
       "rep-grasa-interpretacion",
@@ -1360,6 +1402,19 @@
           const textNode = document.createTextNode(node.textContent || "");
           node.replaceWith(textNode);
           return;
+        }
+
+        if (node.tagName === "SPAN") {
+          const inlineStyle = (node.getAttribute("style") || "").toLowerCase();
+          if (inlineStyle.includes("line-through")) {
+            const strikeNode = document.createElement("s");
+            while (node.firstChild) {
+              strikeNode.appendChild(node.firstChild);
+            }
+            node.replaceWith(strikeNode);
+            sanitizeNode(strikeNode);
+            return;
+          }
         }
 
         Array.from(node.attributes).forEach((attr) => node.removeAttribute(attr.name));
@@ -1758,7 +1813,13 @@
       }
 
       if (data.musculoTotal !== null && data.musculoTotal < 100) {
-        recomendaciones.push("Aumentar masa muscular hasta llegar o superar el 100%");
+        const masaLibreDeGrasaActual = pesoActualInput.value * (1 - parseNumber(porcentajeGrasaInput.value) / 100);
+        console.log("🚀 ~ generarRecomendaciones ~ masaLibreDeGrasaActual:", masaLibreDeGrasaActual)
+        const masaMuscularActual = masaLibreDeGrasaActual * 0.66
+        console.log("🚀 ~ generarRecomendaciones ~ masaMuscularActual:", masaMuscularActual)
+        const masaMuscularMeta = (masaMuscularActual / (data.musculoTotal / 100)) - masaMuscularActual;
+        console.log("🚀 ~ generarRecomendaciones ~ masaMuscularMeta:", masaMuscularMeta)
+        recomendaciones.push(`Aumentar al menos ${masaMuscularMeta.toFixed(1)} kg de masa muscular para llegar al 100% de masa muscular esperada para género y estatura`);
       }
 
       const recomendacionDesequilibrio = getRecomendacionDesequilibrioMuscular(
@@ -2229,6 +2290,43 @@
 
       editor.focus();
       document.execCommand("strikeThrough");
+      saveFormState();
+    }
+
+    function updateMealBlockSelection(toggleInput) {
+      if (!toggleInput) {
+        return;
+      }
+
+      const mealBlock = toggleInput.closest(".meal-block");
+      const editor = document.getElementById(toggleInput.dataset.targetEditor || "");
+      const recommendation = document.getElementById(toggleInput.dataset.targetRecommendation || "");
+      const tacharButton = mealBlock ? mealBlock.querySelector(".btn-tachar") : null;
+      const isEnabled = toggleInput.checked;
+
+      if (mealBlock) {
+        mealBlock.classList.toggle("meal-disabled", !isEnabled);
+      }
+
+      if (editor) {
+        editor.contentEditable = isEnabled ? "true" : "false";
+        editor.setAttribute("aria-disabled", isEnabled ? "false" : "true");
+      }
+
+      if (recommendation) {
+        recommendation.contentEditable = isEnabled ? "true" : "false";
+        recommendation.setAttribute("aria-disabled", isEnabled ? "false" : "true");
+      }
+
+      if (tacharButton) {
+        tacharButton.disabled = !isEnabled;
+      }
+    }
+
+    function syncMealSelections() {
+      mealToggleInputs.forEach((toggleInput) => {
+        updateMealBlockSelection(toggleInput);
+      });
     }
 
     async function exportarPlanAlimenticioPdf() {
@@ -2418,6 +2516,8 @@
 
       const calcioAzucar = document.getElementById("q1-calcio-azucar").value;
       const calcioLight = document.getElementById("q1-calcio-light").value;
+      const q2Harinas = document.getElementById("q2-harinas").value;
+      const q2Azucares = document.getElementById("q2-azucares") ? document.getElementById("q2-azucares").value : "";
       const ultraprocesados = document.getElementById("q3-ultraprocesados").value;
       const carneRoja = document.getElementById("q4-carne-roja").value;
       const embutidos = document.getElementById("q5-embutidos").value;
@@ -2439,40 +2539,61 @@
       const calcioInsuficientePorFrecuencia = calcioLight === "menos2";
       const calcioInsuficientePorTipo = calcioAzucar === "si";
 
-      const azucaresElevados = ultraprocesadosElevados || calcioAzucar === "si";
-      if (azucaresElevados) {
-        hallazgos.push("Ingesta de azúcares y/o harinas refinadas elevada");
+      // Build excesos list
+      const excesosItems = [];
+      if (ultraprocesadosElevados) {
+        // Ultraprocesados elevados automatically means all three
+        excesosItems.push("grasas saturadas");
+        excesosItems.push("harinas refinadas");
+        excesosItems.push("azúcares");
+      } else {
+        const harinaElevada = q2Harinas === "diario" || q2Harinas === "3a6";
+        const azucarElevada = q2Azucares === "diario" || q2Azucares === "3a6";
+        if (harinaElevada) excesosItems.push("harinas refinadas");
+        if (azucarElevada || calcioInsuficientePorTipo) excesosItems.push("azúcares");
+        if (carneRojaElevada || embutidosAltos) excesosItems.push("grasas saturadas");
       }
 
-      let grasaElevada = false;
-      if (carneRojaElevada || ultraprocesadosElevados || embutidosAltos) {
-        hallazgos.push("Ingesta de grasa elevada");
-        grasaElevada = true;
-      } else if (algunoModerado) {
+      const formatExcesosList = (items) => {
+        const unique = [...new Set(items)];
+        if (unique.length === 0) return "";
+        if (unique.length === 1) return unique[0];
+        if (unique.length === 2) return `${unique[0]} y ${unique[1]}`;
+        return `${unique.slice(0, -1).join(", ")} y ${unique[unique.length - 1]}`;
+      };
+
+      // Build deficiency group: grasas insaturadas + vitamina E + calcio
+      const deficienciasGrasas = [];
+      if (pescadoInsuficiente || aguacateSemillasInsuficiente) {
+        deficienciasGrasas.push("grasas insaturadas y vitamina E (Aguacate y semillas)");
+      }
+      if (calcioInsuficientePorFrecuencia) {
+        deficienciasGrasas.push("calcio (lácteos, sardinas, bebidas vegetales)");
+      }
+
+      if (deficienciasGrasas.length > 0) {
+        let bulletText = `Ingesta insuficiente de ${deficienciasGrasas.join(", ")}`;
+        if (excesosItems.length > 0) {
+          bulletText += ` con una ingesta elevada de ${formatExcesosList(excesosItems)}`;
+        }
+        hallazgos.push(bulletText);
+      } else if (excesosItems.length > 0) {
+        hallazgos.push(`Ingesta elevada de ${formatExcesosList(excesosItems)}`);
+      }
+
+      // Moderate fat (only when no elevated sources already captured)
+      if (algunoModerado && !ultraprocesadosElevados && !carneRojaElevada && !embutidosAltos) {
         hallazgos.push("Ingesta de grasa moderada");
       }
 
-      if (grasaElevada) {
-        hallazgos.push("Ingesta de grasa saturada elevada");
-      }
-
-      if (pescadoInsuficiente || aguacateSemillasInsuficiente) {
-        hallazgos.push("Ingesta de grasas insaturadas deficiente");
+      // Calcium source quality: sufficient quantity but from high-sugar sources
+      if (calcioInsuficientePorTipo && !calcioInsuficientePorFrecuencia) {
+        hallazgos.push("Ingesta de calcio suficiente pero con predominio de fuentes con azúcar o grasa");
       }
 
       const fibraInsuficiente = frutaInsuficiente || verduraInsuficiente;
       if (fibraInsuficiente) {
         hallazgos.push("Consumo de fibra insuficiente");
-      }
-
-      if (calcioInsuficientePorFrecuencia || calcioInsuficientePorTipo) {
-        if (calcioInsuficientePorFrecuencia && calcioInsuficientePorTipo) {
-          hallazgos.push("Ingesta de calcio insuficiente por baja frecuencia y además las fuentes son altas en azúcar y/o grasa");
-        } else if (calcioInsuficientePorFrecuencia) {
-          hallazgos.push("Ingesta de calcio insuficiente por baja frecuencia de fuentes light/sin azúcar");
-        } else {
-          hallazgos.push("Ingesta de calcio suficiente pero con predominio de fuentes con azúcar o grasa");
-        }
       }
 
       if (fibraInsuficiente) {
@@ -2506,10 +2627,6 @@
 
       if (huevoInsuficiente || verduraInsuficiente) {
         hallazgos.push("Consumo insuficiente de vitamina A");
-      }
-
-      if (aguacateSemillasInsuficiente || verduraInsuficiente) {
-        hallazgos.push("Consumo insuficiente de vitamina E");
       }
 
       return hallazgos;
@@ -2802,6 +2919,7 @@
       document.getElementById("q1-calcio-azucar"),
       document.getElementById("q1-calcio-light"),
       document.getElementById("q2-harinas"),
+      document.getElementById("q2-azucares"),
       document.getElementById("q3-ultraprocesados"),
       document.getElementById("q4-carne-roja"),
       document.getElementById("q5-embutidos"),
@@ -2877,6 +2995,11 @@
         aplicarTachadoEnEditor(button.dataset.targetEditor);
       });
     });
+    mealToggleInputs.forEach((toggleInput) => {
+      toggleInput.addEventListener("change", () => {
+        updateMealBlockSelection(toggleInput);
+      });
+    });
     restaurarRecomendacionesBtn.addEventListener("click", () => {
       recomendacionesEditadasManualmente = false;
       updateReportePaciente();
@@ -2888,6 +3011,7 @@
     });
 
     loadFormState();
+    syncMealSelections();
     updateAnalisisOpcionales();
     updateAguaOptionsByPeso();
     onInputChange();
@@ -2900,6 +3024,7 @@
       "q1-calcio-azucar",
       "q1-calcio-light",
       "q2-harinas",
+      "q2-azucares",
       "q3-ultraprocesados",
       "q4-carne-roja",
       "q5-embutidos",
