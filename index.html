@@ -544,6 +544,38 @@
     .aux-card li {
       margin-bottom: 4px;
     }
+
+    .protein-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+      font-size: 0.92rem;
+    }
+
+    .protein-table th,
+    .protein-table td {
+      border: 1px solid #dbe3ef;
+      padding: 8px;
+      text-align: left;
+    }
+
+    .protein-table th {
+      background: #f1f6ff;
+      color: #1e3a8a;
+      font-weight: 700;
+    }
+
+    .protein-table input {
+      max-width: 130px;
+    }
+
+    .protein-summary {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: #0b4f4a;
+      font-weight: 700;
+      min-height: 1.2em;
+    }
   </style>
 </head>
 <body>
@@ -841,6 +873,48 @@
             <option value="adecuada">3 - 7 veces por semana</option>
             <option value="optima">Más de 7 veces por semana</option>
           </select>
+        </div>
+
+        <div class="question-card">
+          <p>11. Porciones de proteína por tiempo de comida</p>
+          <table class="protein-table" aria-label="Porciones de proteína por tiempo de comida">
+            <thead>
+              <tr>
+                <th>Tiempo de comida</th>
+                <th>Porciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Desayuno</td>
+                <td><input id="q11-proteina-desayuno" type="number" step="0.5" min="0" placeholder="Ej. 1" /></td>
+              </tr>
+              <tr>
+                <td>Colación 1</td>
+                <td><input id="q11-proteina-colacion1" type="number" step="0.5" min="0" placeholder="Ej. 0.5" /></td>
+              </tr>
+              <tr>
+                <td>Comida</td>
+                <td><input id="q11-proteina-comida" type="number" step="0.5" min="0" placeholder="Ej. 2" /></td>
+              </tr>
+              <tr>
+                <td>Colación 2</td>
+                <td><input id="q11-proteina-colacion2" type="number" step="0.5" min="0" placeholder="Ej. 0.5" /></td>
+              </tr>
+              <tr>
+                <td>Cena</td>
+                <td><input id="q11-proteina-cena" type="number" step="0.5" min="0" placeholder="Ej. 1" /></td>
+              </tr>
+            </tbody>
+          </table>
+          <div id="q11-proteina-summary" class="protein-summary"></div>
+          <span class="hint">Cada porción aporta 7 g de proteína. Adecuado si proteína total / peso ideal es mayor a 1.5 g/kg.</span>
+        </div>
+
+        <div class="question-card">
+          <p>12. Hora de la última comida del día</p>
+          <input id="q12-ultima-comida" type="time" />
+          <span class="hint">Se comparará con la hora de acostarse para estimar el tiempo de digestión previo al sueño.</span>
         </div>
       </div>
     </section>
@@ -1340,6 +1414,7 @@
     const suplementacionList = document.getElementById("suplementacion-list");
     const suplementacionEmpty = document.getElementById("suplementacion-empty");
     const q13AguaHint = document.getElementById("q13-agua-hint");
+    const q11ProteinaSummary = document.getElementById("q11-proteina-summary");
     const tacharButtons = document.querySelectorAll(".btn-tachar");
     const mealToggleInputs = document.querySelectorAll(".meal-toggle-input");
 
@@ -1690,7 +1765,54 @@
       updateEvaluaciones();
       updateDiagnosticoAntropometrico();
       updateReportePaciente();
+      updateProteinaConsumoEvaluacion();
       updateSuplementacion();
+    }
+
+    function getPesoIdealBySexoEstatura(sexo, estatura) {
+      if (!sexo || estatura === null || estatura <= 0) {
+        return null;
+      }
+      const imcObjetivo = sexo === "mujer" ? 21 : 22;
+      return imcObjetivo * estatura * estatura;
+    }
+
+    function getConsumoProteinaActual() {
+      const porcionesDesayuno = parseNumber((document.getElementById("q11-proteina-desayuno") || {}).value || "") || 0;
+      const porcionesColacion1 = parseNumber((document.getElementById("q11-proteina-colacion1") || {}).value || "") || 0;
+      const porcionesComida = parseNumber((document.getElementById("q11-proteina-comida") || {}).value || "") || 0;
+      const porcionesColacion2 = parseNumber((document.getElementById("q11-proteina-colacion2") || {}).value || "") || 0;
+      const porcionesCena = parseNumber((document.getElementById("q11-proteina-cena") || {}).value || "") || 0;
+
+      const porcionesTotales = porcionesDesayuno + porcionesColacion1 + porcionesComida + porcionesColacion2 + porcionesCena;
+      const proteinaTotalGramos = porcionesTotales * 7;
+      const estatura = parseNumber(estaturaInput ? estaturaInput.value : "");
+      const sexo = sexoInput ? sexoInput.value : "";
+      const pesoIdeal = getPesoIdealBySexoEstatura(sexo, estatura);
+      const proteinaPorKgPesoIdeal = pesoIdeal && pesoIdeal > 0 ? proteinaTotalGramos / pesoIdeal : null;
+
+      return {
+        porcionesTotales,
+        proteinaTotalGramos,
+        pesoIdeal,
+        proteinaPorKgPesoIdeal,
+        esAdecuado: proteinaPorKgPesoIdeal !== null ? proteinaPorKgPesoIdeal > 1.5 : null,
+      };
+    }
+
+    function updateProteinaConsumoEvaluacion() {
+      if (!q11ProteinaSummary) {
+        return;
+      }
+
+      const consumo = getConsumoProteinaActual();
+      if (consumo.pesoIdeal === null) {
+        q11ProteinaSummary.textContent = "Ingresa sexo y estatura para evaluar proteína contra peso ideal.";
+        return;
+      }
+
+      const clasificacion = consumo.esAdecuado ? "Adecuado" : "Bajo";
+      q11ProteinaSummary.textContent = `Total: ${consumo.porcionesTotales.toFixed(1)} porciones (${consumo.proteinaTotalGramos.toFixed(1)} g). Relación proteína/peso ideal: ${consumo.proteinaPorKgPesoIdeal.toFixed(2)} g/kg (${clasificacion}).`;
     }
 
     function formatValueOrNd(value, suffix) {
@@ -2514,6 +2636,22 @@
         return minutes >= 5 * 60 && minutes <= 7 * 60;
       };
 
+      const ultimaComida = document.getElementById("q12-ultima-comida").value;
+      const horaAcostarse = document.getElementById("q14-sueno-acostarse").value;
+      if (ultimaComida && horaAcostarse) {
+        const ultimaComidaMinutos = parseTimeToMinutes(ultimaComida);
+        const acostarseMinutos = parseTimeToMinutes(horaAcostarse);
+        if (ultimaComidaMinutos !== null && acostarseMinutos !== null) {
+          let diferenciaMinutos = acostarseMinutos - ultimaComidaMinutos;
+          if (diferenciaMinutos <= 0) {
+            diferenciaMinutos += 24 * 60;
+          }
+          if (diferenciaMinutos < 180) {
+            hallazgos.push("Poco tiempo entre cena y hora de acostarse");
+          }
+        }
+      }
+
       const calcioAzucar = document.getElementById("q1-calcio-azucar").value;
       const calcioLight = document.getElementById("q1-calcio-light").value;
       const q2Harinas = document.getElementById("q2-harinas").value;
@@ -2627,6 +2765,11 @@
 
       if (huevoInsuficiente || verduraInsuficiente) {
         hallazgos.push("Consumo insuficiente de vitamina A");
+      }
+
+      const consumoProteina = getConsumoProteinaActual();
+      if (consumoProteina.proteinaPorKgPesoIdeal !== null && consumoProteina.proteinaPorKgPesoIdeal <= 1.5) {
+        hallazgos.push(`Consumo insuficiente de proteína`);
       }
 
       return hallazgos;
@@ -2929,6 +3072,12 @@
       document.getElementById("q8-verduras"),
       document.getElementById("q9-frutas"),
       document.getElementById("q9b-aguacate-semillas"),
+      document.getElementById("q11-proteina-desayuno"),
+      document.getElementById("q11-proteina-colacion1"),
+      document.getElementById("q11-proteina-comida"),
+      document.getElementById("q11-proteina-colacion2"),
+      document.getElementById("q11-proteina-cena"),
+      document.getElementById("q12-ultima-comida"),
       document.getElementById("q10-sentado"),
       document.getElementById("q11-cardio"),
       document.getElementById("q12-fuerza"),
@@ -3016,6 +3165,7 @@
     updateAguaOptionsByPeso();
     onInputChange();
     updateReportePaciente();
+    updateProteinaConsumoEvaluacion();
     updateOrdenAnalisisExport();
     updateApartadosAdicionalesReporte();
     updateSuplementacion();
@@ -3034,6 +3184,12 @@
       "q8-verduras",
       "q9-frutas",
       "q9b-aguacate-semillas",
+      "q11-proteina-desayuno",
+      "q11-proteina-colacion1",
+      "q11-proteina-comida",
+      "q11-proteina-colacion2",
+      "q11-proteina-cena",
+      "q12-ultima-comida",
       "q10-sentado",
       "q11-cardio",
       "q12-fuerza",
@@ -3059,19 +3215,27 @@
     if (pesoActualInput) {
       pesoActualInput.addEventListener("input", () => {
         updateAguaOptionsByPeso();
+        updateProteinaConsumoEvaluacion();
         updateApartadosAdicionalesReporte();
         updateSuplementacion();
       });
       pesoActualInput.addEventListener("change", () => {
         updateAguaOptionsByPeso();
+        updateProteinaConsumoEvaluacion();
         updateApartadosAdicionalesReporte();
         updateSuplementacion();
       });
     }
 
     if (estaturaInput) {
-      estaturaInput.addEventListener("input", updateAguaOptionsByPeso);
-      estaturaInput.addEventListener("change", updateAguaOptionsByPeso);
+      estaturaInput.addEventListener("input", () => {
+        updateAguaOptionsByPeso();
+        updateProteinaConsumoEvaluacion();
+      });
+      estaturaInput.addEventListener("change", () => {
+        updateAguaOptionsByPeso();
+        updateProteinaConsumoEvaluacion();
+      });
     }
   </script>
 </body>
