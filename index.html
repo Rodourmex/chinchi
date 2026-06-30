@@ -61,10 +61,16 @@
       gap: 14px;
     }
 
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
     .field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 1px;
     }
 
     label {
@@ -191,6 +197,11 @@
       font-size: 1.02rem;
       font-weight: 800;
       color: #1e3a8a;
+    }
+
+
+    #orden-analisis-notas-export {
+      white-space: pre-line;
     }
 
     .patient-line {
@@ -363,6 +374,21 @@
       width: 16px;
       height: 16px;
       flex-shrink: 0;
+    }
+
+    .analisis-item-custom {
+      justify-content: flex-start;
+    }
+
+    .analisis-custom-name {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .analisis-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: flex-start;
     }
 
     .orden-export-box {
@@ -635,6 +661,36 @@
     </section>
 
     <section>
+      <h2>Datos de referencia</h2>
+      <div class="grid-two">
+        <div class="field">
+          <label for="pal">Nivel de actividad física (PAL)</label>
+          <input id="pal" name="pal" type="number" step="0.1" placeholder="Ej. 1.55" />
+        </div>
+        <div class="field">
+          <label for="imc-meta">IMC meta</label>
+          <input id="imc-meta" name="imc_meta" type="number" step="0.1" placeholder="Ej. 22.5" />
+          <span class="hint">Se usa para calcular el peso ideal</span>
+        </div>
+
+        <div class="field">
+          <label for="peso-ideal">
+            Peso ideal (kg)
+          </label>
+          <input id="peso-ideal" name="peso_ideal" type="number" step="0.1" placeholder="Ej. 68.0" />
+          <span class="hint">Se calcula con IMC meta</span>
+        </div>
+
+      <div class="field">
+        <label for="ffm-energy">Kcal por MLG</label>
+        <input id="ffm-energy" name="ffm_energy" type="number" step="0.1" placeholder="Ej. 68.0" />
+        <span class="hint">Calculado con fórmula de Cunningham</span>
+      </div>
+      <div>Kcal calculadas con InBody: <span id="kcal-calculadas-inbody"></span></div>
+      <div>Kcal calculadas con Peso Ideal: <span id="kcal-calculadas-peso-ideal"></span></div>
+    </section>
+
+    <section>
       <h2>Análisis de músculo</h2>
       <div class="grid">
         <div class="field">
@@ -699,7 +755,7 @@
         </div>
 
         <div class="patient-block">
-          <p class="patient-label" contenteditable="true">• M&uacute;sculo total</p>
+          <p class="patient-label" contenteditable="true">• Músculo total</p>
           <p id="rep-musculo-total-linea" class="patient-line" contenteditable="true">Valor: Sin dato</p>
           <p id="rep-musculo-total-interpretacion" class="patient-interpretation" contenteditable="true"></p>
         </div>
@@ -958,19 +1014,36 @@
               <button type="button" class="rec-btn" onclick="formatRec('desayuno-recommendation','insertUnorderedList')" title="Lista">• Lista</button>
             </div>
           <div id="desayuno-recommendation" class="meal-recommendation" contenteditable="true" aria-label="Recomendaciones para desayuno">
-            <p style="margin: 0%;"><strong>Base:</strong>
+            <div style="margin: 0%;"><strong>Base:</strong>
               <p style="margin-left: 20px;">
                 Proteína (pechuga de pollo o pavo o atún o huevo entero + claras) + verduras cocidas o crudas sin aderezos + aguacate.
               </p>
-            </p>
+              <div style="margin-left: 25px;">
+                <strong>+ Fuente de calcio:</strong>
+                <p style="margin-left: 30px;">
+                  <strong>Menos calórico:</strong> Bebida de almendras sin azúcar.
+                </p>
+                <p style="margin-left: 30px;">
+                  <strong>Más calórico:</strong> Lácteo descremado sin azúcar (light o bajo en grasa).
+                </p>
+              </div>
+            </div>
             <p style="margin: 0%;"><strong>Opcional</strong> (dependiente de cantidad de ejercicio):</p>
             <div style="margin-left: 20px;">
-              <p>  • <strong>Acompañamiento:</strong> Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.</p>
-              <p>• <strong>Postre:</strong>
-                Fruta (1 porción) --> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arándanos azules frescos, guayaba, papaya, sandia o melón; o ½ taza o pieza de fruta: plátano, mango, pera, pina, uvas u obleas sin azucar; o 1/3
-                de barrita proteica.
-              </p>
+              <div>  • <strong>Granos integrales:</strong> 
+                <div style="margin-left: 25px;">
+                  <div><strong>Menos calórico:</strong> Tortillas de linaza o tostadas susalias o pan cero cero o amaranto tostado.</div>
+                  <div><strong>Más calórico:</strong> Tortillas de maíz o salmas o thin cero cero. Avena o linaza cocidas y remojada previamente.</div>
+                </div>
+              </div>
             </div>
+            <div style="margin-left: 20px;">• <strong>Postre:</strong>
+              <div style="margin-left: 25px;">
+                <div><strong>Más frecuente:</strong> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arándanos azules frescos, guayaba, papaya, sandia o melón </div>
+                <div><strong>Menos frecuente:</strong> ½ taza o pieza de plátano, mango, pera, piña, uvas o 1/3 de barra proteica </div>
+              </div>
+            </div>
+            <div style="margin-top: 20px;">Evitar harinas refinadas (pan dulce o blanco), alimentos preparados con mucha grasa (fritos) y embutidos (salchicha, chorizo, jamón, etc.)</div>
           </div>
         </div>
         <!-- Colación matutina -->
@@ -996,14 +1069,12 @@
                   cacao obscuro al 80% sin azucar).
                 </p>
               </p>
-              <p style="margin: 0%;"><strong>Opcional (según ejercicio):</strong> 
-                <div style="margin-left: 20px;">
-                  <p>1 porción de fruta o/y lácteo fermentado:</p>
-                  <p>2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas,
-                    frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya,
-                    sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, piña,
-                    uvas. +/o ½ taza de yogur o kéfir o jocoque bajo en grasa sin azucar</p>
-                  </p>
+              <p style="margin: 0%;"><strong>Opcional (si no se consumió postre en la mañana se puede agregar en esta colación):</strong> 
+                <div style="margin-left: 20px;">• <strong>Postre:</strong>
+                  <div style="margin-left: 25px;">
+                    <div><strong>Más frecuente:</strong> 2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas, frambuesas, zarzamoras, arándanos azules frescos, guayaba, papaya, sandia o melón </div>
+                    <div><strong>Menos frecuente:</strong> ½ taza o pieza de plátano, mango, pera, piña, uvas o 1/3 de barra proteica </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -1076,19 +1147,9 @@
                 <p style="margin-left: 20px;">
                   Verduras picadas (jícama, pepino, zanahoria, betabel)
                   y semillas naturales (7 nueces o 10 almendras o 15 cacahuates o
-                  pistaches naturales o 10 gr o 1 medida del tamano del dedo gordo de
-                  cacao obscuro al 80% sin azucar).
+                  pistaches naturales o 10 gr).
                 </p>
               </p>
-              <p style="margin: 0%;">• <strong>Opcional (según ejercicio):</strong> </p> 
-                <div style="margin-left: 20px;">
-                  <p>1 porción de fruta o/y lácteo fermentado:</p>
-                  <p>2 guayabas, naranjas o mandarinas, 1 manzana, toronja, fresas,
-                    frambuesas, zarzamoras, arandanos azules frescos, guayaba, papaya,
-                    sandia o melon; o ½ taza o pieza de fruta: platano, mango, pera, piña,
-                    uvas. +/o ½ taza de yogur o kéfir o jocoque bajo en grasa sin azucar
-                  </p>
-                </div>
             </div>
         </div>
         <!-- Cena -->
@@ -1111,13 +1172,15 @@
               <p style="margin-left: 20px;">Proteína (pollo, pavo, atún o huevo entero + claras) 
                 + verduras cocidas o crudas sin aderezos + aguacate.
               </p>
-              <p>
-                <strong>Opcional</strong> (dependiente de cantidad de ejercicio):
-              </p>
-              <p style="margin-left: 20px;">
-                <strong>Acompañamiento:</strong> 
-                Tortillas de maíz o salmas o thin cero cero. Tortillas de linaza o tostadas susalias o pan cero cero. Avena o linaza cocidas y remojada previamente o amaranto natural.
-              </p>
+              <p style="margin: 0%;"><strong>Opcional</strong> (dependiente de cantidad de ejercicio):</p>
+              <div style="margin-left: 20px;">
+                <div>  • <strong>Granos integrales:</strong> 
+                  <div style="margin-left: 25px;">
+                    <div><strong>Menos calórico:</strong> Tortillas de linaza o tostadas susalias o pan cero cero o amaranto tostado.</div>
+                    <div><strong>Más calórico:</strong> Tortillas de maíz o salmas o thin cero cero. Avena o linaza cocidas y remojada previamente.</div>
+                  </div>
+                </div>
+              </div>
             </div>
         </div>
       </div>
@@ -1244,12 +1307,14 @@
       <h2>Órden de análisis</h2>
       <p>Favor de realizar en Salud Digna los siguientes análisis:</p>
       <form id="analisis-form">
-        <div class="analisis-list">
+        <div id="analisis-list" class="analisis-list">
+          <label class="analisis-item">Paquete completo adulto<input type="checkbox" name="analisis" value="Paquete Completo Adulto"/></label>
           <label class="analisis-item">Paquete Salud Integral<input type="checkbox" name="analisis" value="Paquete Salud Integral" checked /></label>
           <label class="analisis-item">Insulina<input type="checkbox" name="analisis" value="Insulina" checked /></label>
           <label class="analisis-item">Vitamina D 25 hidroxi<input type="checkbox" name="analisis" value="Vitamina D 25 hidroxi" checked /></label>
           <label class="analisis-item">TSH<input type="checkbox" name="analisis" value="TSH" checked /></label>
           <label class="analisis-item">T4 Libre<input type="checkbox" name="analisis" value="T4 Libre" checked /></label>
+          <label class="analisis-item">Perfil tiroideo<input type="checkbox" name="analisis" value="Perfil Tiroideo"/></label>
           <label class="analisis-item">Proteína C Reactiva ultrasensible<input type="checkbox" name="analisis" value="Proteína C Reactiva ultrasensible" checked /></label>
           <label class="analisis-item">Hemoglobina glucosilada<input type="checkbox" name="analisis" value="Hemoglobina glucosilada" checked /></label>
           <label id="analisis-densitometria" class="analisis-item" style="display:none;">Densitometría ósea de columna y fémur<input type="checkbox" name="analisis" value="Densitometría ósea de columna y fémur" checked /></label>
@@ -1257,10 +1322,14 @@
           <label class="analisis-item">Glucosa sérica<input type="checkbox" name="analisis" value="Glucosa sérica" /></label>
           <label class="analisis-item">Colesterol total, HDL y LDL<input type="checkbox" name="analisis" value="Colesterol total, LDL y HDL"/></label>
         </div>
+        <div class="analisis-actions">
+          <button id="agregar-estudio-analisis" class="btn ghost" type="button">Añadir estudio</button>
+        </div>
       </form>
       <div class="field" style="margin-top: 12px;">
         <label for="notas-laboratorio">Notas</label>
-        <textarea id="notas-laboratorio" rows="4" placeholder="Añade notas complementarias para laboratorios bioquímicos...">No tomar suplementos hasta después de realizar los estudios</textarea>
+        <textarea id="notas-laboratorio" rows="4" placeholder="Añade notas complementarias para laboratorios bioquímicos...">Los básicos son los primeros dos
+No tomar suplementos hasta después de realizar los estudios</textarea>
       </div>
     </section>
 
@@ -1302,7 +1371,7 @@
     <section id="notas-section">
       <h2>Notas</h2>
       <div class="orden-export-box">
-        <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales..."></textarea>
+        <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales...">Para que tus análisis puedan ser revisados y tomados en cuenta para tu Plan Personalizado me los debes enviar al menos 2 días antes de tu cita.</textarea>
       </div>
     </section>
 
@@ -1361,6 +1430,10 @@
 
     const porcentajeGrasaInput = document.getElementById("porcentaje-grasa");
     const grasaVisceralInput = document.getElementById("grasa-visceral");
+    const palInput = document.getElementById("pal");
+    const imcMetaInput = document.getElementById("imc-meta");
+    const pesoIdealInput = document.getElementById("peso-ideal");
+    const ffmEnergyInput = document.getElementById("ffm-energy");
     const pesoActualInput = document.getElementById("peso-actual");
     const estaturaInput = document.getElementById("estatura");
     const grasaCorporalKgInput = document.getElementById("grasa-corporal-kg");
@@ -1398,6 +1471,8 @@
     const selectExportApartados = document.getElementById("select-export-apartados");
     const selectExportSuplementacion = document.getElementById("select-export-suplementacion");
     const analisisForm = document.getElementById("analisis-form");
+    const analisisList = document.getElementById("analisis-list");
+    const agregarEstudioAnalisisBtn = document.getElementById("agregar-estudio-analisis");
     const ordenAnalisisExportList = document.getElementById("orden-analisis-export-list");
     const ordenAnalisisExportEmpty = document.getElementById("orden-analisis-export-empty");
     const notasLaboratorioInput = document.getElementById("notas-laboratorio");
@@ -1415,6 +1490,8 @@
     const suplementacionEmpty = document.getElementById("suplementacion-empty");
     const q13AguaHint = document.getElementById("q13-agua-hint");
     const q11ProteinaSummary = document.getElementById("q11-proteina-summary");
+    const kcalCalculadasInbody = document.getElementById("kcal-calculadas-inbody");
+    const kcalCalculadasPesoIdeal = document.getElementById("kcal-calculadas-peso-ideal");
     const tacharButtons = document.querySelectorAll(".btn-tachar");
     const mealToggleInputs = document.querySelectorAll(".meal-toggle-input");
 
@@ -1435,6 +1512,7 @@
     const STORAGE_KEY_PREFIX = "chinchi-form-state-v2";
     const LEGACY_STORAGE_KEY = "chinchi-form-state-v1";
     const ALLOWED_CONTENT_TAGS = new Set(["BR", "DIV", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
+    const SAFE_MARGIN_LEFT_VALUE = /^\d+(?:\.\d+)?(?:px|rem|em|%)$/i;
     const AUTO_TEXT_ELEMENT_IDS = new Set([
       "rep-grasa-linea",
       "rep-grasa-interpretacion",
@@ -1451,15 +1529,136 @@
       "apartados-hidratacion-export-text",
       "apartados-adicciones-export-text",
     ]);
+    const DEFAULT_CONTENT_EDITABLE_HTML = new Map(
+      Array.from(document.querySelectorAll("[contenteditable='true'][id]")).map((element) => [element.id, element.innerHTML]),
+    );
 
     let recomendacionesEditadasManualmente = false;
+    let dynamicAnalisisSequence = 0;
 
     function getStorageKey() {
       const pathScope = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
       return `${STORAGE_KEY_PREFIX}:${pathScope}`;
     }
 
-    function sanitizePersistedHtml(value) {
+    function getNextDynamicAnalisisId() {
+      dynamicAnalisisSequence += 1;
+      return `analisis-extra-${Date.now()}-${dynamicAnalisisSequence}`;
+    }
+
+    function createDynamicAnalisisItem(data = {}) {
+      const itemId = data.id || getNextDynamicAnalisisId();
+      const itemLabel = document.createElement("label");
+      itemLabel.className = "analisis-item analisis-item-custom";
+      itemLabel.dataset.dynamicStudy = "true";
+      itemLabel.dataset.studyId = itemId;
+
+      const nameInput = document.createElement("input");
+      nameInput.type = "text";
+      nameInput.className = "analisis-custom-name";
+      nameInput.placeholder = "Nombre del estudio";
+      nameInput.value = typeof data.name === "string" ? data.name : "";
+      nameInput.setAttribute("aria-label", "Nombre del estudio adicional");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.name = "analisis";
+      checkbox.value = `custom-analisis:${itemId}`;
+      checkbox.checked = typeof data.checked === "boolean" ? data.checked : true;
+
+      itemLabel.appendChild(nameInput);
+      itemLabel.appendChild(checkbox);
+      return itemLabel;
+    }
+
+    function appendDynamicAnalisisItem(data = {}) {
+      if (!analisisList) {
+        return null;
+      }
+
+      const item = createDynamicAnalisisItem(data);
+      analisisList.appendChild(item);
+      return item;
+    }
+
+    function removeDynamicAnalisisItems() {
+      if (!analisisList) {
+        return;
+      }
+
+      analisisList.querySelectorAll("[data-dynamic-study='true']").forEach((item) => {
+        item.remove();
+      });
+    }
+
+    function getDynamicAnalisisItemsState() {
+      if (!analisisList) {
+        return [];
+      }
+
+      return Array.from(analisisList.querySelectorAll("[data-dynamic-study='true']")).map((item) => {
+        const nameInput = item.querySelector(".analisis-custom-name");
+        const checkbox = item.querySelector("input[type='checkbox'][name='analisis']");
+        return {
+          id: item.dataset.studyId || getNextDynamicAnalisisId(),
+          name: nameInput ? nameInput.value : "",
+          checked: checkbox ? checkbox.checked : false,
+        };
+      });
+    }
+
+    function renderDynamicAnalisisItems(items) {
+      removeDynamicAnalisisItems();
+
+      if (!Array.isArray(items) || items.length === 0) {
+        return;
+      }
+
+      items.forEach((item) => {
+        appendDynamicAnalisisItem(item);
+      });
+    }
+
+    function getAnalisisItemDisplayName(checkbox) {
+      const item = checkbox ? checkbox.closest(".analisis-item") : null;
+      if (!item) {
+        return "";
+      }
+
+      if (item.dataset.dynamicStudy === "true") {
+        const nameInput = item.querySelector(".analisis-custom-name");
+        return nameInput ? nameInput.value.trim() : "";
+      }
+
+      return (item.textContent || "").trim();
+    }
+
+    function sanitizeAllowedInlineStyle(styleText) {
+      if (typeof styleText !== "string" || !styleText.trim()) {
+        return "";
+      }
+
+      let preservedMarginLeft = "";
+
+      styleText.split(";").forEach((declaration) => {
+        const [property, ...valueParts] = declaration.split(":");
+        if (!property || valueParts.length === 0) {
+          return;
+        }
+
+        const normalizedProperty = property.trim().toLowerCase();
+        const normalizedValue = valueParts.join(":").trim();
+
+        if (normalizedProperty === "margin-left" && SAFE_MARGIN_LEFT_VALUE.test(normalizedValue)) {
+          preservedMarginLeft = normalizedValue;
+        }
+      });
+
+      return preservedMarginLeft ? `margin-left: ${preservedMarginLeft};` : "";
+    }
+
+    function sanitizePersistedHtml(value, options = {}) {
+      const { preserveInlineSpacing = true } = options;
       const template = document.createElement("template");
       template.innerHTML = typeof value === "string" ? value : "";
 
@@ -1492,12 +1691,40 @@
           }
         }
 
+        const preservedStyle = preserveInlineSpacing ? sanitizeAllowedInlineStyle(node.getAttribute("style")) : "";
         Array.from(node.attributes).forEach((attr) => node.removeAttribute(attr.name));
+        if (preservedStyle) {
+          node.setAttribute("style", preservedStyle);
+        }
         Array.from(node.childNodes).forEach(sanitizeNode);
       };
 
       Array.from(template.content.childNodes).forEach(sanitizeNode);
       return template.innerHTML;
+    }
+
+    function getRestoredContentEditableHtml(id, value) {
+      const sanitizedValue = sanitizePersistedHtml(value);
+      const defaultHtml = DEFAULT_CONTENT_EDITABLE_HTML.get(id);
+      if (!defaultHtml) {
+        return sanitizedValue;
+      }
+
+      const defaultHasMarginLeft = defaultHtml.toLowerCase().includes("margin-left");
+      const savedHasMarginLeft = sanitizedValue.toLowerCase().includes("margin-left");
+
+      if (!defaultHasMarginLeft || savedHasMarginLeft) {
+        return sanitizedValue;
+      }
+
+      const defaultWithoutSpacing = sanitizePersistedHtml(defaultHtml, { preserveInlineSpacing: false });
+      const savedWithoutSpacing = sanitizePersistedHtml(value, { preserveInlineSpacing: false });
+
+      if (savedWithoutSpacing === defaultWithoutSpacing) {
+        return sanitizePersistedHtml(defaultHtml);
+      }
+
+      return sanitizedValue;
     }
 
     function isManualTextEdit(element) {
@@ -1524,6 +1751,7 @@
       const contentEditableState = {};
       const manualContentEditableState = {};
       const analisisChecksState = {};
+      const dynamicAnalisisItemsState = getDynamicAnalisisItemsState();
 
       document.querySelectorAll(CONTROL_SELECTOR).forEach((control) => {
         controlsState[control.id] = control.type === "checkbox" ? control.checked : control.value;
@@ -1546,6 +1774,7 @@
           controls: controlsState,
           contentEditable: contentEditableState,
           analisisChecks: analisisChecksState,
+          dynamicAnalisisItems: dynamicAnalisisItemsState,
           manualContentEditable: manualContentEditableState,
           recomendacionesEditadasManualmente,
           suplementacionEditadaManualmente,
@@ -1590,11 +1819,15 @@
         });
       }
 
+      if (parsedState && Array.isArray(parsedState.dynamicAnalisisItems)) {
+        renderDynamicAnalisisItems(parsedState.dynamicAnalisisItems);
+      }
+
       if (parsedState && parsedState.contentEditable) {
         Object.entries(parsedState.contentEditable).forEach(([id, value]) => {
           const element = document.getElementById(id);
-          if (element) {
-            element.innerHTML = sanitizePersistedHtml(value);
+          if (element && element.matches("[contenteditable='true']")) {
+            element.innerHTML = getRestoredContentEditableHtml(id, value);
           }
         });
       }
@@ -1763,10 +1996,29 @@
 
     function onInputChange() {
       updateEvaluaciones();
+      updateDatosReferencia();
       updateDiagnosticoAntropometrico();
       updateReportePaciente();
+      updateAguaOptionsByPeso();
+      updateApartadosAdicionalesReporte();
       updateProteinaConsumoEvaluacion();
       updateSuplementacion();
+    }
+
+    function formatCalculatedValue(value, decimals = 1) {
+      if (!Number.isFinite(value)) {
+        return "";
+      }
+
+      return value.toFixed(decimals);
+    }
+
+    function getPesoIdealByImc(estatura, imcObjetivo) {
+      if (estatura === null || estatura <= 0 || !Number.isFinite(imcObjetivo) || imcObjetivo <= 0) {
+        return null;
+      }
+
+      return imcObjetivo * estatura * estatura;
     }
 
     function getPesoIdealBySexoEstatura(sexo, estatura) {
@@ -1774,7 +2026,43 @@
         return null;
       }
       const imcObjetivo = sexo === "mujer" ? 21 : 22;
-      return imcObjetivo * estatura * estatura;
+      return getPesoIdealByImc(estatura, imcObjetivo);
+    }
+
+    function updateDatosReferencia() {
+      const sexo = sexoInput ? sexoInput.value : "";
+      const porcentajeGrasa = parseNumber(porcentajeGrasaInput ? porcentajeGrasaInput.value : "");
+      const pesoActual = parseNumber(pesoActualInput ? pesoActualInput.value : "");
+      const estatura = parseNumber(estaturaInput ? estaturaInput.value : "");
+      const pal = parseNumber(palInput ? palInput.value : "");
+
+      const imcMeta = sexo ? (sexo === "hombre" ? 22 : 21) : null;
+      const pesoIdeal = getPesoIdealBySexoEstatura(sexo, estatura);
+      const ffmEnergy = pesoActual !== null && porcentajeGrasa !== null
+        ? 370 + (21.6 * pesoActual * (1 - (porcentajeGrasa / 100)))
+        : null;
+      const kcalInbody = ffmEnergy !== null && pal !== null ? ffmEnergy * pal : null;
+      const kcalPesoIdeal = pesoIdeal !== null && pal !== null ? pesoIdeal * 25 * pal : null;
+
+      if (imcMetaInput) {
+        imcMetaInput.value = imcMeta === null ? "" : String(imcMeta);
+      }
+
+      if (pesoIdealInput) {
+        pesoIdealInput.value = formatCalculatedValue(pesoIdeal, 1);
+      }
+
+      if (ffmEnergyInput) {
+        ffmEnergyInput.value = formatCalculatedValue(ffmEnergy, 1);
+      }
+
+      if (kcalCalculadasInbody) {
+        kcalCalculadasInbody.textContent = formatCalculatedValue(kcalInbody, 1);
+      }
+
+      if (kcalCalculadasPesoIdeal) {
+        kcalCalculadasPesoIdeal.textContent = formatCalculatedValue(kcalPesoIdeal, 1);
+      }
     }
 
     function getConsumoProteinaActual() {
@@ -2506,10 +2794,7 @@
           const label = checkbox.closest("label");
           return label && getComputedStyle(label).display !== "none";
         })
-        .map((checkbox) => {
-          const label = checkbox.closest("label");
-          return label ? label.textContent.trim() : "";
-        })
+        .map((checkbox) => getAnalisisItemDisplayName(checkbox))
         .filter(Boolean);
 
       ordenAnalisisExportList.innerHTML = "";
@@ -2575,6 +2860,7 @@
       q13AguaHint.textContent = `Opciones calculadas con peso meta de ${pesoMeta.toFixed(2)} kg (IMC ${imcObjetivo}) usando estatura de ${estatura.toFixed(2)} m.`;
     }
 
+    // Funciones para evaluar hallazgos del estilo de vida
     function buildLifestyleFindings() {
       const hallazgos = [];
       const parseTimeToMinutes = (timeValue) => {
@@ -2643,11 +2929,11 @@
         const acostarseMinutos = parseTimeToMinutes(horaAcostarse);
         if (ultimaComidaMinutos !== null && acostarseMinutos !== null) {
           let diferenciaMinutos = acostarseMinutos - ultimaComidaMinutos;
-          if (diferenciaMinutos <= 0) {
+          if (diferenciaMinutos < 0) {
             diferenciaMinutos += 24 * 60;
           }
           if (diferenciaMinutos < 180) {
-            hallazgos.push("Poco tiempo entre cena y hora de acostarse");
+            hallazgos.push("Poco tiempo entre cena y hora de acostarse (Último alimento al menos 2 horas antes de acostarse, de preferencia 3 horas).");
           }
         }
       }
@@ -2832,9 +3118,9 @@
       };
 
       if (horasSentado === "4a8") {
-        hallazgosActividadFisica.push("Sedentarismo moderado");
+        hallazgosActividadFisica.push("Sedentarismo moderado (Moverse al menos 1 vez cada hora)");
       } else if (horasSentado === "mas8") {
-        hallazgosActividadFisica.push("Sedentarismo severo");
+        hallazgosActividadFisica.push("Sedentarismo severo (Moverse al menos 1 vez cada hora)");
       }
 
       const actividadCardio = document.getElementById("q11-cardio").value;
@@ -2843,13 +3129,13 @@
       }
 
       if (actividadCardio === "150") {
-        hallazgosActividadFisica.push("Actividad cardiovascular mínima recomendada");
+        hallazgosActividadFisica.push("Actividad cardiovascular mínima recomendada (Contar pasos: llegar mínimo a 5,000, de preferencia 10,000 pasos/día)");
       } else if (actividadCardio === "mas150") {
         hallazgosActividadFisica.push("Actividad cardiovascular óptima");
       }
 
       if (actividadFuerza === "menos1") {
-        hallazgosActividadFisica.push("Actividad de fuerza insuficiente");
+        hallazgosActividadFisica.push("Actividad de fuerza insuficiente (Realizar ejercicio de fuerza al menos 2 veces por semana)");
       }
 
       if (actividadFuerza === "2") {
@@ -2860,17 +3146,17 @@
 
       const horasSueno = getSleepDurationHours(suenoAcostarse, suenoLevantarse);
       if (horasSueno !== null && horasSueno < 6) {
-        hallazgosSueno.push("Tiempo insuficiente");
+        hallazgosSueno.push("Tiempo insuficiente (Tratar de dormir al menos 6.5 hrs, de preferencia 8 horas)");
       }
 
       const minutosAcostarse = parseTimeToMinutes(suenoAcostarse);
       if (minutosAcostarse !== null && (minutosAcostarse < 21 * 60 || minutosAcostarse > 23 * 60)) {
-        hallazgosSueno.push("Horario de acostarse inadecuado");
+        hallazgosSueno.push("Horario de acostarse inadecuado (Tratar de dormir entre 21:00 y 23:00 hrs)");
       }
 
       const minutosDespertar = parseTimeToMinutes(suenoLevantarse);
       if (minutosDespertar !== null && (minutosDespertar < 5 * 60 || minutosDespertar > 7 * 60)) {
-        hallazgosSueno.push("Horario de despertar inadecuado");
+        hallazgosSueno.push("Horario de despertar inadecuado (Tratar de despertar entre 5:00 y 7:00 hrs)");
       }
 
       apartadosAdicionalesExportEmpty.style.display = "none";
@@ -2892,21 +3178,31 @@
 
       const hallazgosHidratacion = [];
       const aguaSelect = document.getElementById("q13-agua").value;
-      const pesoKg = parseNumber(pesoActualInput.value || "");
+      const estatura = parseNumber(estaturaInput ? estaturaInput.value : "");
+      const pesoMeta = getPesoIdealByImc(estatura, 22);
+      const litrosAdecuados = pesoMeta && pesoMeta > 0
+        ? (pesoMeta * 0.035).toFixed(2)
+        : null;
       if (aguaSelect === "insuficiente") {
-        hallazgosHidratacion.push(`insuficiente`);
+        const litrosRecomendados = litrosAdecuados
+          ? String(litrosAdecuados) + " L/día"
+          : "35 ml/kg de agua por día";
+        hallazgosHidratacion.push(`insuficiente consumo de agua (consumir al menos ${litrosRecomendados})`);
       }
 
       if (hallazgosHidratacion.length > 0) {
         setAutoTextIfNotManual(apartadosHidratacionExportText, sentenceCaseAfterComma(hallazgosHidratacion) + ".");
       } else {
-        setAutoTextIfNotManual(apartadosHidratacionExportText, "La cantidad de agua es adecuada");
+        const textoAdecuado = litrosAdecuados
+          ? `La cantidad de agua es adecuada (objetivo mínimo: ${litrosAdecuados} L/día).`
+          : "La cantidad de agua es adecuada";
+        setAutoTextIfNotManual(apartadosHidratacionExportText, textoAdecuado);
       }
 
       const hallazgosAdicciones = [];
       const alcohol = document.getElementById("q15-alcohol").value;
       const tabaquismo = document.getElementById("q16-tabaquismo").value;
-      const sexoVal = sexoInput.value;
+      const sexoVal = sexoInput ? sexoInput.value : "";
       const alcoholExcesivo =
         alcohol === "3omas" ||
         (alcohol === "2" && sexoVal !== "hombre") ||
@@ -3017,6 +3313,8 @@
         element.innerHTML = "";
       });
 
+      removeDynamicAnalisisItems();
+
       suplementacionEditadaManualmente = false;
       diagnosticoEditadoManualmente = false;
       recomendacionesEditadasManualmente = false;
@@ -3051,6 +3349,7 @@
       edadInput,
       porcentajeGrasaInput,
       grasaVisceralInput,
+      palInput,
       pesoActualInput,
       estaturaInput,
       grasaCorporalKgInput,
@@ -3131,8 +3430,24 @@
     limpiarFormularioBtn.addEventListener("click", limpiarFormulario);
     exportarSeleccionesPdfBtn.addEventListener("click", exportarSeleccionesPdf);
     analisisForm.addEventListener("change", updateOrdenAnalisisExport);
+    analisisForm.addEventListener("input", (event) => {
+      const target = event.target;
+      if (target && target.classList && target.classList.contains("analisis-custom-name")) {
+        updateOrdenAnalisisExport();
+      }
+    });
     if (notasLaboratorioInput) {
       notasLaboratorioInput.addEventListener("input", updateOrdenAnalisisExport);
+    }
+    if (agregarEstudioAnalisisBtn) {
+      agregarEstudioAnalisisBtn.addEventListener("click", () => {
+        const item = appendDynamicAnalisisItem({ checked: true });
+        updateOrdenAnalisisExport();
+        const nameInput = item ? item.querySelector(".analisis-custom-name") : null;
+        if (nameInput) {
+          nameInput.focus();
+        }
+      });
     }
     sexoInput.addEventListener("change", updateOrdenAnalisisExport);
     sexoInput.addEventListener("change", updateApartadosAdicionalesReporte);
