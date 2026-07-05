@@ -1147,7 +1147,7 @@
               <p style="margin: 0%;">
                 <strong>Base:</strong>
               </p>
-              <p style="margin-left: 20px;"><strong>Proteína</strong> (pollo, pavo, atún o huevo entero + claras) + <strong>verduras</strong> cocidas o crudas sin aderezos <strong>+ aguacate</strong>.
+              <p style="margin-left: 20px;"><strong>Proteína</strong> (pollo, pavo, atún o huevo entero + claras) + <strong>verduras</strong> cocidas o crudas sin aderezos<strong> + aguacate + fuente de calcio </strong> <i>menos calórica:</i> bebida de almendras sin azúcar, <i>más calórica:</i> lácteo descremado sin azúcar (light o bajo en grasa)..
               </p>
               <p style="margin: 0%;"><strong>Opcional</strong> (dependiente de cantidad de ejercicio):</p>
               <div style="margin-left: 20px;">
@@ -1348,9 +1348,12 @@ No tomar suplementos hasta después de realizar los estudios</textarea>
     <section id="notas-section">
       <h2>Notas</h2>
       <div class="orden-export-box">
-        <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales...">PARA QUE TUS ANÁLISIS PUEDAN SER REVISADOS Y TOMADOS EN CUENTA PARA TU PLAN PERSONALIZADO BIN DEBES ENVIARLOS AL MENOS 2 DÍAS ANTES DE TU CITA.
+        <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales...">
+Nos vemos en el curso de introducción a un estilo de vida saludable para complementar las recomendaciones revisadas hoy. 
 
-SI NO PUEDES ASISTIR AL CURSO DE ESTA SEMANA Y TE INTERESA TOMARLO, PUEDES SOLICITAR POR CORREO INVITACION EN LA SIGUIENTE FECHA DISPONIBLE.
+Para ser parte del Programa BIN y llevar un seguimiento de los resultados obtenidos en tu valoración, favor de seguir las indicaciones del correo.
+ 
+¡Mucho éxito en este camino complejo pero muy gratificante hacia estilo de vida más saludable; estoy aquí para acompañarte y guiarte a través de él, gracias por tu confianza!
 </textarea>
       </div>
     </section>
@@ -3114,11 +3117,11 @@ SI NO PUEDES ASISTIR AL CURSO DE ESTA SEMANA Y TE INTERESA TOMARLO, PUEDES SOLIC
 
       const actividadCardio = document.getElementById("q11-cardio").value;
       if (actividadCardio === "menos150") {
-        hallazgosActividadFisica.push("Actividad cardiovascular insuficiente");
+        hallazgosActividadFisica.push("Actividad cardiovascular insuficiente (contar pasos: acumular mínimo 5,000, óptimo 10,000 pasos/día)");
       }
 
       if (actividadCardio === "150") {
-        hallazgosActividadFisica.push("Actividad cardiovascular mínima recomendada (Contar pasos: llegar mínimo a 5,000, de preferencia 10,000 pasos/día)");
+        hallazgosActividadFisica.push("Actividad cardiovascular mínima recomendada (contar pasos: acumular mínimo 5,000, óptimo 10,000 pasos/día)");
       } else if (actividadCardio === "mas150") {
         hallazgosActividadFisica.push("Actividad cardiovascular óptima");
       }
@@ -3134,18 +3137,24 @@ SI NO PUEDES ASISTIR AL CURSO DE ESTA SEMANA Y TE INTERESA TOMARLO, PUEDES SOLIC
       }
 
       const horasSueno = getSleepDurationHours(suenoAcostarse, suenoLevantarse);
-      if (horasSueno !== null && horasSueno < 6) {
-        hallazgosSueno.push("Tiempo insuficiente (Tratar de dormir al menos 6.5 hrs, de preferencia 8 horas)");
-      }
 
+      if (horasSueno !== null) {
+        if (horasSueno < 6) {
+          hallazgosSueno.push("Tiempo insuficiente (dormir al menos 6.5 hrs, de preferencia 8 horas)");
+        }
+        if (horasSueno >= 9) {
+          hallazgosSueno.push("Tiempo excesivo (dormir máximo 9 horas)");
+        }
+      }
+      
       const minutosAcostarse = parseTimeToMinutes(suenoAcostarse);
       if (minutosAcostarse !== null && (minutosAcostarse < 21 * 60 || minutosAcostarse > 23 * 60)) {
-        hallazgosSueno.push("Horario de acostarse inadecuado (Tratar de dormir entre 21:00 y 23:00 hrs)");
+        hallazgosSueno.push("Horario de acostarse inadecuado (de preferencia dormir entre 21:00 y 23:00 hrs)");
       }
 
       const minutosDespertar = parseTimeToMinutes(suenoLevantarse);
       if (minutosDespertar !== null && (minutosDespertar < 5 * 60 || minutosDespertar > 7 * 60)) {
-        hallazgosSueno.push("Horario de despertar inadecuado (Tratar de despertar entre 5:00 y 7:00 hrs)");
+        hallazgosSueno.push("Horario de despertar inadecuado (de preferencia despertar entre 5:00 y 7:00 hrs)");
       }
 
       apartadosAdicionalesExportEmpty.style.display = "none";
