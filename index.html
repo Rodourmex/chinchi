@@ -607,7 +607,7 @@
 <body>
   <main class="container">
     <h1>Análisis de composición corporal</h1>
-
+    <button id="show-food-recorder" class="btn" type="button" onclick="showFoodRecorder()">Mostrar diario de consumo de alimentos</button>
     <section>
       <h2>Análisis de grasa corporal</h2>
       <div class="grid">
@@ -997,7 +997,7 @@
       </div>
     </section>
 
-    <section id="plan-alimenticio-section">
+    <section id="plan-alimenticio-section" style="display:none;">
       <h2>Plan de comidas</h2>
       <div class="meal-plan">
         <!-- Desayuno -->
@@ -1349,10 +1349,12 @@ No tomar suplementos hasta después de realizar los estudios</textarea>
       <h2>Notas</h2>
       <div class="orden-export-box">
         <textarea id="notas-generales" rows="5" placeholder="Escribe aquí notas adicionales...">
-Nos vemos en el curso de introducción a un estilo de vida saludable para complementar las recomendaciones revisadas hoy. 
+Para ser parte del Programa BIN y llevar un seguimiento de los resultados obtenidos en tu valoración se requiere:
 
-Para ser parte del Programa BIN y llevar un seguimiento de los resultados obtenidos en tu valoración, favor de seguir las indicaciones del correo.
- 
+1. Acudir al curso de introducción a un estilo de vida saludable y asegurarse de anotarse en la lista de asistencia. (Si no te es posible acudir en la fecha en la que se te convocó, puedes mandar un correo solicitando invitación para la siguiente fecha disponible).
+
+2. Realizar tus análisis y enviarlos junto con la información solicitada en el correo para poder asignarte una cita.
+
 ¡Mucho éxito en este camino complejo pero muy gratificante hacia estilo de vida más saludable; estoy aquí para acompañarte y guiarte a través de él, gracias por tu confianza!
 </textarea>
       </div>
@@ -1495,7 +1497,8 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
     const STORAGE_KEY_PREFIX = "chinchi-form-state-v2";
     const LEGACY_STORAGE_KEY = "chinchi-form-state-v1";
     const ALLOWED_CONTENT_TAGS = new Set(["BR", "DIV", "P", "EM", "STRONG", "B", "I", "U", "UL", "OL", "LI", "SPAN", "S", "STRIKE"]);
-    const SAFE_MARGIN_LEFT_VALUE = /^\d+(?:\.\d+)?(?:px|rem|em|%)$/i;
+    const SAFE_SPACING_STYLE_VALUE = /^\d+(?:\.\d+)?(?:px|rem|em|%)$/i;
+    const PRESERVED_INLINE_STYLE_PROPERTIES = new Set(["margin", "margin-left", "margin-top", "margin-bottom", "padding-left"]);
     const AUTO_TEXT_ELEMENT_IDS = new Set([
       "rep-grasa-linea",
       "rep-grasa-interpretacion",
@@ -1518,6 +1521,19 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
 
     let recomendacionesEditadasManualmente = false;
     let dynamicAnalisisSequence = 0;
+
+    function showFoodRecorder() {
+      const foodRecorderSection = document.getElementById("plan-alimenticio-section");
+      if (foodRecorderSection) {
+        if (foodRecorderSection.style.display === "none") {
+          foodRecorderSection.style.display = "block";
+          document.getElementById("show-food-recorder").innerText = "Ocultar diario de consumo de alimentos";
+        } else {
+          foodRecorderSection.style.display = "none";
+          document.getElementById("show-food-recorder").innerText = "Mostrar diario de consumo de alimentos";
+        }
+      }
+    }
 
     function getStorageKey() {
       const pathScope = `${window.location.protocol}//${window.location.host}${window.location.pathname}`;
@@ -1621,7 +1637,7 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
         return "";
       }
 
-      let preservedMarginLeft = "";
+      const preservedDeclarations = [];
 
       styleText.split(";").forEach((declaration) => {
         const [property, ...valueParts] = declaration.split(":");
@@ -1632,16 +1648,64 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
         const normalizedProperty = property.trim().toLowerCase();
         const normalizedValue = valueParts.join(":").trim();
 
-        if (normalizedProperty === "margin-left" && SAFE_MARGIN_LEFT_VALUE.test(normalizedValue)) {
-          preservedMarginLeft = normalizedValue;
+        if (
+          PRESERVED_INLINE_STYLE_PROPERTIES.has(normalizedProperty)
+          && SAFE_SPACING_STYLE_VALUE.test(normalizedValue)
+        ) {
+          preservedDeclarations.push(`${normalizedProperty}: ${normalizedValue};`);
         }
       });
 
-      return preservedMarginLeft ? `margin-left: ${preservedMarginLeft};` : "";
+      return preservedDeclarations.join(" ");
+    }
+
+    function normalizeStyledSpan(node) {
+      if (!node || node.tagName !== "SPAN") {
+        return false;
+      }
+
+      const inlineStyle = (node.getAttribute("style") || "").toLowerCase();
+      const wrappers = [];
+      if (inlineStyle.includes("line-through")) {
+        wrappers.push("s");
+      }
+      if (/font-weight\s*:\s*(bold|[6-9]00)/i.test(inlineStyle)) {
+        wrappers.push("strong");
+      }
+      if (/font-style\s*:\s*italic/i.test(inlineStyle)) {
+        wrappers.push("em");
+      }
+      if (inlineStyle.includes("underline")) {
+        wrappers.push("u");
+      }
+
+      if (wrappers.length === 0) {
+        return false;
+      }
+
+      let outerWrapper = null;
+      let currentWrapper = null;
+      wrappers.forEach((tagName) => {
+        const wrapper = document.createElement(tagName);
+        if (!outerWrapper) {
+          outerWrapper = wrapper;
+        }
+        if (currentWrapper) {
+          currentWrapper.appendChild(wrapper);
+        }
+        currentWrapper = wrapper;
+      });
+
+      while (node.firstChild) {
+        currentWrapper.appendChild(node.firstChild);
+      }
+
+      node.replaceWith(outerWrapper);
+      return outerWrapper;
     }
 
     function sanitizePersistedHtml(value, options = {}) {
-      const { preserveInlineSpacing = true } = options;
+      const { preserveInlineStyles = true } = options;
       const template = document.createElement("template");
       template.innerHTML = typeof value === "string" ? value : "";
 
@@ -1662,19 +1726,14 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
         }
 
         if (node.tagName === "SPAN") {
-          const inlineStyle = (node.getAttribute("style") || "").toLowerCase();
-          if (inlineStyle.includes("line-through")) {
-            const strikeNode = document.createElement("s");
-            while (node.firstChild) {
-              strikeNode.appendChild(node.firstChild);
-            }
-            node.replaceWith(strikeNode);
-            sanitizeNode(strikeNode);
+          const normalizedWrapper = normalizeStyledSpan(node);
+          if (normalizedWrapper) {
+            sanitizeNode(normalizedWrapper);
             return;
           }
         }
 
-        const preservedStyle = preserveInlineSpacing ? sanitizeAllowedInlineStyle(node.getAttribute("style")) : "";
+        const preservedStyle = preserveInlineStyles ? sanitizeAllowedInlineStyle(node.getAttribute("style")) : "";
         Array.from(node.attributes).forEach((attr) => node.removeAttribute(attr.name));
         if (preservedStyle) {
           node.setAttribute("style", preservedStyle);
@@ -1693,18 +1752,16 @@ Para ser parte del Programa BIN y llevar un seguimiento de los resultados obteni
         return sanitizedValue;
       }
 
-      const defaultHasMarginLeft = defaultHtml.toLowerCase().includes("margin-left");
-      const savedHasMarginLeft = sanitizedValue.toLowerCase().includes("margin-left");
-
-      if (!defaultHasMarginLeft || savedHasMarginLeft) {
+      const sanitizedDefaultHtml = sanitizePersistedHtml(defaultHtml);
+      if (sanitizedValue === sanitizedDefaultHtml) {
         return sanitizedValue;
       }
 
-      const defaultWithoutSpacing = sanitizePersistedHtml(defaultHtml, { preserveInlineSpacing: false });
-      const savedWithoutSpacing = sanitizePersistedHtml(value, { preserveInlineSpacing: false });
+      const defaultWithoutStyles = sanitizePersistedHtml(defaultHtml, { preserveInlineStyles: false });
+      const savedWithoutStyles = sanitizePersistedHtml(value, { preserveInlineStyles: false });
 
-      if (savedWithoutSpacing === defaultWithoutSpacing) {
-        return sanitizePersistedHtml(defaultHtml);
+      if (savedWithoutStyles === defaultWithoutStyles) {
+        return sanitizedDefaultHtml;
       }
 
       return sanitizedValue;
